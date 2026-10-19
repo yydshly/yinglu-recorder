@@ -41,6 +41,7 @@ for (const button of filters) button.addEventListener('click', () => {
   filterIssues();
 });
 search.addEventListener('input', filterIssues);
+filterIssues();
 
 const sections = [...document.querySelectorAll('section.observed')];
 const links = [...document.querySelectorAll('.toc a')];
