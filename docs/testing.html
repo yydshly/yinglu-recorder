@@ -91,7 +91,7 @@ D 区域：40s / 60s 截图；停止后 30s 截图
         <tr><td>数据库迁移、列表分页</td><td>0.6.8 · 15 项</td><td><a href="database-0.6.8.txt">日志</a></td><td><a href="../tests/database-browser.html">浏览器检查</a></td></tr>
         <tr><td>SVG 标注与长笔迹</td><td>0.6.8 · 26 项</td><td><a href="overlay-0.6.8.txt">日志</a></td><td><a href="../tests/overlay.html">浏览器检查</a></td></tr>
       </tbody></table></div>
-      <p>合成测试覆盖实际媒体与文件 API 的部分链路；Chrome 授权、tabCapture、离屏生命周期、真实项目 GPU 负载仍需安装扩展验证。更早的连接、视口、下载准备记录见<a href="index.html#verification">完整证据索引</a>与<a href="verification.md">详细验证记录</a>。</p>
+      <p>合成测试覆盖实际媒体与文件 API 的部分链路；Chrome 授权、tabCapture、离屏生命周期、真实项目 GPU 负载仍需安装扩展验证。更早的连接、视口、下载准备记录见<a href="index.html#verification">完整证据索引</a>与<a href="https://github.com/yydshly/yinglu-recorder/blob/main/docs/verification.md">详细验证记录</a>。</p>
       <h3>历史编码样片</h3>
       <p>以下为早期合成测试的小尺寸样片，仅展示可解码结果。不是鹧鸪实录，也不代表 v0.6.9 的实际画质、流畅度或系统占用。点击后才加载视频。</p>
       <div class="samples"><figure><video controls preload="none" playsinline aria-label="v0.4.0 原生 MP4 合成测试样片"><source src="sample-native-0.4.0.mp4" type="video/mp4"></video><figcaption>v0.4.0 · 原生 MP4 合成样片 · <a href="sample-native-0.4.0.mp4">打开文件</a></figcaption></figure><figure><video controls preload="none" playsinline aria-label="v0.4.2 区域裁切合成测试样片"><source src="sample-region-0.4.2.mp4" type="video/mp4"></video><figcaption>v0.4.2 · 160 × 180 区域合成样片 · <a href="sample-region-0.4.2.mp4">打开文件</a></figcaption></figure></div>
@@ -110,6 +110,6 @@ python -m http.server 8765 --bind 127.0.0.1</pre>
       <dl><dt>如何扩展测试</dt><dd>新增性能路线时，先保留整页与区域的统一对照，再验证标注像素、音画同步、取消、资源释放和源视频保留；收益不足或限制过多时，不扩大功能范围。</dd><dt>哪些内容不进入公开仓库</dt><dd>个人录制、私人音乐 / 图片、诊断中的敏感网址、临时文件、浏览器配置和凭据。现有样片与测试素材是项目生成的合成内容。</dd></dl>
     </section>
   </main>
-  <footer class="footer wrap"><a class="brand" href="../index.html"><span>映录<small>LET THE DEMO HAPPEN.</small></span></a><p>测试指南 · v0.6.9<br>2026.10.20</p><nav aria-label="更多资料"><a href="../index.html">首页</a><a href="index.html">工程档案</a><a href="../CHANGELOG.md">版本历史</a><a href="https://github.com/yydshly/yinglu-recorder">源码 ↗</a></nav></footer>
+  <footer class="footer wrap"><a class="brand" href="../index.html"><span>映录<small>LET THE DEMO HAPPEN.</small></span></a><p>测试指南 · v0.6.9<br>2026.10.20</p><nav aria-label="更多资料"><a href="../index.html">首页</a><a href="index.html">工程档案</a><a href="https://github.com/yydshly/yinglu-recorder/blob/main/CHANGELOG.md">版本历史</a><a href="https://github.com/yydshly/yinglu-recorder">源码 ↗</a></nav></footer>
 </body>
 </html>
