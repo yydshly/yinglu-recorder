@@ -5,9 +5,11 @@
 **当前版本：0.6.9。** 本仓库是从原项目目录独立整理的子项目，既有插件加载路径保持不变。
 
 - [项目首页](https://yydshly.github.io/yinglu-recorder/)：能力、效果示意、实现思路与后续计划。
-- [工程档案](https://yydshly.github.io/yinglu-recorder/docs/)：架构链路、技术选型、问题修复与源码索引。
+- [工程档案](https://yydshly.github.io/yinglu-recorder/docs/)：完整能力矩阵、运行架构、阶段交付、优化与扩展路线，以及源码和证据索引。
 - [测试与性能对比手册](https://yydshly.github.io/yinglu-recorder/docs/testing.html)：实机测试步骤、结果模板、历史验证证据。
 - [版本记录](CHANGELOG.md) / [详细验证记录](docs/verification.md)。
+
+网页索引：[能力矩阵](docs/index.html#capabilities) · [技术架构与生命周期](docs/index.html#architecture) · [阶段交付](docs/index.html#stages) · [优化矩阵](docs/index.html#optimization) · [候选扩展](docs/index.html#extensions)。
 
 ## 已有能力与边界
 
