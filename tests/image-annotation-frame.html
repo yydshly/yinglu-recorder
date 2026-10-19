@@ -1,0 +1,12 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'">
+<title>图片标注测试来源</title><style>body{margin:0;padding:28px;background:#e9efe5;font:16px system-ui;color:#234c3b}.scene{width:330px;height:270px;margin-top:35px;border-radius:18px;background:#bfd0ad;display:grid;place-items:center;font-size:24px}small{display:block;margin-top:12px;color:#6f836f}</style>
+<h2>网页演示＋参数图片</h2><small>功能检查示例，不是鹧鸪实测性能数据。本页禁止图片网络请求。</small><div class="scene">骑行画面所在位置</div>
+<script>
+  const imageListeners = [];
+  Object.defineProperty(window, 'chrome', { configurable: true, value: { runtime: {
+    id: 'image-annotation-browser-test', sendMessage: async () => {},
+    onMessage: { addListener: fn => imageListeners.push(fn), removeListener: fn => imageListeners.splice(imageListeners.indexOf(fn), 1) }
+  } } });
+  window.imageTest = { command: (type, options) => new Promise(resolve => imageListeners[0]({ target: 'overlay', type, options }, {}, resolve)) };
+</script><script src="../content.js"></script></html>

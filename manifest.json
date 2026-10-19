@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "映录 · 网页演示录制",
+  "version": "0.6.9",
+  "description": "录制网页、框选区域，边操作边标注。视频保存在本机，无水印，无人为录制时长限制。",
+  "minimum_chrome_version": "116",
+  "permissions": ["activeTab", "scripting", "tabCapture", "sidePanel", "offscreen", "storage", "unlimitedStorage", "downloads", "alarms"],
+  "optional_host_permissions": ["http://*/*", "https://*/*"],
+  "action": {"default_title": "打开映录"},
+  "background": {"service_worker": "background.js", "type": "module"},
+  "side_panel": {"default_path": "panel.html"},
+  "icons": {"16": "icons/16.png", "48": "icons/48.png", "128": "icons/128.png"}
+}

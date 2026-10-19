@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="映录测试手册：侧栏、整页、区域录制性能对比，成片验收，浏览器测试证据和结果模板。">
+  <title>测试与性能对比 · 映录</title>
+  <link rel="icon" href="../icons/48.png">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <header class="header wrap"><a class="brand" href="../index.html"><img src="../icons/48.png" alt="" width="36" height="36"><span>映录<small>YINGLU / TEST GUIDE</small></span></a><nav aria-label="主导航"><a href="../index.html">项目首页</a><a href="index.html">工程档案</a><a href="#comparison">性能对比</a></nav><a class="repo" href="https://github.com/yydshly/yinglu-recorder">GitHub ↗</a></header>
+  <main id="main" class="guide wrap">
+    <p class="eyebrow">TESTING / v0.6.9 / 2026.10.20</p>
+    <h1>测清楚占用，<br>再判断优化是否有效。</h1>
+    <p class="lead">用同一作品、同一画面与相同录制设置，对比仅打开侧栏、整页录制、区域录制。先做约五分钟的基础检查，再对出现问题的场景补充诊断。</p>
+    <nav class="guide-nav" aria-label="本页导航"><a href="#comparison">① 性能对比</a><a href="#acceptance">② 成片与交互验收</a><a href="#report">③ 结果模板</a><a href="#evidence">④ 已有证据</a><a href="#development">⑤ 开发检查</a></nav>
+    <div class="callout"><strong>当前结论的边界</strong><p>已有单元测试与浏览器合成媒体验证；尚未完成安装扩展后对鹧鸪项目的实际录制及 CPU / GPU / 内存对照。下方步骤是测试方案，不是已取得的性能结果。</p></div>
+
+    <section id="comparison" aria-labelledby="comparison-title">
+      <h2 id="comparison-title">① Chrome 中的性能对比</h2>
+      <h3>保持测试条件相同</h3>
+      <ul><li>打开<a href="https://yydshly.github.io/partridge-bike/">鹧鸪项目</a>，固定同一种实现、天气、镜头和动画状态。能独立打开示例时，优先使用独立页。</li><li>建议先用「高清、30 FPS、WebM」，关闭网页声音、麦克风、背景音乐、点击光圈和性能诊断；图片、音乐区保持收起。</li><li>固定浏览器窗口、缩放和侧栏宽度。录制前先等场景加载稳定；不要同时回看、转码、运行其他录屏工具。确认磁盘有空余。</li><li>按 <code>Shift + Esc</code> 打开 Chrome 任务管理器，右键表头显示 CPU、内存占用空间和进程 ID。记下鹧鸪网页、映录相关条目以及 GPU Process 的数据。</li></ul>
+      <p>若侧栏、离屏页、后台出现在多个条目中，应逐行记录 PID，避免漏记；共享进程也不要重复相加。GPU Process 中的 CPU 数字是该进程的 CPU 占用，不是 GPU 利用率。Chrome 内存占用空间也不等同于整机内存或 GPU 显存。</p>
+      <div class="table-scroll"><table><caption>每阶段 60 秒，在第 40 秒和 60 秒截图</caption><thead><tr><th>阶段</th><th>操作</th><th>主要观察</th></tr></thead><tbody>
+        <tr><td>A · 基线</td><td>关闭侧栏，不录制，保持作品动画运行。</td><td>网页本身的 CPU / 内存与视觉流畅度。</td></tr>
+        <tr><td>B · 仅开侧栏</td><td>打开侧栏，保持已连接，不标注、不录制。</td><td>侧栏闲置增加多少占用，网页是否受影响。</td></tr>
+        <tr><td>C · 完整网页</td><td>相同窗口与侧栏宽度，录制 60 秒。</td><td>网页、映录、GPU Process 的变化及肉眼卡顿。</td></tr>
+        <tr><td>C 停止后</td><td>停止，先不要预览；等待 30 秒再截图。</td><td>采集与编码是否结束，CPU 是否回落，保存有无异常。</td></tr>
+        <tr><td>D · 框选区域</td><td>固定选区并记下宽高，录制 60 秒。</td><td>与 C 的差异；选区越小不必然越省资源。</td></tr>
+        <tr><td>D 停止后</td><td>停止，先不要预览；等待 30 秒再截图。</td><td>资源回落，停止是否及时，网页是否恢复操作。</td></tr>
+      </tbody></table></div>
+      <div class="callout"><strong>如何避免误判</strong><p>打开侧栏会改变网页可用宽度，因此 A / B 只能做粗略参考；B / C / D 务必固定视口。如果结果波动明显，交换 C / D 顺序再测 2–3 轮。内存不立即回到初始值不等于泄漏：看闲置和重复录制后是否持续上涨，并同时观察 CPU 是否停止繁忙。</p></div>
+      <h3>基础对比发现问题后再补测</h3>
+      <ol><li>在 B / C / D 各做同一组动作：「选择画笔 → 连续长笔迹 → 切换文字并输入 → 清空 → 操作网页」。记下从哪一步开始卡顿。</li><li>只针对有问题的 C 或 D 再启用性能诊断。恢复后在录制库「性能诊断（仅本机）」下载 JSON，连同任务管理器截图一起保留。</li><li>需要区分 GPU 压力时，打开 Windows 任务管理器的 GPU 页面，记录 3D、Video Encode、Video Decode 与专用 / 共享 GPU 内存。不同设备不一定提供全部图表。</li><li>需要比较画质时，使用同一场景和目标画质，检查导出文件分辨率、编码、实际帧率、时长、大小。30 / 60 FPS 设置值不等于最终成片实际帧率。</li></ol>
+      <p>扩展诊断中的网页帧回调不是 WebGL 渲染帧率；Canvas 提交次数也不是编码器实际输出帧数。诊断本身会带来额外工作，因此与基础测试分开。数据释义参考 <a href="https://developer.chrome.com/docs/devtools/memory-problems">Chrome 内存问题文档</a>与 <a href="https://devblogs.microsoft.com/directx/gpus-in-the-task-manager/">Windows GPU 任务管理器说明</a>。</p>
+    </section>
+
+    <section id="acceptance" aria-labelledby="acceptance-title">
+      <h2 id="acceptance-title">② 成片与交互验收</h2>
+      <p>完成停止后的资源截图，再打开预览和导出，避免把回看、转码的开销混入录制数据。</p>
+      <div class="table-scroll"><table><caption>对整页与区域分别检查</caption><thead><tr><th>检查点</th><th>执行方法</th><th>通过条件</th></tr></thead><tbody>
+        <tr><td>画面和效果</td><td>记录一次切换镜头、天气或项目特效的时间点；对照网页与原片。</td><td>效果完整；能区分现场卡顿、成片卡顿、播放器卡顿。</td></tr>
+        <tr><td>标注与工具排除</td><td>画框、输入文字、插入参数图片；使用侧栏切换工具。</td><td>网页标注进入视频，侧栏控制区不出现。编辑框和选中手柄进入视频属于当前设计。</td></tr>
+        <tr><td>选区稳定</td><td>保持窗口、缩放、侧栏宽度不变；操作项目。</td><td>固定区域持续录制，不误报尺寸变化；不要求重复框选。</td></tr>
+        <tr><td>真实视口变化</td><td>另做短录，主动调整窗口或侧栏宽度。</td><td>如果真实 CSS 视口改变，应停止并保存已有片段，明确提示重新框选。只改变采集容器像素大小可重新映射。</td></tr>
+        <tr><td>停止与恢复</td><td>停止后操作网页，再点击「显示上次标注」。</td><td>媒体释放、网页可操作，标注按原位置恢复。刷新会清空页内标注。</td></tr>
+        <tr><td>导出与 MP4</td><td>先保存原片，再按运行时支持直接录 MP4 或转换 WebM。</td><td>手动下载，文件可播放、音画时长合理；取消或失败不损坏原片。</td></tr>
+      </tbody></table></div>
+      <h3>声音与长视频另开一轮</h3>
+      <p>基础性能通过后，再分别增加网页声音、麦克风、背景音乐，检查各路音量和同步。长视频需要实际录制来验证：分阶段记录保存体积、预览前后内存和停止后的回落；短视频补齐文件字节的合成测试只能证明大文件路径，不能证明长时解码性能。空间压力测试请使用专用浏览器配置和可丢弃数据。</p>
+    </section>
+
+    <section id="report" aria-labelledby="report-title">
+      <h2 id="report-title">③ 把这些结果一起记录</h2>
+      <p>可以复制下方模板到测试反馈。任务管理器截图需包含进程名称、PID 和数据；诊断文件只在有异常时补充即可。</p>
+      <pre>日期 / Chrome 版本 / 映录版本：
+CPU / 内存容量 / GPU：
+项目实现版本 / 独立页还是嵌入页：
+浏览器缩放 / 网页视口 / 侧栏宽度：
+录制设置（画质、FPS、格式、音频）：
+区域选区宽 × 高（CSS 像素）：
+磁盘剩余空间：
+
+A 基线：40s / 60s 截图；肉眼感受
+B 仅开侧栏：40s / 60s 截图；肉眼感受
+C 整页：40s / 60s 截图；停止后 30s 截图
+D 区域：40s / 60s 截图；停止后 30s 截图
+各阶段：网页 / 映录相关进程 / GPU Process 的 CPU、内存和 PID
+
+卡顿出现的位置（现场 / 成片 / 预览）：
+从哪一步开始卡顿，是否出现丢失的特效：
+侧栏是否录入 / 标注是否完整 / 选区是否稳定：
+原片和 MP4：分辨率、实际帧率、时长、文件大小、播放结果
+停止后是否恢复，连续多轮后占用是否持续增加：
+附件：截图、可复现步骤、可选诊断 JSON</pre>
+    </section>
+
+    <section id="evidence" aria-labelledby="evidence-title">
+      <h2 id="evidence-title">④ 现有证据与浏览器测试入口</h2>
+      <p>版本列是证据产生时的版本，并非所有浏览器检查都在 v0.6.9 重跑。测试页链接供手动运行，可能创建测试用本地数据库 / 临时文件；它们不会在打开本手册时运行。在线测试的存储归网页来源，与安装扩展的本地库分开。</p>
+      <div class="table-scroll"><table><caption>已保存的验证快照</caption><thead><tr><th>检查</th><th>版本 / 结果</th><th>日志</th><th>运行入口</th></tr></thead><tbody>
+        <tr><td>Node 单元测试 / 语法与清单</td><td>0.6.9 · 548 通过 / 检查通过</td><td><a href="test-0.6.9.txt">测试</a> / <a href="check-0.6.9.txt">检查</a></td><td><code>npm test</code><br><code>npm run check</code></td></tr>
+        <tr><td>音乐与侧栏按需加载</td><td>0.6.9 · 21 项</td><td><a href="music-0.6.9.txt">日志</a></td><td><a href="../tests/music-browser.html">浏览器检查</a></td></tr>
+        <tr><td>图片解码、归档、恢复与像素</td><td>0.6.9 · 20 项</td><td><a href="image-0.6.9.txt">日志</a></td><td><a href="../tests/image-annotation-browser.html">浏览器检查</a></td></tr>
+        <tr><td>备选图片素材</td><td>0.6.9 · 10 项</td><td><a href="materials-0.6.9.txt">日志</a></td><td><a href="../tests/materials-browser.html">浏览器检查</a></td></tr>
+        <tr><td>合成画布 / 音调录制</td><td>0.6.8 · 52 项</td><td><a href="media-0.6.8.txt">日志</a></td><td><a href="../tests/browser.html">浏览器检查</a></td></tr>
+        <tr><td>原生 MP4 / WebM 转换</td><td>0.6.8 · 19 项</td><td><a href="mp4-0.6.8.txt">日志</a></td><td><a href="../tests/mp4-browser.html">浏览器检查</a></td></tr>
+        <tr><td>文件预览、取消与跨页占用</td><td>0.6.8 · 25 项</td><td><a href="preview-0.6.8.txt">日志</a></td><td><a href="../tests/preview-browser.html">浏览器检查</a></td></tr>
+        <tr><td>数据库迁移、列表分页</td><td>0.6.8 · 15 项</td><td><a href="database-0.6.8.txt">日志</a></td><td><a href="../tests/database-browser.html">浏览器检查</a></td></tr>
+        <tr><td>SVG 标注与长笔迹</td><td>0.6.8 · 26 项</td><td><a href="overlay-0.6.8.txt">日志</a></td><td><a href="../tests/overlay.html">浏览器检查</a></td></tr>
+      </tbody></table></div>
+      <p>合成测试覆盖实际媒体与文件 API 的部分链路；Chrome 授权、tabCapture、离屏生命周期、真实项目 GPU 负载仍需安装扩展验证。更早的连接、视口、下载准备记录见<a href="index.html#verification">完整证据索引</a>与<a href="verification.md">详细验证记录</a>。</p>
+      <h3>历史编码样片</h3>
+      <p>以下为早期合成测试的小尺寸样片，仅展示可解码结果。不是鹧鸪实录，也不代表 v0.6.9 的实际画质、流畅度或系统占用。点击后才加载视频。</p>
+      <div class="samples"><figure><video controls preload="none" playsinline aria-label="v0.4.0 原生 MP4 合成测试样片"><source src="sample-native-0.4.0.mp4" type="video/mp4"></video><figcaption>v0.4.0 · 原生 MP4 合成样片 · <a href="sample-native-0.4.0.mp4">打开文件</a></figcaption></figure><figure><video controls preload="none" playsinline aria-label="v0.4.2 区域裁切合成测试样片"><source src="sample-region-0.4.2.mp4" type="video/mp4"></video><figcaption>v0.4.2 · 160 × 180 区域合成样片 · <a href="sample-region-0.4.2.mp4">打开文件</a></figcaption></figure></div>
+    </section>
+
+    <section id="development" aria-labelledby="development-title">
+      <h2 id="development-title">⑤ 本地开发与持续检查</h2>
+      <p>Node.js 22+；无需安装 npm 依赖。仓库 CI 在 Node 22 / 24 执行以下检查。它不运行安装扩展后的 Chrome 实录。</p>
+      <pre>npm test
+npm run check
+npm run check:docs
+
+# 本地文档、演示与浏览器测试（Python 3）
+python -m http.server 8765 --bind 127.0.0.1</pre>
+      <p>打开 <code>http://127.0.0.1:8765/</code> 查看首页，进入交互预览或测试页。更改运行代码后，应在 Chrome 扩展管理页重新加载映录，并刷新目标网页。更新文档时保留测试对应版本、场景、日期与限制；不把旧截图标成新测试。</p>
+      <dl><dt>如何扩展测试</dt><dd>新增性能路线时，先保留整页与区域的统一对照，再验证标注像素、音画同步、取消、资源释放和源视频保留；收益不足或限制过多时，不扩大功能范围。</dd><dt>哪些内容不进入公开仓库</dt><dd>个人录制、私人音乐 / 图片、诊断中的敏感网址、临时文件、浏览器配置和凭据。现有样片与测试素材是项目生成的合成内容。</dd></dl>
+    </section>
+  </main>
+  <footer class="footer wrap"><a class="brand" href="../index.html"><span>映录<small>LET THE DEMO HAPPEN.</small></span></a><p>测试指南 · v0.6.9<br>2026.10.20</p><nav aria-label="更多资料"><a href="../index.html">首页</a><a href="index.html">工程档案</a><a href="../CHANGELOG.md">版本历史</a><a href="https://github.com/yydshly/yinglu-recorder">源码 ↗</a></nav></footer>
+</body>
+</html>

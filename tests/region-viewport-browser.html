@@ -1,0 +1,6 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>区域录制启动视口检查</title>
+<link rel="stylesheet" href="../styles.css"></head><body class="wide">
+<h1>区域录制启动视口检查</h1><p class="lead">在真实 iframe 中加载标注脚本，模拟采集启动时网页高度变化。此页不录制桌面，不使用真实扩展权限。</p>
+<button id="run" class="primary">运行区域视口检查</button><pre id="result" role="status">待运行</pre>
+<iframe id="source" title="真实尺寸变化的网页" src="region-viewport-frame.html" style="display:block;width:800px;height:600px;border:0"></iframe>
+<script type="module" src="region-viewport-browser.js"></script></body></html>

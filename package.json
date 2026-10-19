@@ -1,0 +1,23 @@
+{
+  "name": "yinglu-recorder",
+  "private": true,
+  "version": "0.6.9",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "check": "node scripts/check.mjs",
+    "check:docs": "node scripts/check-docs.mjs"
+  },
+  "description": "映录：本地优先的网页演示录制与实时标注扩展",
+  "engines": {
+    "node": ">=22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yydshly/yinglu-recorder.git"
+  },
+  "homepage": "https://yydshly.github.io/yinglu-recorder/",
+  "bugs": {
+    "url": "https://github.com/yydshly/yinglu-recorder/issues"
+  }
+}

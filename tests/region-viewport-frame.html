@@ -1,0 +1,15 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>区域视口测试来源</title>
+<style>body{margin:0;background:#e7f1eb;font:16px system-ui;min-height:1800px}.target{position:absolute;left:100px;top:80px;width:240px;height:180px;background:#176951;color:white;display:grid;place-items:center}</style>
+<div class="target">原框选位置 100,80 · 240×180</div>
+<button id="page-action" onclick="this.textContent='网页点击已响应'">网页交互按钮</button>
+<script>
+  const viewportEvents = [], viewportListeners = [];
+  Object.defineProperty(window, 'chrome', { configurable: true, value: { runtime: {
+    id: 'yinglu-viewport-browser-test', sendMessage: async message => { viewportEvents.push(message); },
+    onMessage: { addListener: fn => viewportListeners.push(fn), removeListener: fn => viewportListeners.splice(viewportListeners.indexOf(fn), 1) }
+  } } });
+  window.viewportTest = { events: viewportEvents, command: (type, options) => new Promise(resolve => {
+    viewportListeners[0]({ target: 'overlay', type, options }, {}, resolve);
+  }) };
+</script>
+<script src="../content.js"></script></html>

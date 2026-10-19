@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>映录 · 网页演示录制</title><link rel="stylesheet" href="styles.css?v=0.6.9"></head>
+<body class="panel">
+  <header class="brand"><span class="brand-icon">◧</span><div><strong>映录</strong><span class="wordmark">YINGLU / RECORDER <span id="version">0.6.9</span></span></div><button id="library" class="icon-button" title="打开本地录制库" aria-label="打开本地录制库">↗</button></header>
+  <main>
+    <div class="intro"><span class="eyebrow">让演示自然发生</span><h1>打开网页，开始讲述。</h1><p>录下操作，也留下你的讲解。</p></div>
+    <div id="demo-notice" class="notice" hidden>交互预览 · 可试用框选和标注。实际录制请加载插件。</div>
+    <div id="error" class="notice error" role="alert" hidden></div>
+    <details id="error-details" class="error-details" hidden><summary>错误详情（可复制给我排查）</summary><pre id="error-detail"></pre></details>
+    <section class="card setup-card"><div class="section-title"><span class="step">01</span><h2>录制画面</h2><span class="pill">仅本机保存</span></div>
+      <div class="source"><span class="source-icon">▣</span><div><strong id="page-title">正在识别当前网页…</strong><span id="page-host">自动获取当前窗口的网页</span></div><span class="connected" id="connected"></span><button id="reconnect" class="source-refresh" type="button" title="刷新获取当前网页" aria-label="刷新获取当前网页" aria-busy="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M6.1 7a7 7 0 0 1 11.6-1L20 9M4 15l2.3 3A7 7 0 0 0 17.9 17"/></svg></button></div>
+      <div class="connection-row"><span id="connection-label" role="status">网页尚未连接，可点右侧 ↻ 获取</span></div>
+      <div id="auto-connect-guide" class="permission-guide" role="group" aria-labelledby="auto-connect-title" hidden><strong id="auto-connect-title">首次使用，先开启自动连接</strong><button id="auto-connect" class="text-button" hidden>开启自动连接网页</button><p id="auto-connect-hint" class="micro" hidden>点击按钮，在 Chrome 弹窗中选择「允许」，以后切换网页会自动连接。录制仍由你开始。</p></div>
+      <p class="micro">点击「开始录制」后，选择完整网页或框选区域。录制对象就是上方网页。</p>
+      <p id="crop-label" class="micro" hidden></p>
+      <button id="desktop" class="text-button">录制窗口或整个屏幕 <span>↗</span></button>
+    </section>
+    <section class="card setup-card"><div class="section-title"><span class="step">02</span><h2>声音与画质</h2></div>
+      <label class="toggle-row"><span><strong>网页声音</strong><small>保留动画、音乐和视频原声</small></span><input id="audio" type="checkbox" role="switch" checked></label>
+      <label class="toggle-row"><span><strong>麦克风</strong><small>同时录下你的讲解</small></span><input id="microphone" type="checkbox" role="switch"></label>
+      <div class="setting-grid"><label>画质<select id="quality"><option value="1080">高清 · 长边 1920</option><option value="720">流畅 · 长边 1280</option><option value="performance">低负载 · 采集长边 1280</option><option value="original">原始尺寸</option></select></label><label>帧率<select id="fps"><option value="30">30 FPS</option><option value="20">20 FPS · 低负载</option><option value="60">60 FPS</option></select></label></div>
+      <button id="low-load" class="text-button">一键降低录制负载 · 20 FPS</button>
+      <p class="micro">画质同时限制整页采集尺寸，减少区域录制负载；小选区细节会减少。需要保留细小文字时可选「原始尺寸」。卡顿时可用一键低负载。</p>
+      <label class="inline-setting">视频格式<select id="format"><option value="webm">WebM</option><option id="format-mp4" value="mp4">MP4</option></select></label><p id="format-hint" class="micro"></p>
+      <p class="micro">录制完成后保存在本地录制库，可回看，需要时再选择下载。</p>
+      <label class="toggle-row compact"><span><strong>页面性能诊断</strong><small>排查时开启，会增加少量采样开销</small></span><input id="diagnostics" type="checkbox" role="switch"></label>
+    </section>
+    <details id="music-card" class="card music-card"><summary class="music-summary"><strong>♪ 音乐</strong><span id="music-summary-status">可选 · 本机收藏</span></summary><div class="music-content"><div class="music-library-actions"><button id="music-import" class="text-button" type="button">＋ 收藏本地音乐</button><button id="music-remove" class="text-button" type="button">移除所选</button></div><input id="music-files" type="file" accept="audio/*,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm" multiple hidden><label class="sr-label" for="music-select">选择音乐</label><select id="music-select" class="music-select"><option value="">选择本机收藏的音乐</option></select><div class="music-transport"><button id="music-play" class="outline" type="button">试听</button><button id="music-restart" class="outline" type="button">从头播放</button><label><input id="music-loop" type="checkbox" checked>循环</label></div><label class="music-volume">音乐音量 <output id="music-volume-value">20%</output><input id="music-volume" type="range" min="0" max="100" value="20"></label><div class="music-presets"><button id="music-background" class="text-button" type="button">背景音 · 20%</button><button id="music-main" class="text-button" type="button">主旋律 · 85%</button></div><label class="toggle-row compact music-include"><span><strong>录制时加入音乐</strong><small>与网页声音、麦克风分别控制</small></span><input id="music-enabled" type="checkbox" role="switch"></label><p id="music-status" class="micro" role="status">展开后选择音乐，试听时才读取音频。</p><button id="music-retry" class="text-button" type="button" hidden>重试加载音乐</button><p class="micro">录制前收藏，开始时从头播放；跟随录制暂停和结束。只保留音乐时，关闭网页声音和麦克风。最多 12 首、合计 128 MB，单首 32 MB、60 分钟。</p></div></details>
+    <section class="card"><div class="section-title"><span class="step">03</span><h2>随手标注</h2><span class="subtle">可选</span></div>
+      <details id="materials-card" class="material-shelf"><summary class="material-heading"><strong>备选图片</strong><span class="subtle">点击展开</span></summary><div><button id="prepare-materials" class="text-button" type="button">＋ 准备素材</button></div><input id="material-files" type="file" accept="image/png,image/jpeg,image/webp" multiple hidden><p id="material-status" class="micro" role="status">展开后载入备选图片。</p><button id="material-retry" class="text-button" type="button" hidden>重试加载素材</button><div id="material-list" class="material-list" hidden></div><p class="micro">录制前可多选导入，本机保留；录制时点击使用。最多 12 张、合计 16 MB。</p></details>
+      <div class="tools" aria-label="标注工具">
+        <button data-tool="pointer" class="active" aria-pressed="true"><span>↖</span>操作网页</button><button data-tool="select" aria-pressed="false"><span>⌖</span>选择图形</button><button data-tool="rect" aria-pressed="false"><span>▭</span>方框</button><button data-tool="ellipse" aria-pressed="false"><span>◯</span>圆圈</button><button data-tool="arrow" aria-pressed="false"><span>↗</span>箭头</button><button data-tool="pen" aria-pressed="false"><span>〰</span>画笔</button><button data-tool="text" aria-pressed="false"><span class="text-symbol">T</span>文字</button><button id="delete-shape"><span>⌫</span>删除选中</button>
+      </div>
+      <button id="add-image" class="outline full-width">▧ 添加图片</button><input id="image-file" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+      <p class="micro">把参数图或截图放在网页上，可拖动、等比缩放并继续批注。PNG / JPG / WebP，最多 2000 万像素，导入后长边不超过 1600。</p>
+      <div class="drawing-options"><div class="colors" aria-label="标注颜色"><button data-color="#f06445" class="active" style="--swatch:#f06445" aria-label="珊瑚红" aria-pressed="true"></button><button data-color="#e7b53b" style="--swatch:#e7b53b" aria-label="金黄" aria-pressed="false"></button><button data-color="#3e9e7f" style="--swatch:#3e9e7f" aria-label="青绿" aria-pressed="false"></button><button data-color="#528ee0" style="--swatch:#528ee0" aria-label="蓝色" aria-pressed="false"></button><button data-color="#f7f7f5" style="--swatch:#f7f7f5" aria-label="白色" aria-pressed="false"></button></div><label class="stroke-label">线宽<select id="width"><option value="2">细</option><option value="4" selected>中</option><option value="7">粗</option></select></label></div>
+      <div id="text-options" hidden class="text-options"><p class="micro">点击网页直接输入文字，点击框外完成。双击文字可再次编辑。</p><label>字号<select id="font-size"><option value="20">小 · 20</option><option value="28" selected>中 · 28</option><option value="40">大 · 40</option></select></label></div>
+      <div class="edit-actions"><button id="undo">↶ 撤销</button><button id="redo">↷ 重做</button><button id="clear">清空标注</button></div>
+      <button id="restore-annotations" class="text-button" hidden>显示上次标注</button>
+      <label class="toggle-row compact"><span>显示鼠标点击光圈</span><input id="clicks" type="checkbox" role="switch" checked></label>
+      <p class="micro" id="tool-hint">当前可正常点击、滚动网页。侧栏不会录入网页视频。</p>
+    </section>
+    <section class="recent"><div class="section-title"><h2>最近录制</h2><button id="all-recordings" class="text-button">查看全部 ↗</button></div><div id="recent-list" class="empty">还没有录制。你的第一段演示，从这里开始。</div></section>
+  </main>
+  <dialog id="range-dialog" aria-labelledby="range-title"><h2 id="range-title">录制当前网页</h2><p>选择范围后开始，无需再选网页。</p><button id="record-full" class="primary full-width">完整网页 · 直接开始</button><button id="record-region" class="outline full-width">框选区域 · 松开鼠标开始</button><button id="cancel-range" class="text-button">取消</button></dialog>
+  <footer class="record-footer"><div class="record-meta"><span id="status-label"><i class="status-dot"></i> 准备就绪</span><time id="timer">00:00:00</time></div><div class="record-buttons"><button id="start" class="primary"><span class="record-dot"></span>开始录制</button><button id="pause" class="outline" hidden>暂停</button><button id="stop" class="stop" hidden>结束录制</button></div><button id="review-recording" class="outline full-width" hidden>回看录制 ↗</button><p id="export-notice" role="status" hidden></p><button id="cancel-export" class="text-button" hidden>取消导出</button><p>无水印 · 无人为时长限制 · 本地录制</p></footer>
+  <script type="module" src="panel.js"></script>
+</body></html>

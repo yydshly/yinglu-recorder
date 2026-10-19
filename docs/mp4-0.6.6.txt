@@ -1,0 +1,22 @@
+运行中…
+浏览器能力：video/mp4;codecs=avc1,mp4a.40.2
+PASS 原生 MP4 分段录制完成：complete
+PASS 数据库记录实际 MP4 容器
+PASS 原生文件具有真实 MP4 ftyp 标识
+PASS MP4 输出能够真实解码，尺寸正确
+PASS MP4 输出保留音轨
+PASS 低负载区域 MP4 使用确认后的视口完成真实裁切录制
+PASS 20FPS低负载设置贯通原生MP4区域录制与保存元数据
+PASS 区域成片仍为真实 MP4 容器
+PASS MP4 输出能够真实解码，尺寸正确
+PASS MP4 输出保留音轨
+PASS 待转换 WebM 已分段保存
+PASS 录制库导出接口完成真实转换并使用 MP4 文件名
+PASS WebM 转换结果为真实 MP4
+PASS 转换期间提供进度
+PASS MP4 输出能够真实解码，尺寸正确
+PASS MP4 输出保留音轨
+PASS 转换不修改 WebM 原件
+PASS 转换可取消并释放资源
+PASS 取消转换后原片完整保留
+全部通过（19 项）。样片可下载核验实际编码。

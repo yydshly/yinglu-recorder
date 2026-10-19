@@ -1,0 +1,3302 @@
+
+> yinglu-recorder@0.6.9 test
+> node --test tests/*.test.js
+
+TAP version 13
+# Subtest: 重复终态只排一次，下载未完成不关闭导出页，后续任务串行启动
+ok 1 - 重复终态只排一次，下载未完成不关闭导出页，后续任务串行启动
+  ---
+  duration_ms: 14.8371
+  type: 'test'
+  ...
+# Subtest: 失败保留录制副本，显式重试产生新 token，缺少权限给出明确原因
+ok 2 - 失败保留录制副本，显式重试产生新 token，缺少权限给出明确原因
+  ---
+  duration_ms: 6.3353
+  type: 'test'
+  ...
+# Subtest: 真实文档身份在失败后重试时重置，新导出页可以继续进度和开始下载
+ok 3 - 真实文档身份在失败后重试时重置，新导出页可以继续进度和开始下载
+  ---
+  duration_ms: 3.9377
+  type: 'test'
+  ...
+# Subtest: 网页、过期 token、错误 tab、其他来源 Blob 与路径文件名不能触发下载副作用
+ok 4 - 网页、过期 token、错误 tab、其他来源 Blob 与路径文件名不能触发下载副作用
+  ---
+  duration_ms: 5.4878
+  type: 'test'
+  ...
+# Subtest: 兼容没有 sender.tab 的扩展页，仍核对实际 tab URL 和 token
+ok 5 - 兼容没有 sender.tab 的扩展页，仍核对实际 tab URL 和 token
+  ---
+  duration_ms: 3.3292
+  type: 'test'
+  ...
+# Subtest: 下载中断要等 URL 清理确认后才关自己页，不关导航后的用户页面
+ok 6 - 下载中断要等 URL 清理确认后才关自己页，不关导航后的用户页面
+  ---
+  duration_ms: 17.0768
+  type: 'test'
+  ...
+# Subtest: 准备页被关闭标记失败，重复状态不会悄悄再下载
+ok 7 - 准备页被关闭标记失败，重复状态不会悄悄再下载
+  ---
+  duration_ms: 6.1785
+  type: 'test'
+  ...
+# Subtest: 服务重启恢复正在下载的任务，不新建页面或重复调用 download
+ok 8 - 服务重启恢复正在下载的任务，不新建页面或重复调用 download
+  ---
+  duration_ms: 6.0892
+  type: 'test'
+  ...
+# Subtest: 重启时从已持久化 URL 找回尚未保存回执的下载编号
+ok 9 - 重启时从已持久化 URL 找回尚未保存回执的下载编号
+  ---
+  duration_ms: 1.8792
+  type: 'test'
+  ...
+# Subtest: 重启时缺失准备页标记错误，不重复创建；完成回执前的快速下载也能收尾
+ok 10 - 重启时缺失准备页标记错误，不重复创建；完成回执前的快速下载也能收尾
+  ---
+  duration_ms: 5.3279
+  type: 'test'
+  ...
+# Subtest: 重启能找回已经创建但未持久化 tabId 的准备页
+ok 11 - 重启能找回已经创建但未持久化 tabId 的准备页
+  ---
+  duration_ms: 2.2448
+  type: 'test'
+  ...
+# Subtest: 浏览器session清空后从local摘要核对完成下载，不重复下载
+ok 12 - 浏览器session清空后从local摘要核对完成下载，不重复下载
+  ---
+  duration_ms: 3.4166
+  type: 'test'
+  ...
+# Subtest: 浏览器重启丢失准备页时转为可重试错误，并继续持久排队任务
+ok 13 - 浏览器重启丢失准备页时转为可重试错误，并继续持久排队任务
+  ---
+  duration_ms: 4.9785
+  type: 'test'
+  ...
+# Subtest: 旧版本IDB悬挂状态会核对downloadId并恢复为完成或可重试错误
+ok 14 - 旧版本IDB悬挂状态会核对downloadId并恢复为完成或可重试错误
+  ---
+  duration_ms: 1.8183
+  type: 'test'
+  ...
+# Subtest: 导航不会关闭用户页面，取消会停止自己的下载并启动下一任务
+ok 15 - 导航不会关闭用户页面，取消会停止自己的下载并启动下一任务
+  ---
+  duration_ms: 9.0848
+  type: 'test'
+  ...
+# Subtest: 准备页心跳丢失或持续无字节进度会明确失败，不永久阻塞队列
+ok 16 - 准备页心跳丢失或持续无字节进度会明确失败，不永久阻塞队列
+  ---
+  duration_ms: 5.6647
+  type: 'test'
+  ...
+# Subtest: 转换秒数持续前进时不会因字节数未变而误判挂起
+ok 17 - 转换秒数持续前进时不会因字节数未变而误判挂起
+  ---
+  duration_ms: 8.6974
+  type: 'test'
+  ...
+# Subtest: 持久摘要版本较新时不被过期session会话覆盖
+ok 18 - 持久摘要版本较新时不被过期session会话覆盖
+  ---
+  duration_ms: 1.1124
+  type: 'test'
+  ...
+# Subtest: 转换准备钩子暂不允许时保持排队，后续检查再准备且原格式任务可先执行
+ok 19 - 转换准备钩子暂不允许时保持排队，后续检查再准备且原格式任务可先执行
+  ---
+  duration_ms: 2.1656
+  type: 'test'
+  ...
+# Subtest: 只有自己的转换页消失后才释放占用，关闭失败不提前释放
+ok 20 - 只有自己的转换页消失后才释放占用，关闭失败不提前释放
+  ---
+  duration_ms: 5.6534
+  type: 'test'
+  ...
+# Subtest: 元数据写入长期pending不阻塞取消，迟到写入后只提交最新状态且同一视频不并发patch
+ok 21 - 元数据写入长期pending不阻塞取消，迟到写入后只提交最新状态且同一视频不并发patch
+  ---
+  duration_ms: 14.2135
+  type: 'test'
+  ...
+# Subtest: 元数据等待超时后健康检查仍能停止失联准备并释放转换占用
+ok 22 - 元数据等待超时后健康检查仍能停止失联准备并释放转换占用
+  ---
+  duration_ms: 14.4649
+  type: 'test'
+  ...
+# Subtest: 错误任务自动关页失败后，手动关页仍释放原token；清理完成前不覆盖token或准备后续任务
+ok 23 - 错误任务自动关页失败后，手动关页仍释放原token；清理完成前不覆盖token或准备后续任务
+  ---
+  duration_ms: 2.8373
+  type: 'test'
+  ...
+# Subtest: 已完成任务关页失败后手动关闭也清理占用，旧关闭事件不会释放重试后的新会话
+ok 24 - 已完成任务关页失败后手动关闭也清理占用，旧关闭事件不会释放重试后的新会话
+  ---
+  duration_ms: 4.223
+  type: 'test'
+  ...
+# Subtest: 终态清理页导航后须确认旧文档消失才释放，不关闭导航后的用户页
+ok 25 - 终态清理页导航后须确认旧文档消失才释放，不关闭导航后的用户页
+  ---
+  duration_ms: 8.5889
+  type: 'test'
+  ...
+# Subtest: 终态导出页同URL重载或被丢弃时，关闭未确认前保留锁，确认消失后继续队列
+ok 26 - 终态导出页同URL重载或被丢弃时，关闭未确认前保留锁，确认消失后继续队列
+  ---
+  duration_ms: 8.0214
+  type: 'test'
+  ...
+# Subtest: local任务镜像拒绝preparing写入时仍释放已领取的转换锁，保留源片段
+ok 27 - local任务镜像拒绝preparing写入时仍释放已领取的转换锁，保留源片段
+  ---
+  duration_ms: 1.5637
+  type: 'test'
+  ...
+# Subtest: local镜像长期pending不堵住取消与清理，迟到写入后按顺序补交最新终态
+ok 28 - local镜像长期pending不堵住取消与清理，迟到写入后按顺序补交最新终态
+  ---
+  duration_ms: 20.103
+  type: 'test'
+  ...
+# Subtest: local准备写入pending超时后新token不能被迟到旧快照覆盖
+ok 29 - local准备写入pending超时后新token不能被迟到旧快照覆盖
+  ---
+  duration_ms: 22.0271
+  type: 'test'
+  ...
+# Subtest: session任务镜像拒绝preparing写入时仍释放已领取的转换锁，保留源片段
+ok 30 - session任务镜像拒绝preparing写入时仍释放已领取的转换锁，保留源片段
+  ---
+  duration_ms: 2.101
+  type: 'test'
+  ...
+# Subtest: session镜像长期pending不堵住取消与清理，迟到写入后按顺序补交最新终态
+ok 31 - session镜像长期pending不堵住取消与清理，迟到写入后按顺序补交最新终态
+  ---
+  duration_ms: 29.4208
+  type: 'test'
+  ...
+# Subtest: session准备写入pending超时后新token不能被迟到旧快照覆盖
+ok 32 - session准备写入pending超时后新token不能被迟到旧快照覆盖
+  ---
+  duration_ms: 25.5259
+  type: 'test'
+  ...
+# Subtest: 升级时旧版无来源标记queued任务暂停，明确手动队列仍可跨会话准备
+ok 33 - 升级时旧版无来源标记queued任务暂停，明确手动队列仍可跨会话准备
+  ---
+  duration_ms: 3.3457
+  type: 'test'
+  ...
+# Subtest: 旧版preparing页被收起且不会因迟到READY下载，用户重试后标记manual并可正常导出
+ok 34 - 旧版preparing页被收起且不会因迟到READY下载，用户重试后标记manual并可正常导出
+  ---
+  duration_ms: 3.8265
+  type: 'test'
+  ...
+# Subtest: 恢复旧任务时实际下载已开始则继续等待浏览器完成，不因来源未标记或旧页消失擅自取消
+ok 35 - 恢复旧任务时实际下载已开始则继续等待浏览器完成，不因来源未标记或旧页消失擅自取消
+  ---
+  duration_ms: 13.6816
+  type: 'test'
+  ...
+# Subtest: 仅IDB保留下载回执时恢复实际下载，不擅自取消已有浏览器任务
+ok 36 - 仅IDB保留下载回执时恢复实际下载，不擅自取消已有浏览器任务
+  ---
+  duration_ms: 1.4785
+  type: 'test'
+  ...
+# Subtest: 导出页面明确报告原生文件清理未结束时保留页面和占用，不提前关闭或重试
+ok 37 - 导出页面明确报告原生文件清理未结束时保留页面和占用，不提前关闭或重试
+  ---
+  duration_ms: 4.1184
+  type: 'test'
+  ...
+# Subtest: 自动导出逐段暂存，下载结束前保留文件和 URL，结束清理可重复调用
+ok 38 - 自动导出逐段暂存，下载结束前保留文件和 URL，结束清理可重复调用
+  ---
+  duration_ms: 30.2192
+  type: 'test'
+  ...
+# Subtest: 分段写入或提交失败会中止临时写入并清理，保留数据库副本
+ok 39 - 分段写入或提交失败会中止临时写入并清理，保留数据库副本
+  ---
+  duration_ms: 10.211
+  type: 'test'
+  ...
+# Subtest: 无 OPFS 或环境拒绝使用时回退 Blob，并明确标明兼容模式
+ok 40 - 无 OPFS 或环境拒绝使用时回退 Blob，并明确标明兼容模式
+  ---
+  duration_ms: 11.7418
+  type: 'test'
+  ...
+# Subtest: 配额失败不会再组装完整 Blob，取消会清理已写入的临时文件
+ok 41 - 配额失败不会再组装完整 Blob，取消会清理已写入的临时文件
+  ---
+  duration_ms: 7.2502
+  type: 'test'
+  ...
+# Subtest: 自动导出拒绝仍在录制的记录，文件名不能引入路径或 Windows 非法字符
+ok 42 - 自动导出拒绝仍在录制的记录，文件名不能引入路径或 Windows 非法字符
+  ---
+  duration_ms: 6.4448
+  type: 'test'
+  ...
+# Subtest: 导出页发出就绪消息后保持 URL 资源，收到后台结束指令才清理
+ok 43 - 导出页发出就绪消息后保持 URL 资源，收到后台结束指令才清理
+  ---
+  duration_ms: 9.5089
+  type: 'test'
+  ...
+# Subtest: 准备失败向后台报告真实错误，后台仍可结束并关闭导出页
+ok 44 - 准备失败向后台报告真实错误，后台仍可结束并关闭导出页
+  ---
+  duration_ms: 9.6814
+  type: 'test'
+  ...
+# Subtest: 下载过快在 READY 回执前结束也能清理，不与后台互相等待
+ok 45 - 下载过快在 READY 回执前结束也能清理，不与后台互相等待
+  ---
+  duration_ms: 7.0118
+  type: 'test'
+  ...
+# Subtest: MP4导出调用转换hook并组合清理，原始录制仍是WebM
+ok 46 - MP4导出调用转换hook并组合清理，原始录制仍是WebM
+  ---
+  duration_ms: 7.0922
+  type: 'test'
+  ...
+# Subtest: 孤儿清理只处理所属目录内超龄或已结束文件，保护活跃任务和未知文件
+ok 47 - 孤儿清理只处理所属目录内超龄或已结束文件，保护活跃任务和未知文件
+  ---
+  duration_ms: 4.9248
+  type: 'test'
+  ...
+# Subtest: 导出目录挂起时取消及时返回，迟到目录不再创建文件
+ok 48 - 导出目录挂起时取消及时返回，迟到目录不再创建文件
+  ---
+  duration_ms: 11.9711
+  type: 'test'
+  ...
+# Subtest: 导出fileGate挂起时可取消，迟到文件提交清理后才允许重试
+ok 49 - 导出fileGate挂起时可取消，迟到文件提交清理后才允许重试
+  ---
+  duration_ms: 21.4055
+  type: 'test'
+  ...
+# Subtest: 导出writerGate挂起时可取消，迟到文件提交清理后才允许重试
+ok 50 - 导出writerGate挂起时可取消，迟到文件提交清理后才允许重试
+  ---
+  duration_ms: 14.9951
+  type: 'test'
+  ...
+# Subtest: 导出writeGate挂起时可取消，迟到文件提交清理后才允许重试
+ok 51 - 导出writeGate挂起时可取消，迟到文件提交清理后才允许重试
+  ---
+  duration_ms: 38.7061
+  type: 'test'
+  ...
+# Subtest: 导出closeGate挂起时可取消，迟到文件提交清理后才允许重试
+ok 52 - 导出closeGate挂起时可取消，迟到文件提交清理后才允许重试
+  ---
+  duration_ms: 24.4089
+  type: 'test'
+  ...
+# Subtest: 大于32MiB的导出缺少文件能力时拒绝全量Blob，小文件保留兼容路径
+ok 53 - 大于32MiB的导出缺少文件能力时拒绝全量Blob，小文件保留兼容路径
+  ---
+  duration_ms: 6.8689
+  type: 'test'
+  ...
+# Subtest: 暂存空间不足提前失败，不开始写文件或回退大Blob
+ok 54 - 暂存空间不足提前失败，不开始写文件或回退大Blob
+  ---
+  duration_ms: 5.2948
+  type: 'test'
+  ...
+# Subtest: 导出单次文件提交无进展超时，迟到提交不能返回下载URL
+ok 55 - 导出单次文件提交无进展超时，迟到提交不能返回下载URL
+  ---
+  duration_ms: 44.1782
+  type: 'test'
+  ...
+# Subtest: 导出页清理回执反映仍未结束的原生写入，结束后才报告成功关闭
+ok 56 - 导出页清理回执反映仍未结束的原生写入，结束后才报告成功关闭
+  ---
+  duration_ms: 21.1493
+  type: 'test'
+  ...
+# Subtest: 离屏录制启动失败的尺寸诊断可经后台返回侧栏
+ok 57 - 离屏录制启动失败的尺寸诊断可经后台返回侧栏
+  ---
+  duration_ms: 55.7123
+  type: 'test'
+  ...
+# Subtest: 另一录制库页面持有读取锁时禁止删除，释放后可删
+ok 58 - 另一录制库页面持有读取锁时禁止删除，释放后可删
+  ---
+  duration_ms: 27.8292
+  type: 'test'
+  ...
+# Subtest: 读取token、记录编号和页面owner必须同时匹配才能续约或释放
+ok 59 - 读取token、记录编号和页面owner必须同时匹配才能续约或释放
+  ---
+  duration_ms: 23.5339
+  type: 'test'
+  ...
+# Subtest: 多个读取页面必须全部释放后才能删除
+ok 60 - 多个读取页面必须全部释放后才能删除
+  ---
+  duration_ms: 25.7542
+  type: 'test'
+  ...
+# Subtest: 过期读取锁不再阻止删除，过期token不能续约
+ok 61 - 过期读取锁不再阻止删除，过期token不能续约
+  ---
+  duration_ms: 24.6005
+  type: 'test'
+  ...
+# Subtest: 读取页面导航后清理该页锁，保留其他页面读取锁
+ok 62 - 读取页面导航后清理该页锁，保留其他页面读取锁
+  ---
+  duration_ms: 25.326
+  type: 'test'
+  ...
+# Subtest: 关闭读取页面释放其锁
+ok 63 - 关闭读取页面释放其锁
+  ---
+  duration_ms: 35.814
+  type: 'test'
+  ...
+# Subtest: 录制库读写操作拒绝其他扩展页面和非法凭据
+ok 64 - 录制库读写操作拒绝其他扩展页面和非法凭据
+  ---
+  duration_ms: 23.4365
+  type: 'test'
+  ...
+# Subtest: 删除与新读取申请串行：删除事务未完成时不能取得已删除媒体的锁
+ok 65 - 删除与新读取申请串行：删除事务未完成时不能取得已删除媒体的锁
+  ---
+  duration_ms: 21.9174
+  type: 'test'
+  ...
+# Subtest: 无活跃录制的IDB recording记录在读取前恢复为interrupted
+ok 66 - 无活跃录制的IDB recording记录在读取前恢复为interrupted
+  ---
+  duration_ms: 55.1177
+  type: 'test'
+  ...
+# Subtest: recording仍处于saving时拒绝读取、重试和删除，不改库中录制状态
+ok 67 - recording仍处于saving时拒绝读取、重试和删除，不改库中录制状态
+  ---
+  duration_ms: 36.0735
+  type: 'test'
+  ...
+# Subtest: desktopRecording仍处于saving时拒绝读取、重试和删除，不改库中录制状态
+ok 68 - desktopRecording仍处于saving时拒绝读取、重试和删除，不改库中录制状态
+  ---
+  duration_ms: 37.851
+  type: 'test'
+  ...
+# Subtest: 重试自动导出先恢复陈旧recording记录，再交给导出器
+ok 69 - 重试自动导出先恢复陈旧recording记录，再交给导出器
+  ---
+  duration_ms: 66.9569
+  type: 'test'
+  ...
+# Subtest: 自动导出任务尚未落盘期间的预留也阻止删除
+ok 70 - 自动导出任务尚未落盘期间的预留也阻止删除
+  ---
+  duration_ms: 59.7542
+  type: 'test'
+  ...
+# Subtest: GET_EXPORT_STATE先根据持久化导出记录恢复，再返回任务状态
+ok 71 - GET_EXPORT_STATE先根据持久化导出记录恢复，再返回任务状态
+  ---
+  duration_ms: 30.7162
+  type: 'test'
+  ...
+# Subtest: 桌面预览持锁时不能开始网页采集，同owner/session可转正式录制
+ok 72 - 桌面预览持锁时不能开始网页采集，同owner/session可转正式录制
+  ---
+  duration_ms: 38.8928
+  type: 'test'
+  ...
+# Subtest: 其他owner或session不能转移、释放桌面预览锁
+ok 73 - 其他owner或session不能转移、释放桌面预览锁
+  ---
+  duration_ms: 49.693
+  type: 'test'
+  ...
+# Subtest: 预览转正式录制后，迟到预览释放消息不能释放正式录制锁
+ok 74 - 预览转正式录制后，迟到预览释放消息不能释放正式录制锁
+  ---
+  duration_ms: 34.0044
+  type: 'test'
+  ...
+# Subtest: 预览页面导航释放预览锁，随后允许网页录制
+ok 75 - 预览页面导航释放预览锁，随后允许网页录制
+  ---
+  duration_ms: 20.7458
+  type: 'test'
+  ...
+# Subtest: 已有web采集时不启动MP4转换
+ok 76 - 已有web采集时不启动MP4转换
+  ---
+  duration_ms: 25.5473
+  type: 'test'
+  ...
+# Subtest: 已有desktop-preview采集时不启动MP4转换
+ok 77 - 已有desktop-preview采集时不启动MP4转换
+  ---
+  duration_ms: 23.3858
+  type: 'test'
+  ...
+# Subtest: MP4正在转换时拒绝网页采集和桌面预览
+ok 78 - MP4正在转换时拒绝网页采集和桌面预览
+  ---
+  duration_ms: 16.0608
+  type: 'test'
+  ...
+# Subtest: 排队MP4尚未开始转码时允许采集，实际转码需另行取得锁
+ok 79 - 排队MP4尚未开始转码时允许采集，实际转码需另行取得锁
+  ---
+  duration_ms: 19.4713
+  type: 'test'
+  ...
+# Subtest: 网页采集先获得锁时，稍晚的MP4只能排队，采集结束后才可准备转换
+ok 80 - 网页采集先获得锁时，稍晚的MP4只能排队，采集结束后才可准备转换
+  ---
+  duration_ms: 25.4289
+  type: 'test'
+  ...
+# Subtest: 桌面来源预览先获得锁时，稍晚的MP4只能排队，释放预览后才可转换
+ok 81 - 桌面来源预览先获得锁时，稍晚的MP4只能排队，释放预览后才可转换
+  ---
+  duration_ms: 20.8797
+  type: 'test'
+  ...
+# Subtest: MP4转换先获得准备锁时拒绝网页和桌面采集，编码结束后允许录制
+ok 82 - MP4转换先获得准备锁时拒绝网页和桌面采集，编码结束后允许录制
+  ---
+  duration_ms: 24.2387
+  type: 'test'
+  ...
+# Subtest: MP4申请失败后释放转换预留，不永久阻止下一次录制
+ok 83 - MP4申请失败后释放转换预留，不永久阻止下一次录制
+  ---
+  duration_ms: 25.6405
+  type: 'test'
+  ...
+# Subtest: 桌面刷新遗失pagehide消息时恢复IDB片段并释放旧锁，新页面可重新选择
+ok 84 - 桌面刷新遗失pagehide消息时恢复IDB片段并释放旧锁，新页面可重新选择
+  ---
+  duration_ms: 22.3673
+  type: 'test'
+  ...
+# Subtest: 未收到导航事件时新文档READY仍恢复旧录制，旧文档状态及释放不污染新会话
+ok 85 - 未收到导航事件时新文档READY仍恢复旧录制，旧文档状态及释放不污染新会话
+  ---
+  duration_ms: 20.7178
+  type: 'test'
+  ...
+# Subtest: 桌面渲染进程消失但标签和URL仍在时，下一次网页开始恢复旧锁
+ok 86 - 桌面渲染进程消失但标签和URL仍在时，下一次网页开始恢复旧锁
+  ---
+  duration_ms: 44.4164
+  type: 'test'
+  ...
+# Subtest: 桌面窗口在saving时关闭，已完整落盘的文件保留complete
+ok 87 - 桌面窗口在saving时关闭，已完整落盘的文件保留complete
+  ---
+  duration_ms: 26.8563
+  type: 'test'
+  ...
+# Subtest: 同文档保存期间即使已释放来源也不提前开放读取
+ok 88 - 同文档保存期间即使已释放来源也不提前开放读取
+  ---
+  duration_ms: 15.6665
+  type: 'test'
+  ...
+# Subtest: 迟到的导航事件不能终结已绑定新文档的预览
+ok 89 - 迟到的导航事件不能终结已绑定新文档的预览
+  ---
+  duration_ms: 16.9909
+  type: 'test'
+  ...
+# Subtest: 上一段complete状态不会让同页新预览或准备会话被误恢复
+ok 90 - 上一段complete状态不会让同页新预览或准备会话被误恢复
+  ---
+  duration_ms: 26.374
+  type: 'test'
+  ...
+# Subtest: 没有Chrome documentId时通过STATUS校验文档token，旧token不能冒充新页面
+ok 91 - 没有Chrome documentId时通过STATUS校验文档token，旧token不能冒充新页面
+  ---
+  duration_ms: 27.6097
+  type: 'test'
+  ...
+# Subtest: 旧版本仅按标签绑定的录制可由新文档STATUS确认已结束并恢复
+ok 92 - 旧版本仅按标签绑定的录制可由新文档STATUS确认已结束并恢复
+  ---
+  duration_ms: 21.3804
+  type: 'test'
+  ...
+# Subtest: 清理未完成的终态导出仍保护原视频，并且旧token释放不能删除新转换锁
+ok 93 - 清理未完成的终态导出仍保护原视频，并且旧token释放不能删除新转换锁
+  ---
+  duration_ms: 11.6583
+  type: 'test'
+  ...
+# Subtest: 旧READY的文档检查迟到时不能在新READY和acquire之后释放新会话
+ok 94 - 旧READY的文档检查迟到时不能在新READY和acquire之后释放新会话
+  ---
+  duration_ms: 15.321
+  type: 'test'
+  ...
+# Subtest: 当前文档仍存在但STATUS超时，不把慢响应误判为采集已结束
+ok 95 - 当前文档仍存在但STATUS超时，不把慢响应误判为采集已结束
+  ---
+  duration_ms: 45.0706
+  type: 'test'
+  ...
+# Subtest: 允许自动连接后侧栏跟随当前标签页，仅注入该页且不启动采集或性能探针
+ok 96 - 允许自动连接后侧栏跟随当前标签页，仅注入该页且不启动采集或性能探针
+  ---
+  duration_ms: 46.4685
+  type: 'test'
+  ...
+# Subtest: 未授权时自动跟随不弹权限框、不注入，仍识别新网页而不沿用旧连接
+ok 97 - 未授权时自动跟随不弹权限框、不注入，仍识别新网页而不沿用旧连接
+  ---
+  duration_ms: 13.0261
+  type: 'test'
+  ...
+# Subtest: 注入被拒绝以 HOST_ACCESS_REQUIRED 标记等待授权，不与连接故障混淆
+ok 98 - 注入被拒绝以 HOST_ACCESS_REQUIRED 标记等待授权，不与连接故障混淆
+  ---
+  duration_ms: 18.2064
+  type: 'test'
+  ...
+# Subtest: 普通注入异常仍是连接错误，不误引导用户授权
+ok 99 - 普通注入异常仍是连接错误，不误引导用户授权
+  ---
+  duration_ms: 16.614
+  type: 'test'
+  ...
+# Subtest: 多个窗口自动连接各自当前网页，重复刷新合并同页脚本注入
+ok 100 - 多个窗口自动连接各自当前网页，重复刷新合并同页脚本注入
+  ---
+  duration_ms: 16.3942
+  type: 'test'
+  ...
+# Subtest: 注入无响应有界退出，不持续自动重试；手动重试可恢复
+ok 101 - 注入无响应有界退出，不持续自动重试；手动重试可恢复
+  ---
+  duration_ms: 21.1181
+  type: 'test'
+  ...
+# Subtest: 连接网页 API 卡住也会结束 connecting 状态并释放所有定时器
+ok 102 - 连接网页 API 卡住也会结束 connecting 状态并释放所有定时器
+  ---
+  duration_ms: 13.995
+  type: 'test'
+  ...
+# Subtest: worker 重启遗留的 connecting 可恢复，握手成功则纠正为已连接
+ok 103 - worker 重启遗留的 connecting 可恢复，握手成功则纠正为已连接
+  ---
+  duration_ms: 37.0116
+  type: 'test'
+  ...
+# Subtest: 旧网页迟到的连接结果不能覆盖后来连接的新网页
+ok 104 - 旧网页迟到的连接结果不能覆盖后来连接的新网页
+  ---
+  duration_ms: 27.8096
+  type: 'test'
+  ...
+# Subtest: 没有侧栏请求时标签切换仅发事件通知，不注入或创建采集；普通导航不空写 storage
+ok 105 - 没有侧栏请求时标签切换仅发事件通知，不注入或创建采集；普通导航不空写 storage
+  ---
+  duration_ms: 11.0641
+  type: 'test'
+  ...
+# Subtest: 录制进行中切换网页仍锁定原来源，不自动注入新页
+ok 106 - 录制进行中切换网页仍锁定原来源，不自动注入新页
+  ---
+  duration_ms: 15.417
+  type: 'test'
+  ...
+# Subtest: 自动连接不冒充 tabCapture 授权，原生拒绝后用中文说明且释放启动状态
+ok 107 - 自动连接不冒充 tabCapture 授权，原生拒绝后用中文说明且释放启动状态
+  ---
+  duration_ms: 19.5606
+  type: 'test'
+  ...
+# Subtest: 活动页网址在 loading 期间就绪时立即通知侧栏，不等待 complete；后台页加载不触发刷新
+ok 108 - 活动页网址在 loading 期间就绪时立即通知侧栏，不等待 complete；后台页加载不触发刷新
+  ---
+  duration_ms: 31.9628
+  type: 'test'
+  ...
+# Subtest: 短暂自动连接失败后切走再切回可自动重试，同页普通刷新不会无限重试
+ok 109 - 短暂自动连接失败后切走再切回可自动重试，同页普通刷新不会无限重试
+  ---
+  duration_ms: 40.2086
+  type: 'test'
+  ...
+# Subtest: 加载期连接失败在文档 complete 后自动恢复，不沿用同网址的过期失败
+ok 110 - 加载期连接失败在文档 complete 后自动恢复，不沿用同网址的过期失败
+  ---
+  duration_ms: 26.3131
+  type: 'test'
+  ...
+# Subtest: 新激活网页尚无地址时显示加载中，不误判为权限缺失
+ok 111 - 新激活网页尚无地址时显示加载中，不误判为权限缺失
+  ---
+  duration_ms: 42.4529
+  type: 'test'
+  ...
+# Subtest: complete 到达时隔离旧文档未结束的连接，迟到失败不污染已就绪网页
+ok 112 - complete 到达时隔离旧文档未结束的连接，迟到失败不污染已就绪网页
+  ---
+  duration_ms: 23.4562
+  type: 'test'
+  ...
+# Subtest: 标注容量提示只转发录制目标顶层网页，不停止录制或接受其他来源
+ok 113 - 标注容量提示只转发录制目标顶层网页，不停止录制或接受其他来源
+  ---
+  duration_ms: 32.0695
+  type: 'test'
+  ...
+# Subtest: CONNECT 请求短基线，空闲 GET_STATE 重用近期探针并在过期后重新采样
+ok 114 - CONNECT 请求短基线，空闲 GET_STATE 重用近期探针并在过期后重新采样
+  ---
+  duration_ms: 22.938
+  type: 'test'
+  ...
+# Subtest: 未设置诊断开关时默认不启动基线或录制采样
+ok 115 - 未设置诊断开关时默认不启动基线或录制采样
+  ---
+  duration_ms: 19.6339
+  type: 'test'
+  ...
+# Subtest: 普通标注不触发性能探针，只有空闲握手成功后 GET_STATE 发起基线
+ok 116 - 普通标注不触发性能探针，只有空闲握手成功后 GET_STATE 发起基线
+  ---
+  duration_ms: 16.5995
+  type: 'test'
+  ...
+# Subtest: 关闭诊断设置时 CONNECT 和 GET_STATE 不采样，START false 不建立诊断档案
+ok 117 - 关闭诊断设置时 CONNECT 和 GET_STATE 不采样，START false 不建立诊断档案
+  ---
+  duration_ms: 24.1523
+  type: 'test'
+  ...
+# Subtest: START true 传播诊断开关，采集中 GET_STATE 不新建基线
+ok 118 - START true 传播诊断开关，采集中 GET_STATE 不新建基线
+  ---
+  duration_ms: 20.2942
+  type: 'test'
+  ...
+# Subtest: PERF_SAMPLE 只接收匹配 session 和标签的有效指标，旧 session 与错标签无效
+ok 119 - PERF_SAMPLE 只接收匹配 session 和标签的有效指标，旧 session 与错标签无效
+  ---
+  duration_ms: 26.1149
+  type: 'test'
+  ...
+# Subtest: START 复制近期录制前基线，迟到的同一基线也进入当前档案
+ok 120 - START 复制近期录制前基线，迟到的同一基线也进入当前档案
+  ---
+  duration_ms: 26.8423
+  type: 'test'
+  ...
+# Subtest: 录制期只写 session storage，终态落库且停止后恢复样本更新同一视频
+ok 121 - 录制期只写 session storage，终态落库且停止后恢复样本更新同一视频
+  ---
+  duration_ms: 36.3479
+  type: 'test'
+  ...
+# Subtest: 刚结束两秒恢复窗口不自动重启空闲基线
+ok 122 - 刚结束两秒恢复窗口不自动重启空闲基线
+  ---
+  duration_ms: 25.0774
+  type: 'test'
+  ...
+# Subtest: 桌面录制活动或全局采集锁存在时，不把额外负载下的节拍当空闲基线
+ok 123 - 桌面录制活动或全局采集锁存在时，不把额外负载下的节拍当空闲基线
+  ---
+  duration_ms: 23.0061
+  type: 'test'
+  ...
+# Subtest: 同标签刷新或切换 URL 清理旧文档基线，迟到旧样本不能污染新作品
+ok 124 - 同标签刷新或切换 URL 清理旧文档基线，迟到旧样本不能污染新作品
+  ---
+  duration_ms: 37.2627
+  type: 'test'
+  ...
+# Subtest: 网页结束只保留回看副本，用户主动导出后广播状态并保护准备和下载中的记录
+ok 125 - 网页结束只保留回看副本，用户主动导出后广播状态并保护准备和下载中的记录
+  ---
+  duration_ms: 49.419
+  type: 'test'
+  ...
+# Subtest: 旧自动导出设置不再传入录制器，所有网页终态都不会创建导出或下载
+ok 126 - 旧自动导出设置不再传入录制器，所有网页终态都不会创建导出或下载
+  ---
+  duration_ms: 30.5549
+  type: 'test'
+  ...
+# Subtest: 桌面完成、中断和取消都不自动导出，旧设置为true也不触发下载
+ok 127 - 桌面完成、中断和取消都不自动导出，旧设置为true也不触发下载
+  ---
+  duration_ms: 18.3771
+  type: 'test'
+  ...
+# Subtest: 旧会话完成和重复终态不会创建导出任务，后续网页可以继续录制
+ok 128 - 旧会话完成和重复终态不会创建导出任务，后续网页可以继续录制
+  ---
+  duration_ms: 27.9098
+  type: 'test'
+  ...
+# Subtest: 强制停止与录制器断开恢复只保留片段，不因旧设置触发导出
+ok 129 - 强制停止与录制器断开恢复只保留片段，不因旧设置触发导出
+  ---
+  duration_ms: 27.7054
+  type: 'test'
+  ...
+# Subtest: 桌面录制页面关闭后的异常恢复不自动下载，仍可主动导出恢复片段
+ok 130 - 桌面录制页面关闭后的异常恢复不自动下载，仍可主动导出恢复片段
+  ---
+  duration_ms: 26.6771
+  type: 'test'
+  ...
+# Subtest: 声明下载权限，API缺失时给出明确导出错误并保留录制副本
+ok 131 - 声明下载权限，API缺失时给出明确导出错误并保留录制副本
+  ---
+  duration_ms: 117.4504
+  type: 'test'
+  ...
+# Subtest: 后台路由拒绝普通网页伪装导出页，合法扩展页仍须匹配 token 和来源 URL
+ok 132 - 后台路由拒绝普通网页伪装导出页，合法扩展页仍须匹配 token 和来源 URL
+  ---
+  duration_ms: 27.2659
+  type: 'test'
+  ...
+# Subtest: 手动下载清理尚未回复时，不阻塞网页录制状态协调器
+ok 133 - 手动下载清理尚未回复时，不阻塞网页录制状态协调器
+  ---
+  duration_ms: 36.16
+  type: 'test'
+  ...
+# Subtest: 用户主动请求MP4转换仍创建转换页并可下载，原始录制副本保留
+ok 134 - 用户主动请求MP4转换仍创建转换页并可下载，原始录制副本保留
+  ---
+  duration_ms: 26.1027
+  type: 'test'
+  ...
+# Subtest: 重启仍恢复用户已提交的导出下载，不撤销或重复提交既有任务
+ok 135 - 重启仍恢复用户已提交的导出下载，不撤销或重复提交既有任务
+  ---
+  duration_ms: 27.5921
+  type: 'test'
+  ...
+# Subtest: 旧版排队任务在启动和打开录制库时均暂停，用户重新选择后才准备导出
+ok 136 - 旧版排队任务在启动和打开录制库时均暂停，用户重新选择后才准备导出
+  ---
+  duration_ms: 29.2686
+  type: 'test'
+  ...
+# Subtest: 持久化失败仍收尾释放真实转换锁，不遗留阻止下一次录制的镜像状态
+ok 137 - 持久化失败仍收尾释放真实转换锁，不遗留阻止下一次录制的镜像状态
+  ---
+  duration_ms: 26.8409
+  type: 'test'
+  ...
+# Subtest: 实际下载后session镜像失败不取消下载，内存任务继续保护源片段并保留健康检查
+ok 138 - 实际下载后session镜像失败不取消下载，内存任务继续保护源片段并保留健康检查
+  ---
+  duration_ms: 28.4485
+  type: 'test'
+  ...
+# Subtest: 终态关闭导出页尚未完成时仍保护原片段，完成清理后解除保护
+ok 139 - 终态关闭导出页尚未完成时仍保护原片段，完成清理后解除保护
+  ---
+  duration_ms: 28.1222
+  type: 'test'
+  ...
+# Subtest: 强制停止先关闭离屏采集，再恢复已保存片段并释放会话
+ok 140 - 强制停止先关闭离屏采集，再恢复已保存片段并释放会话
+  ---
+  duration_ms: 62.1019
+  type: 'test'
+  ...
+# Subtest: 停止回执超时也会强制释放，不继续等待失去响应的录制器
+ok 141 - 停止回执超时也会强制释放，不继续等待失去响应的录制器
+  ---
+  duration_ms: 28.3089
+  type: 'test'
+  ...
+# Subtest: 收到STOP回执但一直没有释放状态时，后台看门狗强制收尾
+ok 142 - 收到STOP回执但一直没有释放状态时，后台看门狗强制收尾
+  ---
+  duration_ms: 26.8357
+  type: 'test'
+  ...
+# Subtest: 正常释放状态会取消后台停止看门狗，保存期间不误关进程
+ok 143 - 正常释放状态会取消后台停止看门狗，保存期间不误关进程
+  ---
+  duration_ms: 29.414
+  type: 'test'
+  ...
+# Subtest: 旧看门狗晚到时不能关闭新会话的离屏录制
+ok 144 - 旧看门狗晚到时不能关闭新会话的离屏录制
+  ---
+  duration_ms: 37.9438
+  type: 'test'
+  ...
+# Subtest: 离屏进程无法关闭时保留活动锁，不伪称停止成功或恢复文件
+ok 145 - 离屏进程无法关闭时保留活动锁，不伪称停止成功或恢复文件
+  ---
+  duration_ms: 68.8668
+  type: 'test'
+  ...
+# Subtest: 强制停止后迟到的正常完成消息不能覆盖恢复状态
+ok 146 - 强制停止后迟到的正常完成消息不能覆盖恢复状态
+  ---
+  duration_ms: 45.4267
+  type: 'test'
+  ...
+# Subtest: 强制停止发现文件已经完整保存时保留complete，不降级成片
+ok 147 - 强制停止发现文件已经完整保存时保留complete，不降级成片
+  ---
+  duration_ms: 31.9818
+  type: 'test'
+  ...
+# Subtest: 采集已关闭而恢复查询卡住时仍有界退出，片段不删除
+ok 148 - 采集已关闭而恢复查询卡住时仍有界退出，片段不删除
+  ---
+  duration_ms: 36.4353
+  type: 'test'
+  ...
+# Subtest: 旧会话PAUSE不能被重新绑定到当前录制
+ok 149 - 旧会话PAUSE不能被重新绑定到当前录制
+  ---
+  duration_ms: 34.8516
+  type: 'test'
+  ...
+# Subtest: 旧会话RESUME不能被重新绑定到当前录制
+ok 150 - 旧会话RESUME不能被重新绑定到当前录制
+  ---
+  duration_ms: 32.9857
+  type: 'test'
+  ...
+# Subtest: 旧会话STOP不能被重新绑定到当前录制
+ok 151 - 旧会话STOP不能被重新绑定到当前录制
+  ---
+  duration_ms: 28.0851
+  type: 'test'
+  ...
+# Subtest: 旧会话FORCE_STOP不能被重新绑定到当前录制
+ok 152 - 旧会话FORCE_STOP不能被重新绑定到当前录制
+  ---
+  duration_ms: 25.6009
+  type: 'test'
+  ...
+# Subtest: STOP两次状态读取之间切换会话时，不创建过时看门狗或发送控制
+ok 153 - STOP两次状态读取之间切换会话时，不创建过时看门狗或发送控制
+  ---
+  duration_ms: 32.7027
+  type: 'test'
+  ...
+# Subtest: 状态查询确认进程消失后恢复部分文件，而不是只改界面报错
+ok 154 - 状态查询确认进程消失后恢复部分文件，而不是只改界面报错
+  ---
+  duration_ms: 45.5775
+  type: 'test'
+  ...
+# Subtest: 状态查询时进程已消失但文件完整落盘，不误报录制失败
+ok 155 - 状态查询时进程已消失但文件完整落盘，不误报录制失败
+  ---
+  duration_ms: 30.0509
+  type: 'test'
+  ...
+# Subtest: 后台将框选和音频设置交给离屏录制，且锁定原网页
+ok 156 - 后台将框选和音频设置交给离屏录制，且锁定原网页
+  ---
+  duration_ms: 50.1781
+  type: 'test'
+  ...
+# Subtest: 缺失矩形坐标的旧框选数据不能用于录制
+ok 157 - 缺失矩形坐标的旧框选数据不能用于录制
+  ---
+  duration_ms: 16.9403
+  type: 'test'
+  ...
+# Subtest: 获得真实流后按稳定 CSS 视口保留框选像素矩形，启动变化不提前停止
+ok 158 - 获得真实流后按稳定 CSS 视口保留框选像素矩形，启动变化不提前停止
+  ---
+  duration_ms: 19.7379
+  type: 'test'
+  ...
+# Subtest: 采集提示改变可见范围后原矩形越界会明确拒绝，不静默裁掉选区
+ok 159 - 采集提示改变可见范围后原矩形越界会明确拒绝，不静默裁掉选区
+  ---
+  duration_ms: 20.5235
+  type: 'test'
+  ...
+# Subtest: 取消期间迟到的视口确认不再武装旧会话，其他来源不能确认范围
+ok 160 - 取消期间迟到的视口确认不再武装旧会话，其他来源不能确认范围
+  ---
+  duration_ms: 26.3474
+  type: 'test'
+  ...
+# Subtest: 区域准备期间导航 {"status":"loading"} 取消旧选区，迟到确认不能继续
+ok 161 - 区域准备期间导航 {"status":"loading"} 取消旧选区，迟到确认不能继续
+  ---
+  duration_ms: 14.758
+  type: 'test'
+  ...
+# Subtest: 区域准备期间导航 {"url":"https://example.test/new"} 取消旧选区，迟到确认不能继续
+ok 162 - 区域准备期间导航 {"url":"https://example.test/new"} 取消旧选区，迟到确认不能继续
+  ---
+  duration_ms: 20.2694
+  type: 'test'
+  ...
+# Subtest: 录制中拒绝第二次开始，拒绝重选范围
+ok 163 - 录制中拒绝第二次开始，拒绝重选范围
+  ---
+  duration_ms: 29.7405
+  type: 'test'
+  ...
+# Subtest: 网页内容不能伪造录制完成状态
+ok 164 - 网页内容不能伪造录制完成状态
+  ---
+  duration_ms: 16.1187
+  type: 'test'
+  ...
+# Subtest: 权限或流获取失败时保存明确的错误状态
+ok 165 - 权限或流获取失败时保存明确的错误状态
+  ---
+  duration_ms: 30.4512
+  type: 'test'
+  ...
+# Subtest: 标注初始化报错保留真实原因，不误报普通网页为受保护页面
+ok 166 - 标注初始化报错保留真实原因，不误报普通网页为受保护页面
+  ---
+  duration_ms: 15.3094
+  type: 'test'
+  ...
+# Subtest: 重新连接当前网页会更新目标并清除上次连接错误
+ok 167 - 重新连接当前网页会更新目标并清除上次连接错误
+  ---
+  duration_ms: 15.3008
+  type: 'test'
+  ...
+# Subtest: 只有确认为浏览器内部页时才显示内部页提示
+ok 168 - 只有确认为浏览器内部页时才显示内部页提示
+  ---
+  duration_ms: 37.4315
+  type: 'test'
+  ...
+# Subtest: 缺少 activeTab 授权时给出授权动作并保留详情
+ok 169 - 缺少 activeTab 授权时给出授权动作并保留详情
+  ---
+  duration_ms: 28.5452
+  type: 'test'
+  ...
+# Subtest: 侧栏以握手成功判断连接，不把已保存的目标当作已连接
+ok 170 - 侧栏以握手成功判断连接，不把已保存的目标当作已连接
+  ---
+  duration_ms: 22.7548
+  type: 'test'
+  ...
+# Subtest: 录制中重新连接不会切换来源或清空框选
+ok 171 - 录制中重新连接不会切换来源或清空框选
+  ---
+  duration_ms: 16.6285
+  type: 'test'
+  ...
+# Subtest: 录制音乐配置独立于网页声音，后台原样传给离屏混音
+ok 172 - 录制音乐配置独立于网页声音，后台原样传给离屏混音
+  ---
+  duration_ms: 22.8348
+  type: 'test'
+  ...
+# Subtest: 音乐控制拒绝网页伪造并忽略旧会话，不创建新的录制或离屏进程
+ok 173 - 音乐控制拒绝网页伪造并忽略旧会话，不创建新的录制或离屏进程
+  ---
+  duration_ms: 20.417
+  type: 'test'
+  ...
+# Subtest: 框选结果持久化后向侧栏发送自动开始事件
+ok 174 - 框选结果持久化后向侧栏发送自动开始事件
+  ---
+  duration_ms: 25.4008
+  type: 'test'
+  ...
+# Subtest: 旧状态查询不会覆盖已完成的新状态
+ok 175 - 旧状态查询不会覆盖已完成的新状态
+  ---
+  duration_ms: 18.3155
+  type: 'test'
+  ...
+# Subtest: 结束通知丢失时查询真实录制器可以修复保存中状态
+ok 176 - 结束通知丢失时查询真实录制器可以修复保存中状态
+  ---
+  duration_ms: 14.1325
+  type: 'test'
+  ...
+# Subtest: 取消连接可立即返回，迟到的来源不会启动录制
+ok 177 - 取消连接可立即返回，迟到的来源不会启动录制
+  ---
+  duration_ms: 33.4425
+  type: 'test'
+  ...
+# Subtest: 桌面和网页共用单次录制限制，只有拥有者可以释放
+ok 178 - 桌面和网页共用单次录制限制，只有拥有者可以释放
+  ---
+  duration_ms: 35.424
+  type: 'test'
+  ...
+# Subtest: 旧框选结果不能写入新的范围或自动触发新录制
+ok 179 - 旧框选结果不能写入新的范围或自动触发新录制
+  ---
+  duration_ms: 16.2239
+  type: 'test'
+  ...
+# Subtest: 采集释放后就恢复网页，不等文件保存完成
+ok 180 - 采集释放后就恢复网页，不等文件保存完成
+  ---
+  duration_ms: 12.0785
+  type: 'test'
+  ...
+# Subtest: 旧会话和乱序消息不能覆盖当前录制状态
+ok 181 - 旧会话和乱序消息不能覆盖当前录制状态
+  ---
+  duration_ms: 10.0923
+  type: 'test'
+  ...
+# Subtest: 录制进程丢失后可以恢复到可重新开始的状态
+ok 182 - 录制进程丢失后可以恢复到可重新开始的状态
+  ---
+  duration_ms: 15.0068
+  type: 'test'
+  ...
+# Subtest: 自动恢复标注失败不会被静默忽略
+ok 183 - 自动恢复标注失败不会被静默忽略
+  ---
+  duration_ms: 13.523
+  type: 'test'
+  ...
+# Subtest: 切换标签页后不会悄悄录制之前的网页
+ok 184 - 切换标签页后不会悄悄录制之前的网页
+  ---
+  duration_ms: 14.7185
+  type: 'test'
+  ...
+# Subtest: 空闲侧栏显示自己窗口当前网页，不沿用上次点击图标的网页
+ok 185 - 空闲侧栏显示自己窗口当前网页，不沿用上次点击图标的网页
+  ---
+  duration_ms: 14.4582
+  type: 'test'
+  ...
+# Subtest: 两个窗口同时开侧栏不会抢来源或误用最后活动窗口
+ok 186 - 两个窗口同时开侧栏不会抢来源或误用最后活动窗口
+  ---
+  duration_ms: 18.3821
+  type: 'test'
+  ...
+# Subtest: 新网页没有标注连接时显示待授权，不把旧网页连接当成功
+ok 187 - 新网页没有标注连接时显示待授权，不把旧网页连接当成功
+  ---
+  duration_ms: 7.6806
+  type: 'test'
+  ...
+# Subtest: 切换网页后正在录制的来源固定，侧栏不能向隐藏来源画图
+ok 188 - 切换网页后正在录制的来源固定，侧栏不能向隐藏来源画图
+  ---
+  duration_ms: 11.3417
+  type: 'test'
+  ...
+# Subtest: 在窗口内切换网页会取消旧框选，切换其他窗口不影响它
+ok 189 - 在窗口内切换网页会取消旧框选，切换其他窗口不影响它
+  ---
+  duration_ms: 11.2879
+  type: 'test'
+  ...
+# Subtest: 窗口之间不能复用另一网页的框选范围
+ok 190 - 窗口之间不能复用另一网页的框选范围
+  ---
+  duration_ms: 12.2456
+  type: 'test'
+  ...
+# Subtest: 迟到的旧页工具操作不重定向到新录制源，旧框选取消仍发往旧页
+ok 191 - 迟到的旧页工具操作不重定向到新录制源，旧框选取消仍发往旧页
+  ---
+  duration_ms: 10.0659
+  type: 'test'
+  ...
+# Subtest: 另一个网页的启动错误不泄漏到当前页，也不删除会话防重信息
+ok 192 - 另一个网页的启动错误不泄漏到当前页，也不删除会话防重信息
+  ---
+  duration_ms: 7.6568
+  type: 'test'
+  ...
+# Subtest: 区域录制检测到CSS视口变化时安全停止，旧会话通知无效
+ok 193 - 区域录制检测到CSS视口变化时安全停止，旧会话通知无效
+  ---
+  duration_ms: 7.3481
+  type: 'test'
+  ...
+# Subtest: 并发连接与开始共享协调器，不会覆盖新会话或泄漏锁
+ok 194 - 并发连接与开始共享协调器，不会覆盖新会话或泄漏锁
+  ---
+  duration_ms: 17.0743
+  type: 'test'
+  ...
+# Subtest: 开始后立即取消不会错过准备阶段
+ok 195 - 开始后立即取消不会错过准备阶段
+  ---
+  duration_ms: 20.3895
+  type: 'test'
+  ...
+# Subtest: 网页卡住不回复END时后台仍能完成收尾并释放会话
+ok 196 - 网页卡住不回复END时后台仍能完成收尾并释放会话
+  ---
+  duration_ms: 13.3581
+  type: 'test'
+  ...
+# Subtest: 状态查询未响应但进程仍存在时保留录制，不强制关闭
+ok 197 - 状态查询未响应但进程仍存在时保留录制，不强制关闭
+  ---
+  duration_ms: 9.7738
+  type: 'test'
+  ...
+# Subtest: 刷新后的迟到连接不会在停止后重新启用标注
+ok 198 - 刷新后的迟到连接不会在停止后重新启用标注
+  ---
+  duration_ms: 10.6873
+  type: 'test'
+  ...
+# Subtest: 长笔迹逐帧仅追加新 SVG 点，复用路径和命中节点
+ok 199 - 长笔迹逐帧仅追加新 SVG 点，复用路径和命中节点
+  ---
+  duration_ms: 53.4903
+  type: 'test'
+  ...
+# Subtest: 长笔迹拖动与缩放只更新矩阵，松开后才分配新点数组并保持线宽
+ok 200 - 长笔迹拖动与缩放只更新矩阵，松开后才分配新点数组并保持线宽
+  ---
+  duration_ms: 102.5977
+  type: 'test'
+  ...
+# Subtest: 取消指针和切换工具均提交最后变换并移除临时矩阵
+ok 201 - 取消指针和切换工具均提交最后变换并移除临时矩阵
+  ---
+  duration_ms: 9.1382
+  type: 'test'
+  ...
+# Subtest: 笔迹颜色编辑共享点数组，撤销重做保留各版本而非复制全部点
+ok 202 - 笔迹颜色编辑共享点数组，撤销重做保留各版本而非复制全部点
+  ---
+  duration_ms: 9.1129
+  type: 'test'
+  ...
+# Subtest: 连续拖动只在动画帧变换笔迹，松开仍提交最后坐标且撤销恢复原笔迹
+ok 203 - 连续拖动只在动画帧变换笔迹，松开仍提交最后坐标且撤销恢复原笔迹
+  ---
+  duration_ms: 3.9287
+  type: 'test'
+  ...
+# Subtest: 超长笔迹持续采样而不冻结，历史点数预算会回收最旧版本
+ok 204 - 超长笔迹持续采样而不冻结，历史点数预算会回收最旧版本
+  ---
+  duration_ms: 552.2075
+  type: 'test'
+  ...
+# Subtest: 图形数量和历史引用数有界，达到上限保留现有图形并提示
+ok 205 - 图形数量和历史引用数有界，达到上限保留现有图形并提示
+  ---
+  duration_ms: 228.0067
+  type: 'test'
+  ...
+# Subtest: 录完只保留最终标注可恢复，释放旧撤销重做历史
+ok 206 - 录完只保留最终标注可恢复，释放旧撤销重做历史
+  ---
+  duration_ms: 3.6871
+  type: 'test'
+  ...
+# Subtest: 图片像素预算覆盖当前场景和历史引用，超额导入释放位图且不增加图形
+ok 207 - 图片像素预算覆盖当前场景和历史引用，超额导入释放位图且不增加图形
+  ---
+  duration_ms: 6.5258
+  type: 'test'
+  ...
+# Subtest: 图片只绘制一次，移动、等比缩放和工具切换复用原像素节点
+ok 208 - 图片只绘制一次，移动、等比缩放和工具切换复用原像素节点
+  ---
+  duration_ms: 3.7017
+  type: 'test'
+  ...
+# Subtest: 图片撤销重做、删除及结束恢复都保留同一份像素，新录制释放旧图片
+ok 209 - 图片撤销重做、删除及结束恢复都保留同一份像素，新录制释放旧图片
+  ---
+  duration_ms: 1.9575
+  type: 'test'
+  ...
+# Subtest: 区域录制中图片初始位置按原框选CSS范围放置，不改变范围或触发误停
+ok 210 - 区域录制中图片初始位置按原框选CSS范围放置，不改变范围或触发误停
+  ---
+  duration_ms: 1.4208
+  type: 'test'
+  ...
+# Subtest: 归档图片释放全部像素而保留压缩数据，恢复后尺寸、坐标及像素节点一致
+ok 211 - 归档图片释放全部像素而保留压缩数据，恢复后尺寸、坐标及像素节点一致
+  ---
+  duration_ms: 1.3275
+  type: 'test'
+  ...
+# Subtest: 图片恢复中清空或开始新录制，迟到解码关闭且不复活旧标注
+ok 212 - 图片恢复中清空或开始新录制，迟到解码关闭且不复活旧标注
+  ---
+  duration_ms: 3.3791
+  type: 'test'
+  ...
+# Subtest: 恢复解码超时可重试，底层仍未结束时不叠加解码器
+ok 213 - 恢复解码超时可重试，底层仍未结束时不叠加解码器
+  ---
+  duration_ms: 11.4462
+  type: 'test'
+  ...
+# Subtest: 图片解码期间结束、清空或换录制后，迟到图片不会重新出现
+ok 214 - 图片解码期间结束、清空或换录制后，迟到图片不会重新出现
+  ---
+  duration_ms: 3.078
+  type: 'test'
+  ...
+# Subtest: 拒绝远程图片、SVG、大尺寸以及错误录制会话，不改变已有标注
+ok 215 - 拒绝远程图片、SVG、大尺寸以及错误录制会话，不改变已有标注
+  ---
+  duration_ms: 1.3447
+  type: 'test'
+  ...
+# Subtest: 标注初始化不依赖 innerHTML，能在要求 TrustedHTML 的页面上完成握手
+ok 216 - 标注初始化不依赖 innerHTML，能在要求 TrustedHTML 的页面上完成握手
+  ---
+  duration_ms: 0.796
+  type: 'test'
+  ...
+# Subtest: 区域录制网页尺寸变化只通知一次，结束后停止监听本次范围
+ok 217 - 区域录制网页尺寸变化只通知一次，结束后停止监听本次范围
+  ---
+  duration_ms: 0.9968
+  type: 'test'
+  ...
+# Subtest: 开始采集造成 CSS 高度变化时先等稳定并重新武装，录制后变化仍通知
+ok 218 - 开始采集造成 CSS 高度变化时先等稳定并重新武装，录制后变化仍通知
+  ---
+  duration_ms: 1.2047
+  type: 'test'
+  ...
+# Subtest: 点击、滚动、绘图、文字编辑和工具切换不触发区域尺寸变化
+ok 219 - 点击、滚动、绘图、文字编辑和工具切换不触发区域尺寸变化
+  ---
+  duration_ms: 1.9004
+  type: 'test'
+  ...
+# Subtest: 稳定确认后再次变化或旧会话不能武装范围，END 立即结束等待
+ok 220 - 稳定确认后再次变化或旧会话不能武装范围，END 立即结束等待
+  ---
+  duration_ms: 0.9852
+  type: 'test'
+  ...
+# Subtest: 持续变化的 CSS 视口有明确确认超时，不无限等待
+ok 221 - 持续变化的 CSS 视口有明确确认超时，不无限等待
+  ---
+  duration_ms: 1.3117
+  type: 'test'
+  ...
+# Subtest: 初始化异常会清理半成品，第二次注入能正常重试
+ok 222 - 初始化异常会清理半成品，第二次注入能正常重试
+  ---
+  duration_ms: 1.045
+  type: 'test'
+  ...
+# Subtest: 重复注入不会叠加标注层或消息监听器
+ok 223 - 重复注入不会叠加标注层或消息监听器
+  ---
+  duration_ms: 0.8675
+  type: 'test'
+  ...
+# Subtest: 旧版本遗留的初始化标记不会阻止连接恢复
+ok 224 - 旧版本遗留的初始化标记不会阻止连接恢复
+  ---
+  duration_ms: 0.8073
+  type: 'test'
+  ...
+# Subtest: Escape 取消框选会恢复网页操作，并带上对应选择会话
+ok 225 - Escape 取消框选会恢复网页操作，并带上对应选择会话
+  ---
+  duration_ms: 1.5679
+  type: 'test'
+  ...
+# Subtest: Escape 结束绘制并释放捕获，后续移动不会继续修改标注
+ok 226 - Escape 结束绘制并释放捕获，后续移动不会继续修改标注
+  ---
+  duration_ms: 2.4633
+  type: 'test'
+  ...
+# Subtest: Escape 结束移动后不会因选中项已清空而抛异常
+ok 227 - Escape 结束移动后不会因选中项已清空而抛异常
+  ---
+  duration_ms: 4.5
+  type: 'test'
+  ...
+# Subtest: Escape 结束缩放后不会因选中项已清空而抛异常
+ok 228 - Escape 结束缩放后不会因选中项已清空而抛异常
+  ---
+  duration_ms: 2.2919
+  type: 'test'
+  ...
+# Subtest: 拖动中清除图形后安全释放捕获，文字编辑 Escape 仍只取消当前输入
+ok 229 - 拖动中清除图形后安全释放捕获，文字编辑 Escape 仍只取消当前输入
+  ---
+  duration_ms: 2.6048
+  type: 'test'
+  ...
+# Subtest: 旧框选取消消息不会打断新一轮框选，完成选区携带新会话
+ok 230 - 旧框选取消消息不会打断新一轮框选，完成选区携带新会话
+  ---
+  duration_ms: 1.9141
+  type: 'test'
+  ...
+# Subtest: 纯选择不清除重做，实际移动才创建撤销记录
+ok 231 - 纯选择不清除重做，实际移动才创建撤销记录
+  ---
+  duration_ms: 3.2731
+  type: 'test'
+  ...
+# Subtest: 拖动一个图形不会重建其他图形节点
+ok 232 - 拖动一个图形不会重建其他图形节点
+  ---
+  duration_ms: 2.3955
+  type: 'test'
+  ...
+# Subtest: 工具反复切换只更新命中区域，保留已有图形和文字节点
+ok 233 - 工具反复切换只更新命中区域，保留已有图形和文字节点
+  ---
+  duration_ms: 6.9261
+  type: 'test'
+  ...
+# Subtest: 文字保存编辑框宽度，重新编辑并仅调整尺寸也能提交
+ok 234 - 文字保存编辑框宽度，重新编辑并仅调整尺寸也能提交
+  ---
+  duration_ms: 3.144
+  type: 'test'
+  ...
+# Subtest: 默认标注与未开启诊断的录制不会留下持续性能探针
+ok 235 - 默认标注与未开启诊断的录制不会留下持续性能探针
+  ---
+  duration_ms: 2.9006
+  type: 'test'
+  ...
+# Subtest: 基线立即应答且不阻塞 BEGIN，短基线报告实际时长并标记样本不足
+ok 236 - 基线立即应答且不阻塞 BEGIN，短基线报告实际时长并标记样本不足
+  ---
+  duration_ms: 2.1233
+  type: 'test'
+  ...
+# Subtest: 没有录制前样本时基线为 null，录制报告调度节拍、长任务与 WebGL 丢失事件
+ok 237 - 没有录制前样本时基线为 null，录制报告调度节拍、长任务与 WebGL 丢失事件
+  ---
+  duration_ms: 2.6516
+  type: 'test'
+  ...
+# Subtest: 隐藏标签拆分采样且停止 RAF，返回前台不把隐藏停顿计入节拍
+ok 238 - 隐藏标签拆分采样且停止 RAF，返回前台不把隐藏停顿计入节拍
+  ---
+  duration_ms: 2.0712
+  type: 'test'
+  ...
+# Subtest: END 立即应答，恢复采样两秒后清理全部探针且重复 END 不重启
+ok 239 - END 立即应答，恢复采样两秒后清理全部探针且重复 END 不重启
+  ---
+  duration_ms: 1.9381
+  type: 'test'
+  ...
+# Subtest: 新基线会接替旧恢复探针，旧 END 不得中断新会话诊断
+ok 240 - 新基线会接替旧恢复探针，旧 END 不得中断新会话诊断
+  ---
+  duration_ms: 1.8818
+  type: 'test'
+  ...
+# Subtest: 未支持长任务 API 时明确报告 null，独立基线一秒后停止
+ok 241 - 未支持长任务 API 时明确报告 null，独立基线一秒后停止
+  ---
+  duration_ms: 1.2428
+  type: 'test'
+  ...
+# Subtest: 数据库打开挂起超时后可重连，迟到成功只关闭旧连接
+ok 242 - 数据库打开挂起超时后可重连，迟到成功只关闭旧连接
+  ---
+  duration_ms: 39.6149
+  type: 'test'
+  ...
+# Subtest: 旧数据库的关闭通知不清除新连接
+ok 243 - 旧数据库的关闭通知不清除新连接
+  ---
+  duration_ms: 8.0953
+  type: 'test'
+  ...
+# Subtest: 取消一个等待者不会取消共用数据库连接
+ok 244 - 取消一个等待者不会取消共用数据库连接
+  ---
+  duration_ms: 14.0583
+  type: 'test'
+  ...
+# Subtest: 事务创建时发现连接关闭才重连，已启动的失败写入绝不重放
+ok 245 - 事务创建时发现连接关闭才重连，已启动的失败写入绝不重放
+  ---
+  duration_ms: 8.9457
+  type: 'test'
+  ...
+# Subtest: 超时打开请求迟到升级会被中止，不占用新一代连接
+ok 246 - 超时打开请求迟到升级会被中止，不占用新一代连接
+  ---
+  duration_ms: 30.3456
+  type: 'test'
+  ...
+# Subtest: 复合索引分页只读一页加一个探测项，同时间记录不会漏项或重复
+ok 247 - 复合索引分页只读一页加一个探测项，同时间记录不会漏项或重复
+  ---
+  duration_ms: 12.0133
+  type: 'test'
+  ...
+# Subtest: 侧栏最近三条仅读取四条，页大小有硬上限
+ok 248 - 侧栏最近三条仅读取四条，页大小有硬上限
+  ---
+  duration_ms: 7.5145
+  type: 'test'
+  ...
+# Subtest: 存储首次初始化失败后下一次操作可以重新打开
+ok 249 - 存储首次初始化失败后下一次操作可以重新打开
+  ---
+  duration_ms: 28.231
+  type: 'test'
+  ...
+# Subtest: 文件导出按片段顺序分批读取，不使用全量 getAll
+ok 250 - 文件导出按片段顺序分批读取，不使用全量 getAll
+  ---
+  duration_ms: 16.3687
+  type: 'test'
+  ...
+# Subtest: 导出尊重文件写入背压，写入失败后不继续读取下一批
+ok 251 - 导出尊重文件写入背压，写入失败后不继续读取下一批
+  ---
+  duration_ms: 10.3659
+  type: 'test'
+  ...
+# Subtest: Blob 回退保留片段顺序与类型
+ok 252 - Blob 回退保留片段顺序与类型
+  ---
+  duration_ms: 11.3916
+  type: 'test'
+  ...
+# Subtest: 没有已保存片段时导出明确报错
+ok 253 - 没有已保存片段时导出明确报错
+  ---
+  duration_ms: 11.6562
+  type: 'test'
+  ...
+# Subtest: 取消分段读取会停止后续文件写入
+ok 254 - 取消分段读取会停止后续文件写入
+  ---
+  duration_ms: 12.8317
+  type: 'test'
+  ...
+# Subtest: 元数据补丁在同一个读写事务中合并，保留已保存的视频字段
+ok 255 - 元数据补丁在同一个读写事务中合并，保留已保存的视频字段
+  ---
+  duration_ms: 6.8822
+  type: 'test'
+  ...
+# Subtest: 不存在的录制应用补丁不会重新创建空记录
+ok 256 - 不存在的录制应用补丁不会重新创建空记录
+  ---
+  duration_ms: 7.2951
+  type: 'test'
+  ...
+# Subtest: 分批读取期间后续片段消失，不把不完整文件当作成功
+ok 257 - 分批读取期间后续片段消失，不把不完整文件当作成功
+  ---
+  duration_ms: 13.9599
+  type: 'test'
+  ...
+# Subtest: 中间片段缺号时导出失败，不能只比较是否有数据
+ok 258 - 中间片段缺号时导出失败，不能只比较是否有数据
+  ---
+  duration_ms: 11.2235
+  type: 'test'
+  ...
+# Subtest: 导出期间源记录改变，禁止报告成功
+ok 259 - 导出期间源记录改变，禁止报告成功
+  ---
+  duration_ms: 12.6461
+  type: 'test'
+  ...
+# Subtest: 等待中的只读事务可以取消并主动abort，不等磁盘回调
+ok 260 - 等待中的只读事务可以取消并主动abort，不等磁盘回调
+  ---
+  duration_ms: 10.1203
+  type: 'test'
+  ...
+# Subtest: 只读事务和文件写入分别有空闲超时，不再永远等待
+ok 261 - 只读事务和文件写入分别有空闲超时，不再永远等待
+  ---
+  duration_ms: 72.5496
+  type: 'test'
+  ...
+# Subtest: 桌面开始先领取全局会话，关闭来源声音后不会继续录入来源音轨
+ok 262 - 桌面开始先领取全局会话，关闭来源声音后不会继续录入来源音轨
+  ---
+  duration_ms: 41.1943
+  type: 'test'
+  ...
+# Subtest: 等待全局会话时可以取消，迟到的授权不会再开始录制
+ok 263 - 等待全局会话时可以取消，迟到的授权不会再开始录制
+  ---
+  duration_ms: 17.5331
+  type: 'test'
+  ...
+# Subtest: 连接画面阶段取消会释放会话、恢复选择入口且不显示错误
+ok 264 - 连接画面阶段取消会释放会话、恢复选择入口且不显示错误
+  ---
+  duration_ms: 7.8661
+  type: 'test'
+  ...
+# Subtest: 来源未共享声音时明确要求重选或关闭声音，不能悄悄无声开始
+ok 265 - 来源未共享声音时明确要求重选或关闭声音，不能悄悄无声开始
+  ---
+  duration_ms: 10.7201
+  type: 'test'
+  ...
+# Subtest: 取消重选来源会保留原预览，中断计时使用已保存时长
+ok 266 - 取消重选来源会保留原预览，中断计时使用已保存时长
+  ---
+  duration_ms: 9.118
+  type: 'test'
+  ...
+# Subtest: 桌面移除自动导出，旧开启设置不会进入新录制，完成后可回看录制
+ok 267 - 桌面移除自动导出，旧开启设置不会进入新录制，完成后可回看录制
+  ---
+  duration_ms: 31.7169
+  type: 'test'
+  ...
+# Subtest: 桌面导出消息不改变主录制状态，saving 状态仍能直接强制停止
+ok 268 - 桌面导出消息不改变主录制状态，saving 状态仍能直接强制停止
+  ---
+  duration_ms: 30.6903
+  type: 'test'
+  ...
+# Subtest: 预览申请被拒绝时立即停止返回的来源，不留下未受控采集
+ok 269 - 预览申请被拒绝时立即停止返回的来源，不留下未受控采集
+  ---
+  duration_ms: 6.0918
+  type: 'test'
+  ...
+# Subtest: 释放来源和浏览器停止共享都会释放预览锁，离页也会释放
+ok 270 - 释放来源和浏览器停止共享都会释放预览锁，离页也会释放
+  ---
+  duration_ms: 18.4969
+  type: 'test'
+  ...
+# Subtest: 桌面格式仍按字段同步，MP4 传给实际录制选项
+ok 271 - 桌面格式仍按字段同步，MP4 传给实际录制选项
+  ---
+  duration_ms: 14.4447
+  type: 'test'
+  ...
+# Subtest: 手动导出状态仍可查询更新进度和取消，不影响已保存录制入口
+ok 272 - 手动导出状态仍可查询更新进度和取消，不影响已保存录制入口
+  ---
+  duration_ms: 10.6872
+  type: 'test'
+  ...
+# Subtest: 桌面STATUS仅响应后台目标标签，返回同一文档token及当前预览会话
+ok 273 - 桌面STATUS仅响应后台目标标签，返回同一文档token及当前预览会话
+  ---
+  duration_ms: 6.0396
+  type: 'test'
+  ...
+# Subtest: 桌面STATUS在新准备期间返回新session，即使Recorder仍保留上次终态
+ok 274 - 桌面STATUS在新准备期间返回新session，即使Recorder仍保留上次终态
+  ---
+  duration_ms: 7.7961
+  type: 'test'
+  ...
+# Subtest: 桌面离页后STATUS明确closed，不将旧页面继续当作活跃来源
+ok 275 - 桌面离页后STATUS明确closed，不将旧页面继续当作活跃来源
+  ---
+  duration_ms: 13.2884
+  type: 'test'
+  ...
+# Subtest: 桌面计时仅在可见录制中保持一个秒级任务，暂停、空闲及隐藏均停止
+ok 276 - 桌面计时仅在可见录制中保持一个秒级任务，暂停、空闲及隐藏均停止
+  ---
+  duration_ms: 8.1641
+  type: 'test'
+  ...
+# Subtest: 桌面离页清除录制计时，迟到的可见性与状态事件不能重新创建任务
+ok 277 - 桌面离页清除录制计时，迟到的可见性与状态事件不能重新创建任务
+  ---
+  duration_ms: 4.9631
+  type: 'test'
+  ...
+# Subtest: 框选支持从右下往左上拖动，且不越出画面
+ok 278 - 框选支持从右下往左上拖动，且不越出画面
+  ---
+  duration_ms: 3.2858
+  type: 'test'
+  ...
+# Subtest: 高 DPI 录制的裁切像素随视频分辨率缩放
+ok 279 - 高 DPI 录制的裁切像素随视频分辨率缩放
+  ---
+  duration_ms: 0.5321
+  type: 'test'
+  ...
+# Subtest: 边缘裁切不越界，输出保持偶数尺寸并且不放大
+ok 280 - 边缘裁切不越界，输出保持偶数尺寸并且不放大
+  ---
+  duration_ms: 0.5553
+  type: 'test'
+  ...
+# Subtest: 计时排除暂停时间并支持超过一小时
+ok 281 - 计时排除暂停时间并支持超过一小时
+  ---
+  duration_ms: 2.2117
+  type: 'test'
+  ...
+# Subtest: 构造素材连接管理器不打开数据库，多个首次读取共用一个打开请求
+ok 282 - 构造素材连接管理器不打开数据库，多个首次读取共用一个打开请求
+  ---
+  duration_ms: 6.2436
+  type: 'test'
+  ...
+# Subtest: 素材打开挂起后可重连，迟到成功关闭自身，旧关闭回调不清掉新连接
+ok 283 - 素材打开挂起后可重连，迟到成功关闭自身，旧关闭回调不清掉新连接
+  ---
+  duration_ms: 28.9221
+  type: 'test'
+  ...
+# Subtest: 关闭连接在创建事务前重连一次，已失败写入不重放
+ok 284 - 关闭连接在创建事务前重连一次，已失败写入不重放
+  ---
+  duration_ms: 5.0366
+  type: 'test'
+  ...
+# Subtest: 取消一个素材读取者不取消其他打开等待者
+ok 285 - 取消一个素材读取者不取消其他打开等待者
+  ---
+  duration_ms: 1.9077
+  type: 'test'
+  ...
+# Subtest: 图片导入先限制像素并保持比例，以PNG保留透明通道，释放解码位图
+ok 286 - 图片导入先限制像素并保持比例，以PNG保留透明通道，释放解码位图
+  ---
+  duration_ms: 9.4412
+  type: 'test'
+  ...
+# Subtest: 大图片消息改用WebP压缩，仍然超出预算时明确失败并释放资源
+ok 287 - 大图片消息改用WebP压缩，仍然超出预算时明确失败并释放资源
+  ---
+  duration_ms: 6.1507
+  type: 'test'
+  ...
+# Subtest: 非法类型、空文件及超大文件在解码前拒绝
+ok 288 - 非法类型、空文件及超大文件在解码前拒绝
+  ---
+  duration_ms: 0.6175
+  type: 'test'
+  ...
+# Subtest: 备选图片仅解码一次，同时生成受限原图与192像素缩略图，不预先转成大型消息字符串
+ok 289 - 备选图片仅解码一次，同时生成受限原图与192像素缩略图，不预先转成大型消息字符串
+  ---
+  duration_ms: 4.4723
+  type: 'test'
+  ...
+# Subtest: 压缩小而像素巨大的图片在解码前拒绝，损坏文件头也不进入解码器
+ok 290 - 压缩小而像素巨大的图片在解码前拒绝，损坏文件头也不进入解码器
+  ---
+  duration_ms: 4.8515
+  type: 'test'
+  ...
+# Subtest: 解码挂起时取消立即返回，迟到位图关闭，未结束前不并行启动解码
+ok 291 - 解码挂起时取消立即返回，迟到位图关闭，未结束前不并行启动解码
+  ---
+  duration_ms: 13.1214
+  type: 'test'
+  ...
+# Subtest: 解码和编码分别有等待超时，迟到解码关闭，编码失败释放画布
+ok 292 - 解码和编码分别有等待超时，迟到解码关闭，编码失败释放画布
+  ---
+  duration_ms: 69.5184
+  type: 'test'
+  ...
+# Subtest: FileReader取消会终止正在进行的读取并移除事件回调
+ok 293 - FileReader取消会终止正在进行的读取并移除事件回调
+  ---
+  duration_ms: 1.4894
+  type: 'test'
+  ...
+# Subtest: 解码器忽略缩小选项时拒绝继续，不创建原尺寸Canvas并关闭位图
+ok 294 - 解码器忽略缩小选项时拒绝继续，不创建原尺寸Canvas并关闭位图
+  ---
+  duration_ms: 0.9583
+  type: 'test'
+  ...
+# Subtest: 编码超时的原生任务结束前不叠加下一次图片处理，迟到回调结束后可重试
+ok 295 - 编码超时的原生任务结束前不叠加下一次图片处理，迟到回调结束后可重试
+  ---
+  duration_ms: 32.2682
+  type: 'test'
+  ...
+# Subtest: JPEG普通与EXIF旋转尺寸在解码前读出，畸形段长不会越界
+ok 296 - JPEG普通与EXIF旋转尺寸在解码前读出，畸形段长不会越界
+  ---
+  duration_ms: 6.7494
+  type: 'test'
+  ...
+# Subtest: WebP有损、无损、扩展头和EXIF均识别像素尺寸
+ok 297 - WebP有损、无损、扩展头和EXIF均识别像素尺寸
+  ---
+  duration_ms: 6.3341
+  type: 'test'
+  ...
+# Subtest: JPEG和WebP巨幅尺寸拒绝，无需进入原生解码
+ok 298 - JPEG和WebP巨幅尺寸拒绝，无需进入原生解码
+  ---
+  duration_ms: 1.8955
+  type: 'test'
+  ...
+# Subtest: 素材使用独立数据库，列表只读小缩略图元数据，不读取全部原图
+ok 299 - 素材使用独立数据库，列表只读小缩略图元数据，不读取全部原图
+  ---
+  duration_ms: 39.5284
+  type: 'test'
+  ...
+# Subtest: 多个导入竞争最后名额时，数量检查和图片写入处于同一读写事务
+ok 300 - 多个导入竞争最后名额时，数量检查和图片写入处于同一读写事务
+  ---
+  duration_ms: 8.4452
+  type: 'test'
+  ...
+# Subtest: 合计存储上限检查拒绝超额素材，不占用图片存储
+ok 301 - 合计存储上限检查拒绝超额素材，不占用图片存储
+  ---
+  duration_ms: 5.7174
+  type: 'test'
+  ...
+# Subtest: 图片写入失败回滚同一事务中的元数据，恢复后可重试；删除同时释放两类记录
+ok 302 - 图片写入失败回滚同一事务中的元数据，恢复后可重试；删除同时释放两类记录
+  ---
+  duration_ms: 16.5981
+  type: 'test'
+  ...
+# Subtest: 打开素材库失败不污染后续打开，非法图片或过大缩略图在写入前拒绝
+ok 303 - 打开素材库失败不污染后续打开，非法图片或过大缩略图在写入前拒绝
+  ---
+  duration_ms: 7.8823
+  type: 'test'
+  ...
+# Subtest: 大视频不会自动载入完整 Blob，直接保存调用分段写文件入口
+ok 304 - 大视频不会自动载入完整 Blob，直接保存调用分段写文件入口
+  ---
+  duration_ms: 210.6929
+  type: 'test'
+  ...
+# Subtest: 录制库每页20条，载入更多仅取下一页，重复点击不叠加任务
+ok 305 - 录制库每页20条，载入更多仅取下一页，重复点击不叠加任务
+  ---
+  duration_ms: 36.9371
+  type: 'test'
+  ...
+# Subtest: 分页读取失败保留已显示卡片，可重试；刷新保留已展开范围并移除已删除项
+ok 306 - 分页读取失败保留已显示卡片，可重试；刷新保留已展开范围并移除已删除项
+  ---
+  duration_ms: 25.9377
+  type: 'test'
+  ...
+# Subtest: 载入更多期间有新录制通知，丢弃旧页后按已展开范围重查且不重复
+ok 307 - 载入更多期间有新录制通知，丢弃旧页后按已展开范围重查且不重复
+  ---
+  duration_ms: 21.3011
+  type: 'test'
+  ...
+# Subtest: 隐藏取消查询后立刻切回，旧查询结束时自动补查而不留在读取中
+ok 308 - 隐藏取消查询后立刻切回，旧查询结束时自动补查而不留在读取中
+  ---
+  duration_ms: 18.5236
+  type: 'test'
+  ...
+# Subtest: 删除前重新查询活动录制，不能凭页面打开时的旧状态删除
+ok 309 - 删除前重新查询活动录制，不能凭页面打开时的旧状态删除
+  ---
+  duration_ms: 17.0344
+  type: 'test'
+  ...
+# Subtest: 确认删除后再次核对状态，避免确认期间录制状态发生变化
+ok 310 - 确认删除后再次核对状态，避免确认期间录制状态发生变化
+  ---
+  duration_ms: 8.2369
+  type: 'test'
+  ...
+# Subtest: 录制控制连接失败时禁止删除
+ok 311 - 录制控制连接失败时禁止删除
+  ---
+  duration_ms: 11.8739
+  type: 'test'
+  ...
+# Subtest: 旧录制缺少诊断时明确显示未采集，不自动创建诊断下载
+ok 312 - 旧录制缺少诊断时明确显示未采集，不自动创建诊断下载
+  ---
+  duration_ms: 15.024
+  type: 'test'
+  ...
+# Subtest: 诊断区区分轨道设置和页面节拍，显示 Canvas、写入队列与各阶段样本
+ok 313 - 诊断区区分轨道设置和页面节拍，显示 Canvas、写入队列与各阶段样本
+  ---
+  duration_ms: 16.2172
+  type: 'test'
+  ...
+# Subtest: 诊断 JSON 只在手动点击时生成，重复下载和离页释放对象 URL
+ok 314 - 诊断 JSON 只在手动点击时生成，重复下载和离页释放对象 URL
+  ---
+  duration_ms: 11.4228
+  type: 'test'
+  ...
+# Subtest: PERF_UPDATED 仅重读诊断详情，EXPORT_STATE 动态更新且不重载视频
+ok 315 - PERF_UPDATED 仅重读诊断详情，EXPORT_STATE 动态更新且不重载视频
+  ---
+  duration_ms: 15.1078
+  type: 'test'
+  ...
+# Subtest: 自动保存失败可重试，迟到的请求响应不会覆盖较新的下载状态
+ok 316 - 自动保存失败可重试，迟到的请求响应不会覆盖较新的下载状态
+  ---
+  duration_ms: 12.8762
+  type: 'test'
+  ...
+# Subtest: 重试失败保留错误与重试入口，不把失败显示为排队成功
+ok 317 - 重试失败保留错误与重试入口，不把失败显示为排队成功
+  ---
+  duration_ms: 10.664
+  type: 'test'
+  ...
+# Subtest: 导出中的视频保护删除，但允许预览
+ok 318 - 导出中的视频保护删除，但允许预览
+  ---
+  duration_ms: 13.7646
+  type: 'test'
+  ...
+# Subtest: 超过32MiB手动走文件预览，释放播放器和缓存后可再次载入
+ok 319 - 超过32MiB手动走文件预览，释放播放器和缓存后可再次载入
+  ---
+  duration_ms: 19.1398
+  type: 'test'
+  ...
+# Subtest: 载入预览可以取消，结束读取后恢复入口并保持无错误，可再次尝试
+ok 320 - 载入预览可以取消，结束读取后恢复入口并保持无错误，可再次尝试
+  ---
+  duration_ms: 12.63
+  type: 'test'
+  ...
+# Subtest: 页面关闭后迟到返回的文件资源也会被释放，不挂到已关闭的播放器
+ok 321 - 页面关闭后迟到返回的文件资源也会被释放，不挂到已关闭的播放器
+  ---
+  duration_ms: 12.8485
+  type: 'test'
+  ...
+# Subtest: 缓存准备失败保留重新载入和直接保存入口，不会调用大Blob回退
+ok 322 - 缓存准备失败保留重新载入和直接保存入口，不会调用大Blob回退
+  ---
+  duration_ms: 13.1879
+  type: 'test'
+  ...
+# Subtest: 删除确认期间开始自动导出，会被第二次检查阻止
+ok 323 - 删除确认期间开始自动导出，会被第二次检查阻止
+  ---
+  duration_ms: 16.6605
+  type: 'test'
+  ...
+# Subtest: 分段保存持有全局读取锁，确认后的删除由后台原子拒绝，完成后释放
+ok 324 - 分段保存持有全局读取锁，确认后的删除由后台原子拒绝，完成后释放
+  ---
+  duration_ms: 24.8487
+  type: 'test'
+  ...
+# Subtest: 读取失败及页面关闭都会释放读取锁，关闭页面中止剩余读取
+ok 325 - 读取失败及页面关闭都会释放读取锁，关闭页面中止剩余读取
+  ---
+  duration_ms: 24.7078
+  type: 'test'
+  ...
+# Subtest: 续约失败中止读取，最后关闭文件期间失败也不会显示保存成功
+ok 326 - 续约失败中止读取，最后关闭文件期间失败也不会显示保存成功
+  ---
+  duration_ms: 20.7672
+  type: 'test'
+  ...
+# Subtest: 录制库详情初始化补查导出结果，列表收到消息会更新对应卡片
+ok 327 - 录制库详情初始化补查导出结果，列表收到消息会更新对应卡片
+  ---
+  duration_ms: 11.218
+  type: 'test'
+  ...
+# Subtest: 录制库列表实时更新导出状态，不需要刷新整页
+ok 328 - 录制库列表实时更新导出状态，不需要刷新整页
+  ---
+  duration_ms: 8.958
+  type: 'test'
+  ...
+# Subtest: 网页录制结束后列表重读库数据并解锁删除，复用原卡片
+ok 329 - 网页录制结束后列表重读库数据并解锁删除，复用原卡片
+  ---
+  duration_ms: 9.9904
+  type: 'test'
+  ...
+# Subtest: 桌面录制接受后的 session 变化与恢复通知更新列表，同状态进度不重复读取
+ok 330 - 桌面录制接受后的 session 变化与恢复通知更新列表，同状态进度不重复读取
+  ---
+  duration_ms: 10.9101
+  type: 'test'
+  ...
+# Subtest: 乱序刷新不回写旧卡片数据，新增录制与焦点补漏只依据当前库内容
+ok 331 - 乱序刷新不回写旧卡片数据，新增录制与焦点补漏只依据当前库内容
+  ---
+  duration_ms: 13.1981
+  type: 'test'
+  ...
+# Subtest: 详情页忽略列表更新信号，保持播放位置与预览 Blob
+ok 332 - 详情页忽略列表更新信号，保持播放位置与预览 Blob
+  ---
+  duration_ms: 15.1283
+  type: 'test'
+  ...
+# Subtest: 实际 MP4 原片使用 MP4 下载后缀和文件类型，不显示重复转换入口
+ok 333 - 实际 MP4 原片使用 MP4 下载后缀和文件类型，不显示重复转换入口
+  ---
+  duration_ms: 15.2896
+  type: 'test'
+  ...
+# Subtest: WebM 转换通过后台 MP4 任务执行，展示进度和取消且保留原片下载格式
+ok 334 - WebM 转换通过后台 MP4 任务执行，展示进度和取消且保留原片下载格式
+  ---
+  duration_ms: 15.3544
+  type: 'test'
+  ...
+# Subtest: 预览等待读取租约时可取消，迟到授权会再次释放而不读视频
+ok 335 - 预览等待读取租约时可取消，迟到授权会再次释放而不读视频
+  ---
+  duration_ms: 12.1775
+  type: 'test'
+  ...
+# Subtest: 读取租约授权超时可重试，迟到授权不会留下租约
+ok 336 - 读取租约授权超时可重试，迟到授权不会留下租约
+  ---
+  duration_ms: 7.5128
+  type: 'test'
+  ...
+# Subtest: 读取占用续约挂起时超时中断读取，恢复载入按钮且不挂载旧视频
+ok 337 - 读取占用续约挂起时超时中断读取，恢复载入按钮且不挂载旧视频
+  ---
+  duration_ms: 8.5557
+  type: 'test'
+  ...
+# Subtest: 释放读取占用无响应也有超时，已生成的预览不会永久停在加载中
+ok 338 - 释放读取占用无响应也有超时，已生成的预览不会永久停在加载中
+  ---
+  duration_ms: 10.6742
+  type: 'test'
+  ...
+# Subtest: 预览读取完成后正在等待读取占用释放时，取消不继续等待释放响应
+ok 339 - 预览读取完成后正在等待读取占用释放时，取消不继续等待释放响应
+  ---
+  duration_ms: 3021.7224
+  type: 'test'
+  ...
+# Subtest: 开始其他录制后已载入回看释放，结束后恢复入口且不自动播放
+ok 340 - 开始其他录制后已载入回看释放，结束后恢复入口且不自动播放
+  ---
+  duration_ms: 10.7441
+  type: 'test'
+  ...
+# Subtest: 录制准备尚未有视频id时也从协调器识别占用，原生播放控件不能绕过
+ok 341 - 录制准备尚未有视频id时也从协调器识别占用，原生播放控件不能绕过
+  ---
+  duration_ms: 14.4505
+  type: 'test'
+  ...
+# Subtest: 迟到旧录制消息只唤醒状态核查，不释放当前回看或锁住按钮
+ok 342 - 迟到旧录制消息只唤醒状态核查，不释放当前回看或锁住按钮
+  ---
+  duration_ms: 9.7844
+  type: 'test'
+  ...
+# Subtest: 另一个录制库窗口开始使用预览时本页释放资源，离页关闭广播通道
+ok 343 - 另一个录制库窗口开始使用预览时本页释放资源，离页关闭广播通道
+  ---
+  duration_ms: 9.7085
+  type: 'test'
+  ...
+# Subtest: 直接保存有取消入口，写入挂起时可返回；迟到写入结束前禁止叠加保存
+ok 344 - 直接保存有取消入口，写入挂起时可返回；迟到写入结束前禁止叠加保存
+  ---
+  duration_ms: 1015.2912
+  type: 'test'
+  ...
+# Subtest: 录制开始会取消正在写入的本地保存，不删除原始录制
+ok 345 - 录制开始会取消正在写入的本地保存，不删除原始录制
+  ---
+  duration_ms: 1019.3366
+  type: 'test'
+  ...
+# Subtest: 准备多张图片只处理和保存素材，不立即插入网页；列表只创建小缩略图 URL
+ok 346 - 准备多张图片只处理和保存素材，不立即插入网页；列表只创建小缩略图 URL
+  ---
+  duration_ms: 30.7944
+  type: 'test'
+  ...
+# Subtest: 收起素材区不查询或创建缩略图，展开才加载，收起释放缩略图
+ok 347 - 收起素材区不查询或创建缩略图，展开才加载，收起释放缩略图
+  ---
+  duration_ms: 9.4114
+  type: 'test'
+  ...
+# Subtest: 点击备选图仅读取所选的已处理 Blob，并保留点击时的网页目标
+ok 348 - 点击备选图仅读取所选的已处理 Blob，并保留点击时的网页目标
+  ---
+  duration_ms: 17.6991
+  type: 'test'
+  ...
+# Subtest: 移除备选素材删除本机副本并释放缩略图，不发送网页删除命令；关闭时释放剩余 URL 和通道
+ok 349 - 移除备选素材删除本机副本并释放缩略图，不发送网页删除命令；关闭时释放剩余 URL 和通道
+  ---
+  duration_ms: 7.1511
+  type: 'test'
+  ...
+# Subtest: 批量导入中非法图片不挡住其他图片，单次选择超过剩余数量不全部解码
+ok 350 - 批量导入中非法图片不挡住其他图片，单次选择超过剩余数量不全部解码
+  ---
+  duration_ms: 13.9844
+  type: 'test'
+  ...
+# Subtest: 准备过程中录制状态变化时不保存迟到图片，已结束的面板也不插图
+ok 351 - 准备过程中录制状态变化时不保存迟到图片，已结束的面板也不插图
+  ---
+  duration_ms: 13.2396
+  type: 'test'
+  ...
+# Subtest: 素材读取失败恢复按钮；加载失败可重试且不把录制主流程设为忙碌
+ok 352 - 素材读取失败恢复按钮；加载失败可重试且不把录制主流程设为忙碌
+  ---
+  duration_ms: 11.0339
+  type: 'test'
+  ...
+# Subtest: 图片处理超时停止整批，不写入失败图片
+ok 353 - 图片处理超时停止整批，不写入失败图片
+  ---
+  duration_ms: 20.7158
+  type: 'test'
+  ...
+# Subtest: MP4必须实际支持H264/AAC，不用改后缀或其它容器冒充
+ok 354 - MP4必须实际支持H264/AAC，不用改后缀或其它容器冒充
+  ---
+  duration_ms: 3.2655
+  type: 'test'
+  ...
+# Subtest: 容器和后缀根据实际MIME确定，缺少API不误判支持
+ok 355 - 容器和后缀根据实际MIME确定，缺少API不误判支持
+  ---
+  duration_ms: 3.503
+  type: 'test'
+  ...
+# Subtest: MP4编码onstop后才发生的写盘失败仍拒绝，不生成下载URL
+ok 356 - MP4编码onstop后才发生的写盘失败仍拒绝，不生成下载URL
+  ---
+  duration_ms: 24.1902
+  type: 'test'
+  ...
+# Subtest: MP4最终文件提交失败不会返回成功
+ok 357 - MP4最终文件提交失败不会返回成功
+  ---
+  duration_ms: 5.7705
+  type: 'test'
+  ...
+# Subtest: MP4没有任何有效编码数据时失败并清理临时文件
+ok 358 - MP4没有任何有效编码数据时失败并清理临时文件
+  ---
+  duration_ms: 2.9315
+  type: 'test'
+  ...
+# Subtest: 来源尚未播放结束而编码器自行停止时拒绝不完整MP4
+ok 359 - 来源尚未播放结束而编码器自行停止时拒绝不完整MP4
+  ---
+  duration_ms: 11.2107
+  type: 'test'
+  ...
+# Subtest: 编码进行中取消会停止媒体及删除临时文件
+ok 360 - 编码进行中取消会停止媒体及删除临时文件
+  ---
+  duration_ms: 3.8993
+  type: 'test'
+  ...
+# Subtest: 编码完成但最终文件正在close时取消，不能返回成功资源
+ok 361 - 编码完成但最终文件正在close时取消，不能返回成功资源
+  ---
+  duration_ms: 4.283
+  type: 'test'
+  ...
+# Subtest: 最终文件正在getFile时取消，不能返回成功资源
+ok 362 - 最终文件正在getFile时取消，不能返回成功资源
+  ---
+  duration_ms: 4.0434
+  type: 'test'
+  ...
+# Subtest: 读取来源期间取消无需等待loadeddata，及时释放视频元素
+ok 363 - 读取来源期间取消无需等待loadeddata，及时释放视频元素
+  ---
+  duration_ms: 2.2632
+  type: 'test'
+  ...
+# Subtest: OPFS来源目录等待期间取消无需等待存储返回，迟到结果不启动转换
+ok 364 - OPFS来源目录等待期间取消无需等待存储返回，迟到结果不启动转换
+  ---
+  duration_ms: 4.3974
+  type: 'test'
+  ...
+# Subtest: 打开OPFS writer期间取消及时返回，迟到writer仍被abort清理
+ok 365 - 打开OPFS writer期间取消及时返回，迟到writer仍被abort清理
+  ---
+  duration_ms: 22.5548
+  type: 'test'
+  ...
+# Subtest: 播放被暂停且长期无进度时明确失败，不输出静止的完整MP4
+ok 366 - 播放被暂停且长期无进度时明确失败，不输出静止的完整MP4
+  ---
+  duration_ms: 6.2435
+  type: 'test'
+  ...
+# Subtest: 成功MP4只返回真实ftyp容器，cleanup幂等释放资源
+ok 367 - 成功MP4只返回真实ftyp容器，cleanup幂等释放资源
+  ---
+  duration_ms: 4.0833
+  type: 'test'
+  ...
+# Subtest: MP4单次写入卡住时不用等播放结束才超时，原生迟到写入结束后再删缓存
+ok 368 - MP4单次写入卡住时不用等播放结束才超时，原生迟到写入结束后再删缓存
+  ---
+  duration_ms: 39.5473
+  type: 'test'
+  ...
+# Subtest: MP4兼容内存结果达到预算即停止，不能累计整个长视频
+ok 369 - MP4兼容内存结果达到预算即停止，不能累计整个长视频
+  ---
+  duration_ms: 3.8606
+  type: 'test'
+  ...
+# Subtest: 缺少文件暂存时大源视频在解码开始前拒绝转换
+ok 370 - 缺少文件暂存时大源视频在解码开始前拒绝转换
+  ---
+  duration_ms: 0.9694
+  type: 'test'
+  ...
+# Subtest: 侧栏音乐收起时不读数据库，开始录制仅读偏好而不提前载入音频
+ok 371 - 侧栏音乐收起时不读数据库，开始录制仅读偏好而不提前载入音频
+  ---
+  duration_ms: 28.4709
+  type: 'test'
+  ...
+# Subtest: 展开和选择音乐只读元数据，点击试听才读音频；收起释放URL与播放器
+ok 372 - 展开和选择音乐只读元数据，点击试听才读音频；收起释放URL与播放器
+  ---
+  duration_ms: 16.581
+  type: 'test'
+  ...
+# Subtest: 试听读取期间收起后，迟到文件不创建URL、不开始播放
+ok 373 - 试听读取期间收起后，迟到文件不创建URL、不开始播放
+  ---
+  duration_ms: 32.834
+  type: 'test'
+  ...
+# Subtest: 隐藏侧栏释放试听，恢复可见不会自动重新读取音频
+ok 374 - 隐藏侧栏释放试听，恢复可见不会自动重新读取音频
+  ---
+  duration_ms: 14.8945
+  type: 'test'
+  ...
+# Subtest: 收起时广播仅标记更新，录制前读取最新音乐偏好
+ok 375 - 收起时广播仅标记更新，录制前读取最新音乐偏好
+  ---
+  duration_ms: 12.5926
+  type: 'test'
+  ...
+# Subtest: 展开读取尚未完成时收起再展开，旧结果隔离并补查一次
+ok 376 - 展开读取尚未完成时收起再展开，旧结果隔离并补查一次
+  ---
+  duration_ms: 9.8592
+  type: 'test'
+  ...
+# Subtest: 音乐配置限制音量与循环类型，文件按扩展名归一 MIME 并在读取前拒绝超大或未知格式
+ok 377 - 音乐配置限制音量与循环类型，文件按扩展名归一 MIME 并在读取前拒绝超大或未知格式
+  ---
+  duration_ms: 80.058
+  type: 'test'
+  ...
+# Subtest: 导入只读取媒体元数据，成功或损坏文件都释放播放器和临时URL
+ok 378 - 导入只读取媒体元数据，成功或损坏文件都释放播放器和临时URL
+  ---
+  duration_ms: 31.0236
+  type: 'test'
+  ...
+# Subtest: 音乐通过一个音量节点分别进入录制总线和监听；调音量不会重复接入音轨
+ok 379 - 音乐通过一个音量节点分别进入录制总线和监听；调音量不会重复接入音轨
+  ---
+  duration_ms: 16.5619
+  type: 'test'
+  ...
+# Subtest: 录制暂停和恢复保持人工暂停意图；从头播放重新定位且结束后不再恢复
+ok 380 - 录制暂停和恢复保持人工暂停意图；从头播放重新定位且结束后不再恢复
+  ---
+  duration_ms: 13.8762
+  type: 'test'
+  ...
+# Subtest: 取消等待中的元数据和迟到的音乐文件，均不遗留媒体元素或URL
+ok 381 - 取消等待中的元数据和迟到的音乐文件，均不遗留媒体元素或URL
+  ---
+  duration_ms: 12.1305
+  type: 'test'
+  ...
+# Subtest: 播放请求晚于停止返回时不重新播放；非法控制值被拒绝
+ok 382 - 播放请求晚于停止返回时不重新播放；非法控制值被拒绝
+  ---
+  duration_ms: 10.6055
+  type: 'test'
+  ...
+# Subtest: 快速暂停继续时旧播放拒绝不取消新的音乐意图，关闭后的拒绝不发布过期错误
+ok 383 - 快速暂停继续时旧播放拒绝不取消新的音乐意图，关闭后的拒绝不发布过期错误
+  ---
+  duration_ms: 10.6161
+  type: 'test'
+  ...
+# Subtest: 真实流取得后才确认 CSS 视口，确认前不向视频管线交流并更新最终裁剪上下文
+ok 384 - 真实流取得后才确认 CSS 视口，确认前不向视频管线交流并更新最终裁剪上下文
+  ---
+  duration_ms: 22.4912
+  type: 'test'
+  ...
+# Subtest: 低负载在首次getUserMedia即限制采集尺寸和20FPS，不先取得大画面
+ok 385 - 低负载在首次getUserMedia即限制采集尺寸和20FPS，不先取得大画面
+  ---
+  duration_ms: 10.1767
+  type: 'test'
+  ...
+# Subtest: 普通画质在首次采集就限制整页尺寸，原始尺寸不偷偷降低清晰度
+ok 386 - 普通画质在首次采集就限制整页尺寸，原始尺寸不偷偷降低清晰度
+  ---
+  duration_ms: 6.9689
+  type: 'test'
+  ...
+# Subtest: CSS 确认失败会停止已获得的来源，不开始录制
+ok 387 - CSS 确认失败会停止已获得的来源，不开始录制
+  ---
+  duration_ms: 10.4722
+  type: 'test'
+  ...
+# Subtest: 等待 CSS 确认时取消会立即停流，迟到成功响应不能继续录制
+ok 388 - 等待 CSS 确认时取消会立即停流，迟到成功响应不能继续录制
+  ---
+  duration_ms: 6.4684
+  type: 'test'
+  ...
+# Subtest: 离屏启动失败把可复制的诊断信息传回后台
+ok 389 - 离屏启动失败把可复制的诊断信息传回后台
+  ---
+  duration_ms: 4.3421
+  type: 'test'
+  ...
+# Subtest: 页面诊断只保留有界指标，不能冒充实际视频帧率
+ok 390 - 页面诊断只保留有界指标，不能冒充实际视频帧率
+  ---
+  duration_ms: 1.8905
+  type: 'test'
+  ...
+# Subtest: 无效诊断被忽略，非有限或负数没有伪造为0
+ok 391 - 无效诊断被忽略，非有限或负数没有伪造为0
+  ---
+  duration_ms: 0.558
+  type: 'test'
+  ...
+# Subtest: 长录制诊断限量保存并保留前后对比
+ok 392 - 长录制诊断限量保存并保留前后对比
+  ---
+  duration_ms: 5.3107
+  type: 'test'
+  ...
+# Subtest: 标注容量提示仅显示当前窗口和网页，不改变开始录制能力
+ok 393 - 标注容量提示仅显示当前窗口和网页，不改变开始录制能力
+  ---
+  duration_ms: 37.2293
+  type: 'test'
+  ...
+# Subtest: 录制进度只更新计时，不重复重建控制区；标题消息不触发连接查询
+ok 394 - 录制进度只更新计时，不重复重建控制区；标题消息不触发连接查询
+  ---
+  duration_ms: 19.0365
+  type: 'test'
+  ...
+# Subtest: 图片可在录制中添加到原网页及框选范围，取消文件选择不发出命令
+ok 395 - 图片可在录制中添加到原网页及框选范围，取消文件选择不发出命令
+  ---
+  duration_ms: 11.9596
+  type: 'test'
+  ...
+# Subtest: 素材可离线提前准备，录制中仅使用已有素材且保留暂停和停止控制
+ok 396 - 素材可离线提前准备，录制中仅使用已有素材且保留暂停和停止控制
+  ---
+  duration_ms: 17.9273
+  type: 'test'
+  ...
+# Subtest: 使用备选图片期间换页或录制结束，不会向新的网页或会话插入旧图片
+ok 397 - 使用备选图片期间换页或录制结束，不会向新的网页或会话插入旧图片
+  ---
+  duration_ms: 26.6657
+  type: 'test'
+  ...
+# Subtest: 空闲、暂停、侧栏隐藏和关闭时没有计时轮询，仅可见录制使用一个秒级计时器
+ok 398 - 空闲、暂停、侧栏隐藏和关闭时没有计时轮询，仅可见录制使用一个秒级计时器
+  ---
+  duration_ms: 7.2759
+  type: 'test'
+  ...
+# Subtest: 自动连接只在用户点击时请求一次权限，拒绝后不在刷新时重复弹窗
+ok 399 - 自动连接只在用户点击时请求一次权限，拒绝后不在刷新时重复弹窗
+  ---
+  duration_ms: 13.8037
+  type: 'test'
+  ...
+# Subtest: 首次未授权优先展示授权引导，旧权限错误不显示成连接失败或准备就绪
+ok 400 - 首次未授权优先展示授权引导，旧权限错误不显示成连接失败或准备就绪
+  ---
+  duration_ms: 12.2202
+  type: 'test'
+  ...
+# Subtest: 授权取消后保留温和说明和再次开启入口，不弹红色错误或自动重复请求
+ok 401 - 授权取消后保留温和说明和再次开启入口，不弹红色错误或自动重复请求
+  ---
+  duration_ms: 13.0604
+  type: 'test'
+  ...
+# Subtest: 授权通过后主动重连清除旧失败，再收起引导并恢复录制入口
+ok 402 - 授权通过后主动重连清除旧失败，再收起引导并恢复录制入口
+  ---
+  duration_ms: 9.28
+  type: 'test'
+  ...
+# Subtest: 手动重连和后台消息的 HOST_ACCESS_REQUIRED 都回到授权引导
+ok 403 - 手动重连和后台消息的 HOST_ACCESS_REQUIRED 都回到授权引导
+  ---
+  duration_ms: 9.7085
+  type: 'test'
+  ...
+# Subtest: 已授权的连接异常、录制授权及本地文件限制仍展示真实错误
+ok 404 - 已授权的连接异常、录制授权及本地文件限制仍展示真实错误
+  ---
+  duration_ms: 17.8866
+  type: 'test'
+  ...
+# Subtest: 侧栏连接响应挂起有超时，重试后按钮和开始录制可以恢复
+ok 405 - 侧栏连接响应挂起有超时，重试后按钮和开始录制可以恢复
+  ---
+  duration_ms: 9.2551
+  type: 'test'
+  ...
+# Subtest: 网页标题与地址未获授权时显示可操作状态，失败和空标签结果不再停留等待连接
+ok 406 - 网页标题与地址未获授权时显示可操作状态，失败和空标签结果不再停留等待连接
+  ---
+  duration_ms: 9.5639
+  type: 'test'
+  ...
+# Subtest: 当前网页待授权时保留明确授权入口，即使已有自动连接标记也不隐藏补救操作
+ok 407 - 当前网页待授权时保留明确授权入口，即使已有自动连接标记也不隐藏补救操作
+  ---
+  duration_ms: 11.4433
+  type: 'test'
+  ...
+# Subtest: 手动获取期间状态事件不能重新启用按钮或重复连接，也不能开始录制
+ok 408 - 手动获取期间状态事件不能重新启用按钮或重复连接，也不能开始录制
+  ---
+  duration_ms: 16.8446
+  type: 'test'
+  ...
+# Subtest: 录制、暂停或保存期间刷新入口不能改变采集目标，暂停和停止继续可用
+ok 409 - 录制、暂停或保存期间刷新入口不能改变采集目标，暂停和停止继续可用
+  ---
+  duration_ms: 14.6959
+  type: 'test'
+  ...
+# Subtest: 侧栏不可见时不因切换网页发起连接，恢复可见后才刷新
+ok 410 - 侧栏不可见时不因切换网页发起连接，恢复可见后才刷新
+  ---
+  duration_ms: 9.9576
+  type: 'test'
+  ...
+# Subtest: 侧栏直接订阅自己窗口的激活事件，不依赖 worker 广播；两条通知不重复查询
+ok 411 - 侧栏直接订阅自己窗口的激活事件，不依赖 worker 广播；两条通知不重复查询
+  ---
+  duration_ms: 7.9612
+  type: 'test'
+  ...
+# Subtest: 侧栏在当前页地址就绪时连接，不等完全载入；忽略后台页和已连接页的音量等无关变化
+ok 412 - 侧栏在当前页地址就绪时连接，不等完全载入；忽略后台页和已连接页的音量等无关变化
+  ---
+  duration_ms: 13.4574
+  type: 'test'
+  ...
+# Subtest: 窗口重新获得焦点能补上遗漏事件，隐藏和关闭侧栏时不查询且释放订阅
+ok 413 - 窗口重新获得焦点能补上遗漏事件，隐藏和关闭侧栏时不查询且释放订阅
+  ---
+  duration_ms: 16.6113
+  type: 'test'
+  ...
+# Subtest: 快速切页时旧连接结果晚到不能把侧栏切回原网页
+ok 414 - 快速切页时旧连接结果晚到不能把侧栏切回原网页
+  ---
+  duration_ms: 26.1951
+  type: 'test'
+  ...
+# Subtest: 后台状态查询挂起时清除侧栏识别中提示，重试后恢复正常
+ok 415 - 后台状态查询挂起时清除侧栏识别中提示，重试后恢复正常
+  ---
+  duration_ms: 17.3965
+  type: 'test'
+  ...
+# Subtest: 选择或处理图片期间换网页、结束录制时，不把图片加到其他页面或已结束录制
+ok 416 - 选择或处理图片期间换网页、结束录制时，不把图片加到其他页面或已结束录制
+  ---
+  duration_ms: 29.0327
+  type: 'test'
+  ...
+# Subtest: 图片读取失败后恢复按钮并显示错误，不影响录制控制
+ok 417 - 图片读取失败后恢复按钮并显示错误，不影响录制控制
+  ---
+  duration_ms: 10.3571
+  type: 'test'
+  ...
+# Subtest: 开始按钮只打开范围选择，选完整网页才直接启动
+ok 418 - 开始按钮只打开范围选择，选完整网页才直接启动
+  ---
+  duration_ms: 9.7558
+  type: 'test'
+  ...
+# Subtest: 开始录制先终止试听，独立传入音乐设置；音乐控制绑定当前录制会话
+ok 419 - 开始录制先终止试听，独立传入音乐设置；音乐控制绑定当前录制会话
+  ---
+  duration_ms: 8.5126
+  type: 'test'
+  ...
+# Subtest: 收藏音乐时禁止开始和并行图片准备，但暂停结束录制控制不受影响
+ok 420 - 收藏音乐时禁止开始和并行图片准备，但暂停结束录制控制不受影响
+  ---
+  duration_ms: 10.7955
+  type: 'test'
+  ...
+# Subtest: 框选等待期间不录制，收到选区后只自动启动一次
+ok 421 - 框选等待期间不录制，收到选区后只自动启动一次
+  ---
+  duration_ms: 24.9848
+  type: 'test'
+  ...
+# Subtest: 重新框选后忽略上一轮迟到的选区和取消消息
+ok 422 - 重新框选后忽略上一轮迟到的选区和取消消息
+  ---
+  duration_ms: 13.6222
+  type: 'test'
+  ...
+# Subtest: 连接中保留取消按钮，主动取消状态恢复可开始
+ok 423 - 连接中保留取消按钮，主动取消状态恢复可开始
+  ---
+  duration_ms: 9.204
+  type: 'test'
+  ...
+# Subtest: 取消框选后迟到的选区事件不会启动录制
+ok 424 - 取消框选后迟到的选区事件不会启动录制
+  ---
+  duration_ms: 7.0684
+  type: 'test'
+  ...
+# Subtest: 侧栏请求携带所属窗口与已显示目标，不采用最后聚焦窗口
+ok 425 - 侧栏请求携带所属窗口与已显示目标，不采用最后聚焦窗口
+  ---
+  duration_ms: 8.9057
+  type: 'test'
+  ...
+# Subtest: 另一窗口刷新不改变本侧栏，当前窗口切换标签会关闭范围对话框
+ok 426 - 另一窗口刷新不改变本侧栏，当前窗口切换标签会关闭范围对话框
+  ---
+  duration_ms: 10.1326
+  type: 'test'
+  ...
+# Subtest: 切换网页只取消旧网页本轮框选，迟到结果不能启动新网页录制
+ok 427 - 切换网页只取消旧网页本轮框选，迟到结果不能启动新网页录制
+  ---
+  duration_ms: 8.26
+  type: 'test'
+  ...
+# Subtest: 未授权网页禁用录制和标注，并提示一次开启自动连接
+ok 428 - 未授权网页禁用录制和标注，并提示一次开启自动连接
+  ---
+  duration_ms: 13.0425
+  type: 'test'
+  ...
+# Subtest: 录制期间切到其他网页保留暂停结束，但禁用标注且说明原页锁定
+ok 429 - 录制期间切到其他网页保留暂停结束，但禁用标注且说明原页锁定
+  ---
+  duration_ms: 12.468
+  type: 'test'
+  ...
+# Subtest: 窗口识别失败不向后台猜测窗口，明确提示重新打开侧栏
+ok 430 - 窗口识别失败不向后台猜测窗口，明确提示重新打开侧栏
+  ---
+  duration_ms: 10.6627
+  type: 'test'
+  ...
+# Subtest: 点击开始时才发现当前页变化，也能一次打开新页面范围选择
+ok 431 - 点击开始时才发现当前页变化，也能一次打开新页面范围选择
+  ---
+  duration_ms: 11.4595
+  type: 'test'
+  ...
+# Subtest: 另一网页旧错误状态刷新后不会继续留在当前侧栏
+ok 432 - 另一网页旧错误状态刷新后不会继续留在当前侧栏
+  ---
+  duration_ms: 10.9683
+  type: 'test'
+  ...
+# Subtest: 旧测试环境无windows API仍可检查基础流程
+ok 433 - 旧测试环境无windows API仍可检查基础流程
+  ---
+  duration_ms: 14.1885
+  type: 'test'
+  ...
+# Subtest: 移除录完自动下载入口，旧自动导出设置不影响新录制
+ok 434 - 移除录完自动下载入口，旧自动导出设置不影响新录制
+  ---
+  duration_ms: 37.4971
+  type: 'test'
+  ...
+# Subtest: 录完仅显示回看入口，由用户点击打开对应成片，开始新录制后收起
+ok 435 - 录完仅显示回看入口，由用户点击打开对应成片，开始新录制后收起
+  ---
+  duration_ms: 15.8174
+  type: 'test'
+  ...
+# Subtest: 暂停继续停止携带当前会话，保存期间保留强制结束入口
+ok 436 - 暂停继续停止携带当前会话，保存期间保留强制结束入口
+  ---
+  duration_ms: 11.3886
+  type: 'test'
+  ...
+# Subtest: 导出提示与主录制状态分开，旧录制导出消息不覆盖当前录制提示
+ok 437 - 导出提示与主录制状态分开，旧录制导出消息不覆盖当前录制提示
+  ---
+  duration_ms: 9.9465
+  type: 'test'
+  ...
+# Subtest: 跨窗口设置变更同步到表单，修改帧率只保存该字段
+ok 438 - 跨窗口设置变更同步到表单，修改帧率只保存该字段
+  ---
+  duration_ms: 11.173
+  type: 'test'
+  ...
+# Subtest: 一键低负载只保存画质和20FPS，开始录制实际使用该设置
+ok 439 - 一键低负载只保存画质和20FPS，开始录制实际使用该设置
+  ---
+  duration_ms: 11.3001
+  type: 'test'
+  ...
+# Subtest: 重新打开后刷新完成录制会补查导出状态，支持取消导出
+ok 440 - 重新打开后刷新完成录制会补查导出状态，支持取消导出
+  ---
+  duration_ms: 8.4391
+  type: 'test'
+  ...
+# Subtest: 受支持的 MP4 设置实际传入 START，新存储值优先旧设置
+ok 441 - 受支持的 MP4 设置实际传入 START，新存储值优先旧设置
+  ---
+  duration_ms: 8.6188
+  type: 'test'
+  ...
+# Subtest: 不支持 MP4 的浏览器禁用选项并回退可用 WebM
+ok 442 - 不支持 MP4 的浏览器禁用选项并回退可用 WebM
+  ---
+  duration_ms: 8.0428
+  type: 'test'
+  ...
+# Subtest: 麦克风拒绝授权会把最终关闭状态写回独立设置
+ok 443 - 麦克风拒绝授权会把最终关闭状态写回独立设置
+  ---
+  duration_ms: 9.2502
+  type: 'test'
+  ...
+# Subtest: 初始设置延迟时 REFRESH 和手动重连不能提前启用开始，重连复用同一读取
+ok 444 - 初始设置延迟时 REFRESH 和手动重连不能提前启用开始，重连复用同一读取
+  ---
+  duration_ms: 12.2809
+  type: 'test'
+  ...
+# Subtest: 开始请求自身也等待初始设置，迟到读取不会覆盖等待期间的新设置
+ok 445 - 开始请求自身也等待初始设置，迟到读取不会覆盖等待期间的新设置
+  ---
+  duration_ms: 11.0778
+  type: 'test'
+  ...
+# Subtest: 初始化收尾不得取消本面板已开启的新一轮框选
+ok 446 - 初始化收尾不得取消本面板已开启的新一轮框选
+  ---
+  duration_ms: 10.6265
+  type: 'test'
+  ...
+# Subtest: 设置读取失败明确提示并保持禁录，重新连接可重新读取后恢复
+ok 447 - 设置读取失败明确提示并保持禁录，重新连接可重新读取后恢复
+  ---
+  duration_ms: 9.0221
+  type: 'test'
+  ...
+# Subtest: 设置读取超时后可重试，旧请求迟到不会覆盖恢复后的选项
+ok 448 - 设置读取超时后可重试，旧请求迟到不会覆盖恢复后的选项
+  ---
+  duration_ms: 8.616
+  type: 'test'
+  ...
+# Subtest: 长视频逐片写文件并用File URL回看，不合成完整Blob，清理同时释放文件和锁
+ok 449 - 长视频逐片写文件并用File URL回看，不合成完整Blob，清理同时释放文件和锁
+  ---
+  duration_ms: 40.4152
+  type: 'test'
+  ...
+# Subtest: 32MiB以内保留轻量Blob路径，超出一个字节就使用文件路径
+ok 450 - 32MiB以内保留轻量Blob路径，超出一个字节就使用文件路径
+  ---
+  duration_ms: 8.4202
+  type: 'test'
+  ...
+# Subtest: 不支持OPFS或临时空间不足时不静默回退大Blob，原视频保持不变
+ok 451 - 不支持OPFS或临时空间不足时不静默回退大Blob，原视频保持不变
+  ---
+  duration_ms: 13.3584
+  type: 'test'
+  ...
+# Subtest: 载入途中取消停止后续片段并释放未完成文件
+ok 452 - 载入途中取消停止后续片段并释放未完成文件
+  ---
+  duration_ms: 8.2839
+  type: 'test'
+  ...
+# Subtest: 文件提交失败、关闭后取消或缓存大小不符均不留下可用URL和临时文件
+ok 453 - 文件提交失败、关闭后取消或缓存大小不符均不留下可用URL和临时文件
+  ---
+  duration_ms: 15.9988
+  type: 'test'
+  ...
+# Subtest: 过期预览清理跳过其他页面持有的锁、近期文件和不属于预览的文件
+ok 454 - 过期预览清理跳过其他页面持有的锁、近期文件和不属于预览的文件
+  ---
+  duration_ms: 8.7905
+  type: 'test'
+  ...
+# Subtest: 没有跨页锁时不回收可能仍使用的文件，当前预览依旧可以正常释放
+ok 455 - 没有跨页锁时不回收可能仍使用的文件，当前预览依旧可以正常释放
+  ---
+  duration_ms: 5.0082
+  type: 'test'
+  ...
+# Subtest: 下次载入立即回收未持锁的崩溃缓存，即使它刚刚创建，保留活跃页面缓存
+ok 456 - 下次载入立即回收未持锁的崩溃缓存，即使它刚刚创建，保留活跃页面缓存
+  ---
+  duration_ms: 7.6662
+  type: 'test'
+  ...
+# Subtest: 读取开始前取消不触碰磁盘或视频数据
+ok 457 - 读取开始前取消不触碰磁盘或视频数据
+  ---
+  duration_ms: 3.6288
+  type: 'test'
+  ...
+# Subtest: 原生fileGate挂起时取消及时返回，迟到提交仍持锁并被清理
+ok 458 - 原生fileGate挂起时取消及时返回，迟到提交仍持锁并被清理
+  ---
+  duration_ms: 29.9038
+  type: 'test'
+  ...
+# Subtest: 原生writerGate挂起时取消及时返回，迟到提交仍持锁并被清理
+ok 459 - 原生writerGate挂起时取消及时返回，迟到提交仍持锁并被清理
+  ---
+  duration_ms: 14.2968
+  type: 'test'
+  ...
+# Subtest: 原生writeGate挂起时取消及时返回，迟到提交仍持锁并被清理
+ok 460 - 原生writeGate挂起时取消及时返回，迟到提交仍持锁并被清理
+  ---
+  duration_ms: 14.5508
+  type: 'test'
+  ...
+# Subtest: 原生closeGate挂起时取消及时返回，迟到提交仍持锁并被清理
+ok 461 - 原生closeGate挂起时取消及时返回，迟到提交仍持锁并被清理
+  ---
+  duration_ms: 13.3387
+  type: 'test'
+  ...
+# Subtest: 单次写入无进展会超时，迟到写入不能恢复预览，取消清理本身也有等待上限
+ok 462 - 单次写入无进展会超时，迟到写入不能恢复预览，取消清理本身也有等待上限
+  ---
+  duration_ms: 46.442
+  type: 'test'
+  ...
+# Subtest: 元数据和目录挂起也可取消或超时，不创建临时URL
+ok 463 - 元数据和目录挂起也可取消或超时，不创建临时URL
+  ---
+  duration_ms: 30.6925
+  type: 'test'
+  ...
+# Subtest: 取消后底层写入未结束时拒绝叠加新的预览，清理完成后允许重试
+ok 464 - 取消后底层写入未结束时拒绝叠加新的预览，清理完成后允许重试
+  ---
+  duration_ms: 18.2129
+  type: 'test'
+  ...
+# Subtest: 磁盘仍在写入时先释放来源，完成通知只在释放之后出现
+ok 465 - 磁盘仍在写入时先释放来源，完成通知只在释放之后出现
+  ---
+  duration_ms: 38.2529
+  type: 'test'
+  ...
+# Subtest: 来源建立后采用最终确认的区域上下文，后续状态不回写采集前尺寸
+ok 466 - 来源建立后采用最终确认的区域上下文，后续状态不回写采集前尺寸
+  ---
+  duration_ms: 15.1529
+  type: 'test'
+  ...
+# Subtest: 20FPS低负载设置贯通裁切、编码码率与保存元数据
+ok 467 - 20FPS低负载设置贯通裁切、编码码率与保存元数据
+  ---
+  duration_ms: 11.1529
+  type: 'test'
+  ...
+# Subtest: 视频准备失败保留尺寸诊断到错误状态并释放来源
+ok 468 - 视频准备失败保留尺寸诊断到错误状态并释放来源
+  ---
+  duration_ms: 11.8904
+  type: 'test'
+  ...
+# Subtest: 唯一片段写入失败时显示失败及真实错误，不声称已保存片段
+ok 469 - 唯一片段写入失败时显示失败及真实错误，不声称已保存片段
+  ---
+  duration_ms: 8.3153
+  type: 'test'
+  ...
+# Subtest: 积压超过上限自动停止采集，避免无限排队
+ok 470 - 积压超过上限自动停止采集，避免无限排队
+  ---
+  duration_ms: 12.0404
+  type: 'test'
+  ...
+# Subtest: 来源授权尚未返回也能取消；迟到的来源立即释放且不启动编码
+ok 471 - 来源授权尚未返回也能取消；迟到的来源立即释放且不启动编码
+  ---
+  duration_ms: 7.8605
+  type: 'test'
+  ...
+# Subtest: 准备超时会释放来源，迟到的输出管线也会清理
+ok 472 - 准备超时会释放来源，迟到的输出管线也会清理
+  ---
+  duration_ms: 40.3284
+  type: 'test'
+  ...
+# Subtest: 麦克风授权等待可取消，返回的麦克风轨道不会泄漏
+ok 473 - 麦克风授权等待可取消，返回的麦克风轨道不会泄漏
+  ---
+  duration_ms: 7.6651
+  type: 'test'
+  ...
+# Subtest: 区域来源尺寸变化会停止并保留已有片段，明确要求重新框选
+ok 474 - 区域来源尺寸变化会停止并保留已有片段，明确要求重新框选
+  ---
+  duration_ms: 8.403
+  type: 'test'
+  ...
+# Subtest: 关闭来源声音后不混入来源音轨，也不创建监听音频节点
+ok 475 - 关闭来源声音后不混入来源音轨，也不创建监听音频节点
+  ---
+  duration_ms: 8.4958
+  type: 'test'
+  ...
+# Subtest: 恢复绘制时发现来源变化不会重新覆盖停止保存状态
+ok 476 - 恢复绘制时发现来源变化不会重新覆盖停止保存状态
+  ---
+  duration_ms: 11.494
+  type: 'test'
+  ...
+# Subtest: 取消未完成的初始元数据写入后会移除空记录
+ok 477 - 取消未完成的初始元数据写入后会移除空记录
+  ---
+  duration_ms: 12.3611
+  type: 'test'
+  ...
+# Subtest: 编码器启动抛错后将空占位持久化为失败并释放采集
+ok 478 - 编码器启动抛错后将空占位持久化为失败并释放采集
+  ---
+  duration_ms: 10.9007
+  type: 'test'
+  ...
+# Subtest: 启动抛错前已接收的有效片段仍保存，不删除或覆盖已确认大小
+ok 479 - 启动抛错前已接收的有效片段仍保存，不删除或覆盖已确认大小
+  ---
+  duration_ms: 8.5246
+  type: 'test'
+  ...
+# Subtest: 启动失败补丁超时有界返回，迟到补丁不污染下一次录制
+ok 480 - 启动失败补丁超时有界返回，迟到补丁不污染下一次录制
+  ---
+  duration_ms: 40.0466
+  type: 'test'
+  ...
+# Subtest: 取消后迟到的初始保存只删除原空记录，不影响重试会话
+ok 481 - 取消后迟到的初始保存只删除原空记录，不影响重试会话
+  ---
+  duration_ms: 23.9383
+  type: 'test'
+  ...
+# Subtest: 初始元数据写入前已发布准备中的录制ID，活动记录可被保护
+ok 482 - 初始元数据写入前已发布准备中的录制ID，活动记录可被保护
+  ---
+  duration_ms: 24.4608
+  type: 'test'
+  ...
+# Subtest: 离屏来源获取中可按会话取消，旧会话STOP不会取消新会话
+ok 483 - 离屏来源获取中可按会话取消，旧会话STOP不会取消新会话
+  ---
+  duration_ms: 15.7444
+  type: 'test'
+  ...
+# Subtest: 编码器没有发出onstop也会超时释放来源并将已收到片段标为中断
+ok 484 - 编码器没有发出onstop也会超时释放来源并将已收到片段标为中断
+  ---
+  duration_ms: 52.2866
+  type: 'test'
+  ...
+# Subtest: 编码器stop抛错仍释放来源并保存现有片段
+ok 485 - 编码器stop抛错仍释放来源并保存现有片段
+  ---
+  duration_ms: 13.4356
+  type: 'test'
+  ...
+# Subtest: 再次停止可立即强制清理，不必等待失去响应的onstop
+ok 486 - 再次停止可立即强制清理，不必等待失去响应的onstop
+  ---
+  duration_ms: 12.9104
+  type: 'test'
+  ...
+# Subtest: 强制停止后的迟到onstop不会重复保存或终止下一次录制
+ok 487 - 强制停止后的迟到onstop不会重复保存或终止下一次录制
+  ---
+  duration_ms: 10.7006
+  type: 'test'
+  ...
+# Subtest: 片段写入一直不返回也不会永久停留在saving，迟到结果不再改终态
+ok 488 - 片段写入一直不返回也不会永久停留在saving，迟到结果不再改终态
+  ---
+  duration_ms: 37.9947
+  type: 'test'
+  ...
+# Subtest: 单一路网页声音直接编码原音轨，回放监听不创建混音输出
+ok 489 - 单一路网页声音直接编码原音轨，回放监听不创建混音输出
+  ---
+  duration_ms: 7.5418
+  type: 'test'
+  ...
+# Subtest: 仅麦克风直接编码，无需AudioContext混音或监听
+ok 490 - 仅麦克风直接编码，无需AudioContext混音或监听
+  ---
+  duration_ms: 7.8215
+  type: 'test'
+  ...
+# Subtest: 网页声音加麦克风仍合并为一个音轨并保留回放监听
+ok 491 - 网页声音加麦克风仍合并为一个音轨并保留回放监听
+  ---
+  duration_ms: 8.0264
+  type: 'test'
+  ...
+# Subtest: 关闭网页声音且无麦克风时，音乐仍通过单个混音音轨编码并随暂停、停止释放
+ok 492 - 关闭网页声音且无麦克风时，音乐仍通过单个混音音轨编码并随暂停、停止释放
+  ---
+  duration_ms: 20.2143
+  type: 'test'
+  ...
+# Subtest: 音乐启动失败终结记录并释放所有采集，不能假装无声成功
+ok 493 - 音乐启动失败终结记录并释放所有采集，不能假装无声成功
+  ---
+  duration_ms: 11.9175
+  type: 'test'
+  ...
+# Subtest: 取消期间迟到的音乐准备资源会关闭，不允许旧资源继续播放或覆盖新会话
+ok 494 - 取消期间迟到的音乐准备资源会关闭，不允许旧资源继续播放或覆盖新会话
+  ---
+  duration_ms: 11.5709
+  type: 'test'
+  ...
+# Subtest: 积压片段集中完成不会刷屏，诊断最多每秒进度一次且终态完整落盘
+ok 495 - 积压片段集中完成不会刷屏，诊断最多每秒进度一次且终态完整落盘
+  ---
+  duration_ms: 15.8652
+  type: 'test'
+  ...
+# Subtest: 最后的元数据写入无响应时有界退出，不把未确认结果显示成功
+ok 496 - 最后的元数据写入无响应时有界退出，不把未确认结果显示成功
+  ---
+  duration_ms: 52.5157
+  type: 'test'
+  ...
+# Subtest: 写入超时后重开录制，旧写入迟到不会修改新会话的统计或状态
+ok 497 - 写入超时后重开录制，旧写入迟到不会修改新会话的统计或状态
+  ---
+  duration_ms: 47.3737
+  type: 'test'
+  ...
+# Subtest: 未收到有效媒体片段时保存失败记录，不发布complete
+ok 498 - 未收到有效媒体片段时保存失败记录，不发布complete
+  ---
+  duration_ms: 6.9455
+  type: 'test'
+  ...
+# Subtest: 最终元数据失败后持久化中断标记，不覆盖已确认字节和片段时长
+ok 499 - 最终元数据失败后持久化中断标记，不覆盖已确认字节和片段时长
+  ---
+  duration_ms: 9.8357
+  type: 'test'
+  ...
+# Subtest: 积压后的部分保存使用片段到达时长，不使用停止或写入完成时间
+ok 500 - 积压后的部分保存使用片段到达时长，不使用停止或写入完成时间
+  ---
+  duration_ms: 57.2179
+  type: 'test'
+  ...
+# Subtest: 迟到片段会修复旧记录终态及保留新增字节，不影响新会话
+ok 501 - 迟到片段会修复旧记录终态及保留新增字节，不影响新会话
+  ---
+  duration_ms: 62.3527
+  type: 'test'
+  ...
+# Subtest: 迟到最终元数据不能将旧中断状态恢复为complete，也不改新会话
+ok 502 - 迟到最终元数据不能将旧中断状态恢复为complete，也不改新会话
+  ---
+  duration_ms: 76.6426
+  type: 'test'
+  ...
+# Subtest: 终态补丁也无响应时有限等待，并通知后台仍需恢复协调
+ok 503 - 终态补丁也无响应时有限等待，并通知后台仍需恢复协调
+  ---
+  duration_ms: 72.2346
+  type: 'test'
+  ...
+# Subtest: 显式MP4保存编码器实际MIME和容器，不沿用WebM元数据
+ok 504 - 显式MP4保存编码器实际MIME和容器，不沿用WebM元数据
+  ---
+  duration_ms: 10.3953
+  type: 'test'
+  ...
+# Subtest: 显式MP4不受支持时清晰失败并释放来源，不自动降级WebM
+ok 505 - 显式MP4不受支持时清晰失败并释放来源，不自动降级WebM
+  ---
+  duration_ms: 7.929
+  type: 'test'
+  ...
+# Subtest: 强制停止只修复元数据，保留已写入片段及最后确认时长
+ok 506 - 强制停止只修复元数据，保留已写入片段及最后确认时长
+  ---
+  duration_ms: 2.9101
+  type: 'test'
+  ...
+# Subtest: 已保存完成的录制不因迟到强制停止降级或重复改写
+ok 507 - 已保存完成的录制不因迟到强制停止降级或重复改写
+  ---
+  duration_ms: 0.467
+  type: 'test'
+  ...
+# Subtest: 尚无片段时不伪装恢复成功
+ok 508 - 尚无片段时不伪装恢复成功
+  ---
+  duration_ms: 3.5583
+  type: 'test'
+  ...
+# Subtest: 存在空记录时持久化失败终态，不让占位记录继续显示录制中
+ok 509 - 存在空记录时持久化失败终态，不让占位记录继续显示录制中
+  ---
+  duration_ms: 0.621
+  type: 'test'
+  ...
+# Subtest: 恢复补丁返回实际持久化字节与覆盖时长，不返回较早读取的值
+ok 510 - 恢复补丁返回实际持久化字节与覆盖时长，不返回较早读取的值
+  ---
+  duration_ms: 0.5825
+  type: 'test'
+  ...
+# Subtest: 空记录恢复期间迟到片段已提交时恢复为部分保存
+ok 511 - 空记录恢复期间迟到片段已提交时恢复为部分保存
+  ---
+  duration_ms: 0.4146
+  type: 'test'
+  ...
+# Subtest: 空间明显不足时在文件创建前阻止暂存，估算含额外开销
+ok 512 - 空间明显不足时在文件创建前阻止暂存，估算含额外开销
+  ---
+  duration_ms: 3.6918
+  type: 'test'
+  ...
+# Subtest: 缺失、被拒绝或超时的空间估算不禁用可用的文件路径，取消仍及时生效
+ok 513 - 缺失、被拒绝或超时的空间估算不禁用可用的文件路径，取消仍及时生效
+  ---
+  duration_ms: 9.2566
+  type: 'test'
+  ...
+# Subtest: MP4空间按目标编码与时长估算，不能直接当作源文件大小
+ok 514 - MP4空间按目标编码与时长估算，不能直接当作源文件大小
+  ---
+  duration_ms: 0.6772
+  type: 'test'
+  ...
+# Subtest: 完整网页在源头限制尺寸和帧率，编码原轨道，不创建视频/画布或循环
+ok 515 - 完整网页在源头限制尺寸和帧率，编码原轨道，不创建视频/画布或循环
+  ---
+  duration_ms: 7.177
+  type: 'test'
+  ...
+# Subtest: 普通区域默认限制4K整页来源到1920，原始尺寸仍是明确的细节优先选择
+ok 516 - 普通区域默认限制4K整页来源到1920，原始尺寸仍是明确的细节优先选择
+  ---
+  duration_ms: 6.5105
+  type: 'test'
+  ...
+# Subtest: 源拒绝调整尺寸时回退裁切管线，不偷偷输出超大视频
+ok 517 - 源拒绝调整尺寸时回退裁切管线，不偷偷输出超大视频
+  ---
+  duration_ms: 2.3678
+  type: 'test'
+  ...
+# Subtest: 来源已经符合尺寸时，拒绝尺寸约束也不引入多余画布管线
+ok 518 - 来源已经符合尺寸时，拒绝尺寸约束也不引入多余画布管线
+  ---
+  duration_ms: 2.27
+  type: 'test'
+  ...
+# Subtest: 源忽略尺寸约束时仍执行输出缩放
+ok 519 - 源忽略尺寸约束时仍执行输出缩放
+  ---
+  duration_ms: 3.4556
+  type: 'test'
+  ...
+# Subtest: 框选保持源分辨率；重复帧及暂停期间不重绘，恢复立即更新
+ok 520 - 框选保持源分辨率；重复帧及暂停期间不重绘，恢复立即更新
+  ---
+  duration_ms: 3.3633
+  type: 'test'
+  ...
+# Subtest: 普通画质限制整帧来源，大小区域遵守同一采集预算
+ok 521 - 普通画质限制整帧来源，大小区域遵守同一采集预算
+  ---
+  duration_ms: 1.3881
+  type: 'test'
+  ...
+# Subtest: 低负载模式限制整帧采集像素和20FPS，小选区不再保留4K来源
+ok 522 - 低负载模式限制整帧采集像素和20FPS，小选区不再保留4K来源
+  ---
+  duration_ms: 2.153
+  type: 'test'
+  ...
+# Subtest: 低负载模式不放大较小来源，源拒绝缩放仍按20FPS与1280输出兜底
+ok 523 - 低负载模式不放大较小来源，源拒绝缩放仍按20FPS与1280输出兜底
+  ---
+  duration_ms: 2.2867
+  type: 'test'
+  ...
+# Subtest: 20FPS裁切按50ms节拍绘制，不把低帧率静默恢复为30FPS
+ok 524 - 20FPS裁切按50ms节拍绘制，不把低帧率静默恢复为30FPS
+  ---
+  duration_ms: 2.3615
+  type: 'test'
+  ...
+# Subtest: 支持视频帧回调时只随新帧绘制，结束后取消回调
+ok 525 - 支持视频帧回调时只随新帧绘制，结束后取消回调
+  ---
+  duration_ms: 1.9287
+  type: 'test'
+  ...
+# Subtest: 区域来源尺寸变化通知一次并停止绘制，防止录入漂移区域
+ok 526 - 区域来源尺寸变化通知一次并停止绘制，防止录入漂移区域
+  ---
+  duration_ms: 0.5885
+  type: 'test'
+  ...
+# Subtest: 启动约束已生效但解码尺寸迟到时，等比例重协商不终止区域录制
+ok 527 - 启动约束已生效但解码尺寸迟到时，等比例重协商不终止区域录制
+  ---
+  duration_ms: 0.5914
+  type: 'test'
+  ...
+# Subtest: 轨道设置先变、解码帧尚未变化时不误报；新帧到达后重映射同一选区
+ok 528 - 轨道设置先变、解码帧尚未变化时不误报；新帧到达后重映射同一选区
+  ---
+  duration_ms: 0.6259
+  type: 'test'
+  ...
+# Subtest: 网页CSS视口已确认而解码帧仍旧时，等待对应新帧后才固定裁切像素
+ok 529 - 网页CSS视口已确认而解码帧仍旧时，等待对应新帧后才固定裁切像素
+  ---
+  duration_ms: 15.7464
+  type: 'test'
+  ...
+# Subtest: 等待与网页视口匹配的解码帧期间可取消并释放所有资源
+ok 530 - 等待与网页视口匹配的解码帧期间可取消并释放所有资源
+  ---
+  duration_ms: 4.4027
+  type: 'test'
+  ...
+# Subtest: 网页允许的2 CSS像素误差在高DPI及缩放后仍可启动区域录制
+ok 531 - 网页允许的2 CSS像素误差在高DPI及缩放后仍可启动区域录制
+  ---
+  duration_ms: 1.9727
+  type: 'test'
+  ...
+# Subtest: 高DPI录制中等比例重协商仍按CSS容差校验，真实宽高比改变仍停止
+ok 532 - 高DPI录制中等比例重协商仍按CSS容差校验，真实宽高比改变仍停止
+  ---
+  duration_ms: 1.3783
+  type: 'test'
+  ...
+# Subtest: CSS像素容差不会放过真正不匹配的初始采集画面
+ok 533 - CSS像素容差不会放过真正不匹配的初始采集画面
+  ---
+  duration_ms: 4.448
+  type: 'test'
+  ...
+# Subtest: Chrome固定帧左右补边不误报不稳定，选区映射到网页内容而非整帧
+ok 534 - Chrome固定帧左右补边不误报不稳定，选区映射到网页内容而非整帧
+  ---
+  duration_ms: 1.111
+  type: 'test'
+  ...
+# Subtest: Chrome固定帧上下补边时选区包含正确的纵向偏移，不录黑边
+ok 535 - Chrome固定帧上下补边时选区包含正确的纵向偏移，不录黑边
+  ---
+  duration_ms: 0.5413
+  type: 'test'
+  ...
+# Subtest: Chrome容器比例重协商重新映射内容及选区，输出尺寸固定且不当作CSS变化
+ok 536 - Chrome容器比例重协商重新映射内容及选区，输出尺寸固定且不当作CSS变化
+  ---
+  duration_ms: 0.5341
+  type: 'test'
+  ...
+# Subtest: 异步准备时修改传入选区不会替换本次录制范围
+ok 537 - 异步准备时修改传入选区不会替换本次录制范围
+  ---
+  duration_ms: 0.4886
+  type: 'test'
+  ...
+# Subtest: 录制后修改原选区、暂停及容器重协商仍沿用首次固定范围
+ok 538 - 录制后修改原选区、暂停及容器重协商仍沿用首次固定范围
+  ---
+  duration_ms: 0.8292
+  type: 'test'
+  ...
+# Subtest: Chrome偶数采集帧的内容原点与尺寸按色度采样对齐，接近全页选区不会越界
+ok 539 - Chrome偶数采集帧的内容原点与尺寸按色度采样对齐，接近全页选区不会越界
+  ---
+  duration_ms: 0.4451
+  type: 'test'
+  ...
+# Subtest: 暂停期间等比例分辨率变化不重绘，继续后沿用固定输出尺寸与正确选区
+ok 540 - 暂停期间等比例分辨率变化不重绘，继续后沿用固定输出尺寸与正确选区
+  ---
+  duration_ms: 0.6013
+  type: 'test'
+  ...
+# Subtest: 全画面回退在来源宽高比变化时留黑边，避免把画面拉伸
+ok 541 - 全画面回退在来源宽高比变化时留黑边，避免把画面拉伸
+  ---
+  duration_ms: 0.8291
+  type: 'test'
+  ...
+# Subtest: 等待视频首帧期间取消会立即释放视频元素，不等待play完成
+ok 542 - 等待视频首帧期间取消会立即释放视频元素，不等待play完成
+  ---
+  duration_ms: 5.5762
+  type: 'test'
+  ...
+# Subtest: 直接管线诊断只报告设置，不为测帧率创建视频或循环
+ok 543 - 直接管线诊断只报告设置，不为测帧率创建视频或循环
+  ---
+  duration_ms: 0.9724
+  type: 'test'
+  ...
+# Subtest: 画布诊断累计绘制提交耗时和掉帧，快照独立且不逐帧查询轨道设置
+ok 544 - 画布诊断累计绘制提交耗时和掉帧，快照独立且不逐帧查询轨道设置
+  ---
+  duration_ms: 1.0258
+  type: 'test'
+  ...
+# Subtest: 区域暂停停止全部裁切定时器和视频解码，继续后仅恢复一个调度链
+ok 545 - 区域暂停停止全部裁切定时器和视频解码，继续后仅恢复一个调度链
+  ---
+  duration_ms: 1.2994
+  type: 'test'
+  ...
+# Subtest: 帧回调使用原生 presentedFrames，连续新帧不逐帧读取播放统计
+ok 546 - 帧回调使用原生 presentedFrames，连续新帧不逐帧读取播放统计
+  ---
+  duration_ms: 0.8603
+  type: 'test'
+  ...
+# Subtest: 清理裁切输出立即释放像素缓冲，诊断仍保留原来的输出尺寸
+ok 547 - 清理裁切输出立即释放像素缓冲，诊断仍保留原来的输出尺寸
+  ---
+  duration_ms: 0.9025
+  type: 'test'
+  ...
+# Subtest: 继续时视频播放失败会结束裁切调度并通知保存，过期的播放错误不影响新一次继续
+ok 548 - 继续时视频播放失败会结束裁切调度并通知保存，过期的播放错误不影响新一次继续
+  ---
+  duration_ms: 1.8494
+  type: 'test'
+  ...
+1..548
+# tests 548
+# suites 0
+# pass 548
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6440.4462

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="映录：面向网页作品演示的本地录制扩展。记录能力、交互效果、实现原理、测试证据与后续计划。">
+  <meta name="theme-color" content="#315b49">
+  <title>映录 · 让演示自然发生</title>
+  <link rel="icon" href="icons/48.png">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <header class="header wrap">
+    <a class="brand" href="index.html"><img src="icons/48.png" width="36" height="36" alt=""><span>映录<small>YINGLU / RECORDER</small></span></a>
+    <nav aria-label="主导航"><a href="#capabilities">能力</a><a href="#mechanism">原理</a><a href="docs/testing.html">测试</a><a href="docs/index.html">工程档案 ↗</a></nav>
+    <a class="repo" href="https://github.com/yydshly/yinglu-recorder">GitHub ↗</a>
+  </header>
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="dot"></span> 本地优先的网页演示工具 <span class="version">v0.6.9</span></p>
+        <h1 id="hero-title">录下你的操作，<br>也留下<span>你的讲解。</span></h1>
+        <p class="lead">打开网页，选好画面。用箭头、文字和图片圈出重点，录完在本机回看，再决定是否导出。</p>
+        <div class="actions"><a class="button primary" href="#install">安装与开始 <span aria-hidden="true">↗</span></a><a class="button" href="demo.html">体验交互预览 <span aria-hidden="true">→</span></a></div>
+        <p class="fine">Chrome / Edge 扩展 · 无账号 · 无水印 · 无需服务端</p>
+      </div>
+      <figure class="illustration">
+        <div class="browser-chrome"><span class="window-dots" aria-hidden="true">● ● ●</span><span>你的网页作品</span><span>侧栏控制</span></div>
+        <div class="browser-body">
+          <div class="capture-surface">
+            <span class="surface-label">录制画面 / 示意</span>
+            <svg viewBox="0 0 400 245" role="img" aria-label="网页画面中的自行车、箭头与参数图片示意">
+              <path d="M0 138Q90 45 200 143T400 118V245H0" fill="#b7c9a7"/>
+              <path d="M0 180Q160 142 400 204" fill="none" stroke="#e8dfc5" stroke-width="35"/>
+              <circle cx="318" cy="57" r="23" fill="#e9d495"/>
+              <g fill="none" stroke="#39564a" stroke-width="4"><circle cx="130" cy="164" r="36"/><circle cx="267" cy="164" r="36"/><path d="M130 164L172 104L204 164H130L242 111L267 164M172 104H242M172 104L168 91M238 96L252 89" stroke="#b8764f" stroke-width="5"/><path d="M156 91H181"/></g>
+              <g fill="none" stroke="#bf7048" stroke-width="2.5" stroke-linecap="round"><path d="M93 174C77 119 114 104 149 118C180 131 186 195 145 207C113 217 84 196 93 174"/><path d="M204 40Q190 70 166 104M167 92L166 104L179 101"/></g>
+            </svg>
+            <span class="annotation-note">圈出想解释的地方</span>
+            <div class="image-card"><span>图片素材 · 性能参数</span><strong>FPS / CPU / 内存</strong><small>插入你的实测参数图</small></div>
+          </div>
+          <div class="mock-panel" aria-hidden="true"><span class="panel-logo">◧</span><b>映录</b><span class="mock-line"></span><span class="mock-line short"></span><span class="tool-grid">↖　▭<br>↗　T<br>✎　▧</span><span class="mock-stop">结束录制</span><small>控制区<br>在标签页来源外</small></div>
+        </div>
+        <figcaption>界面与能力示意，非实际录制截图；网页模式的侧栏不属于采集来源。</figcaption>
+      </figure>
+    </section>
+
+    <div class="status-strip wrap"><p><span class="dot"></span><strong>当前阶段</strong> 核心能力已实现，继续做实机验证</p><a href="docs/testing.html#evidence">查看证据与验证边界 →</a></div>
+
+    <section id="capabilities" class="section wrap">
+      <div class="section-heading"><p class="eyebrow">01 / CAPABILITIES</p><h2>让演示保持简单。</h2><p>从录网页作品出发，把录制、现场讲解和本地保存连起来。</p></div>
+      <div class="cards">
+        <article class="card"><span class="card-number">01</span><h3>选定画面，持续录制</h3><p>完整网页可见区域，或拖动一次框选。没有点击和标注时，动画与声音也继续录制；支持暂停与继续。</p><span class="tag">整页 / 区域 / 窗口 / 屏幕</span></article>
+        <article class="card"><span class="card-number">02</span><h3>把讲解放进画面</h3><p>箭头、方框、画笔、多行文字与点击光圈。鼠标选择、移动、缩放标注，切回「操作网页」继续演示。</p><span class="tag">SVG 实时标注</span></article>
+        <article class="card"><span class="card-number">03</span><h3>提前准备好素材</h3><p>收藏本地参数图、截图和音乐，录制时直接插入图片、调节背景音乐。收起素材区时释放试听与缩略图。</p><span class="tag">图片素材 / 本地音乐</span></article>
+        <article class="card"><span class="card-number">04</span><h3>录完回看，自行导出</h3><p>视频分段保存在本机。按需预览、下载 WebM、支持时直接录制 MP4，或将已有 WebM 转为 MP4。</p><span class="tag">不自动下载 / 保留原片</span></article>
+      </div>
+      <div class="flow" aria-label="使用流程"><span><b>1</b> 连接网页</span><i aria-hidden="true">→</i><span><b>2</b> 选择范围</span><i aria-hidden="true">→</i><span><b>3</b> 操作与标注</span><i aria-hidden="true">→</i><span><b>4</b> 停止并回看</span><i aria-hidden="true">→</i><span><b>5</b> 选择导出</span></div>
+    </section>
+
+    <section id="effects" class="section tinted">
+      <div class="wrap split">
+        <div><p class="eyebrow">02 / EFFECTS</p><h2>先体验交互，<br>再看真实证据。</h2><p class="body-copy">项目源于演示<a href="https://yydshly.github.io/partridge-bike/">鹧鸪骑行作品</a>：一边操作，一边用图和文字解释性能参数。交互预览使用独立的骑行示例，可以试画图、输入文字和调整图片。</p><div class="actions"><a class="button primary" href="demo.html">打开交互试验场 ↗</a><a class="text-link" href="docs/testing.html#evidence">测试日志与样片 →</a></div><p class="fine">交互预览不调用扩展采集，不会生成录制文件。其参数为示例，不能视为鹧鸪项目实测数据。</p></div>
+        <figure class="evidence-image"><img src="docs/image-0.6.9.png" width="1280" height="720" loading="lazy" alt="v0.6.9 图片标注测试的浏览器验证记录"><figcaption>v0.6.9 图片标注浏览器测试截图 · <a href="docs/image-0.6.9.txt">20 项测试记录</a>。合成素材验证不等于真实项目录制验收。</figcaption></figure>
+      </div>
+    </section>
+
+    <section id="mechanism" class="section wrap">
+      <div class="section-heading"><p class="eyebrow">03 / UNDER THE HOOD</p><h2>浏览器采集，原生编码，本机保存。</h2><p>Manifest V3 + 原生 JavaScript，无第三方录屏引擎、运行依赖或后端。</p></div>
+      <div class="pipeline"><div><small>来源</small><h3>标签页画面</h3><code>chrome.tabCapture</code><p>侧栏控制；标注注入网页。</p></div><span aria-hidden="true">→</span><div><small>处理</small><h3>直录 / 区域裁切</h3><code>offscreen + Canvas</code><p>整页优先直录，区域逐帧裁切。</p></div><span aria-hidden="true">→</span><div><small>编码</small><h3>浏览器录制器</h3><code>MediaRecorder</code><p>WebM / 运行时支持的 MP4。</p></div><span aria-hidden="true">→</span><div><small>保存</small><h3>本地录制库</h3><code>IndexedDB + OPFS</code><p>分段写入，按需回看和导出。</p></div></div>
+      <div class="two-columns"><article><h3>区域录制为什么更费资源？</h3><p>当前先采集来源，再播放到视频元素，通过 Canvas 裁切、输出媒体流后编码。比满足直录条件的整页路径多了逐帧处理；已经限制来源尺寸、跳过重复帧、暂停时停止绘制，实际收益仍需测量。</p><a class="text-link" href="docs/index.html#architecture">查看四条处理链路 →</a></article><article><h3>资源占用如何约束？</h3><p>闲置侧栏不开启采集；素材按需载入；标注历史设预算；大视频按需创建文件预览。取消、超时、停止时释放媒体资源。预算与保护机制不代表 Chrome 进程内存的硬上限。</p><a class="text-link" href="docs/index.html#performance">查看性能问题与修复 →</a></article></div>
+      <details class="details"><summary>录制前需要了解的边界</summary><ul><li>「完整网页」录的是当前视口，滚动后录入新画面，不会一次捕获整个长网页。</li><li>选区固定在视口位置，不跟随网页元素。采集容器分辨率变化会重新映射；真实 CSS 视口改变或选区越界仍需要重选。</li><li>标注、文字编辑框和选中手柄会进入视频；录完标注收起，同页可恢复，刷新或关闭网页会清空。</li><li>网页侧栏在标签页来源外；录整个屏幕可能包含可见控制窗口。实际鹧鸪成片中的工具排除仍待验收。</li><li>MP4 取决于运行时编码支持。已有 WebM 转 MP4 会解码后重编码，通常接近播放时长，可能改变画质。</li><li>本地库不是外部备份；卸载扩展或清除数据可能丢失录制，重要内容请自行保存。</li></ul></details>
+    </section>
+
+    <section id="validation" class="section dark">
+      <div class="wrap"><div class="section-heading"><p class="eyebrow">04 / VERIFICATION</p><h2>把「已实现」和「已验证」分开记录。</h2><p>下面是保存的验证快照，页面不会自动运行测试。</p></div>
+      <div class="stats"><div><strong>548</strong><span>v0.6.9 Node 测试通过</span><a href="docs/test-0.6.9.txt">原始日志 ↗</a></div><div><strong>0</strong><span>运行时第三方依赖</span><a href="package.json">项目配置 ↗</a></div><div><strong>待实测</strong><span>鹧鸪录制的帧率、CPU、GPU、内存</span><a href="docs/testing.html#comparison">按统一条件做对比 ↗</a></div></div>
+      <div class="callout"><strong>目前能确认什么？</strong><p>已有真实浏览器中的合成画布编码、MP4、数据库、文件预览、图片和标注测试。尚未完成安装扩展后对鹧鸪项目的实际采集、成片完整性和系统资源对比，不能据此宣称卡顿已经解决。</p></div>
+      <div class="actions"><a class="button light" href="docs/testing.html">性能对比与测试手册 →</a><a class="text-link" href="docs/index.html#verification">完整证据索引 ↗</a></div></div>
+    </section>
+
+    <section id="roadmap" class="section wrap">
+      <div class="section-heading"><p class="eyebrow">05 / WHAT'S NEXT</p><h2>先验证，再扩展。</h2><p>保持简单通用，根据实测瓶颈决定下一步投入。</p></div>
+      <ol class="roadmap"><li><span>现在 / 验收</span><h3>建立真实录制基线</h3><p>对比仅开侧栏、整页和区域；检查标注交互、停止后的资源回落、效果丢失与工具排除。</p></li><li><span>随后 / 稳定性</span><h3>用长录制验证保护机制</h3><p>覆盖磁盘不足、浏览器重启、取消、长视频回看和手动保存，记录设备条件与可复现步骤。</p></li><li><span>候选 / 技术试验</span><h3>有证据后再换处理路径</h3><p>评估浏览器原生区域能力、Worker / WebCodecs 或原生采集。尚未实现，不承诺一定降低占用。</p></li></ol>
+      <a class="text-link" href="docs/index.html#roadmap">扩展方案与取舍 →</a>
+    </section>
+
+    <section id="install" class="section tinted">
+      <div class="wrap install-grid"><div><p class="eyebrow">06 / GET STARTED</p><h2>在 Chrome 中开始。</h2><p class="body-copy">无需安装依赖或编译。最低 Chrome 116；建议使用当前稳定版，MP4 能力单独检测。</p><div class="actions"><a class="button primary" href="https://github.com/yydshly/yinglu-recorder">获取项目源码 ↗</a></div><p class="fine">已从原目录加载的用户保持该路径，更新后重新加载扩展，并刷新目标网页即可。</p></div><ol class="install-steps"><li><b>准备目录</b><p>GitHub「Code → Download ZIP」解压，或克隆仓库。找到直接包含 <code>manifest.json</code> 的目录。</p></li><li><b>加载扩展</b><p>打开 <code>chrome://extensions</code>，开启「开发者模式」，选择「加载已解压的扩展程序」并选中该目录。</p></li><li><b>授权并连接</b><p>打开普通网页，点击映录图标。首次点击「开启自动连接网页」并允许访问；之后正常切换网页会自动识别。录制来源仍受 Chrome 授权限制。</p></li><li><b>选好范围再演示</b><p>点击「开始录制」，选择完整网页或框选区域；结束后回看，按需导出。建议先做一段 30 秒短录。</p></li></ol></div>
+    </section>
+  </main>
+  <footer class="footer wrap"><a class="brand" href="index.html"><span>映录<small>LET THE DEMO HAPPEN.</small></span></a><p>v0.6.9 · 整理于 <time datetime="2026-10-20">2026.10.20</time><br>独立项目记录，持续补充真实证据。</p><nav aria-label="更多资料"><a href="docs/index.html">工程档案</a><a href="docs/testing.html">测试手册</a><a href="CHANGELOG.md">版本历史</a><a href="https://github.com/yydshly/yinglu-recorder">源码 ↗</a></nav></footer>
+</body>
+</html>

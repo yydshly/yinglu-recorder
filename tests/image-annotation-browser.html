@@ -1,0 +1,6 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>图片标注检查</title><link rel="stylesheet" href="../styles.css"><body class="wide">
+<h1>图片标注检查</h1><p class="lead">验证本地图片导入、透明通道、区域内放置、文字批注、撤销恢复及像素编码。示例参数不是鹧鸪实测数据；不采集桌面或麦克风。</p>
+<button id="run" class="primary">运行图片检查</button><pre id="result" role="status">待运行</pre>
+<iframe id="source" title="图片标注测试网页" src="image-annotation-frame.html" width="900" height="600" style="max-width:100%;border:1px solid #ccd8c8"></iframe><video id="playback" controls hidden></video>
+<h2>侧栏文件处理与网页标注联动</h2><p>使用测试图片模拟本地文件选择事件，检查实际侧栏处理和消息链路；不操作系统文件对话框。</p><iframe id="panel-flow" title="图片标注交互预览" src="../demo.html" width="1100" height="760" style="max-width:100%;border:1px solid #ccd8c8"></iframe>
+<script type="module" src="image-annotation-browser.js"></script></body></html>
