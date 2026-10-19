@@ -102,7 +102,8 @@ test('过期预览清理跳过其他页面持有的锁、近期文件和不属�
 
 test('没有跨页锁时不回收可能仍使用的文件，当前预览依旧可以正常释放', async t => {
   const h = await harness(t); h.files.set('preview-1-live.webm', { lastModified: 0 });
-  const preview = await h.prepare({ locks: undefined }); await preview.cleanup();
+  // undefined uses the runtime default, which can include Node's own Web Locks.
+  const preview = await h.prepare({ locks: null }); await preview.cleanup();
   assert.equal(h.files.size, 1); assert.ok(h.files.has('preview-1-live.webm'));
 });
 
