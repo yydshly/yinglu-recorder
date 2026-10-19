@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="doc-notes">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,17 +15,17 @@
   <aside class="sidebar" aria-label="项目档案导航">
     <a class="brand" href="#overview" aria-label="映录项目档案首页"><span class="brand-mark" aria-hidden="true">◧</span><span>映录<small>YINGLU / PROJECT NOTES</small></span></a>
     <div class="sidebar-label">工程记录 <span>01—10</span></div>
-    <nav class="toc">
-      <a href="#overview" aria-current="location"><span>01</span>项目与目标</a>
-      <a href="#capabilities"><span>02</span>完整能力与边界</a>
-      <a href="#architecture"><span>03</span>技术架构与生命周期</a>
-      <a href="#decisions"><span>04</span>实现与决策</a>
-      <a href="#routes"><span>05</span>技术路线对比</a>
-      <a href="#issues"><span>06</span>问题与修复</a>
-      <a href="#stages"><span>07</span>阶段交付与现状</a>
-      <a href="#history"><span>08</span>逐版本演进</a>
-      <a href="#verification"><span>09</span>验证与证据</a>
-      <a href="#roadmap"><span>10</span>优化与扩展计划</a>
+    <nav class="toc" aria-label="档案章节">
+      <a href="#overview" aria-current="location"><span>01</span>项目与当前结论</a>
+      <a href="#capabilities"><span>02</span>能力与使用边界</a>
+      <a href="#stages"><span>03</span>历史阶段</a>
+      <a href="#roadmap"><span>04</span>优先级与后续计划</a>
+      <a href="#architecture"><span>05</span>技术架构与生命周期</a>
+      <a href="#decisions"><span>06</span>实现决策</a>
+      <a href="#routes"><span>07</span>技术路线比较</a>
+      <a href="#issues"><span>08</span>问题处理记录</a>
+      <a href="#verification"><span>09</span>测试证据</a>
+      <a href="#history"><span>10</span>逐版本记录</a>
     </nav>
     <div class="sidebar-bottom"><span class="status-dot" aria-hidden="true"></span>本地优先 · 持续维护<p>先记录事实，<br>再验证判断。</p><a href="../index.html">项目首页 ↗</a><br><a href="testing.html">性能对比与测试手册 ↗</a><br><a href="../README.md">使用说明与源码索引 ↗</a></div>
   </aside>
@@ -37,7 +37,7 @@
         <div class="eyebrow"><span></span>从一次网页演示，开始做一款录制工具</div>
         <h1 id="overview-title">把演示留住，<br>把实现<span class="accent">说清楚。</span></h1>
         <p class="hero-description">映录是一款面向网页项目演示的 Chrome / Edge 扩展。录下真实操作，随手添加标注，在本机回看与导出。这份档案记录它的技术选择、实现过程，以及仍然需要面对的问题。</p>
-        <div class="hero-actions"><a class="button primary" href="#architecture">阅读技术架构 <span aria-hidden="true">↓</span></a><a class="button quiet" href="#issues">查看待验证问题 <span aria-hidden="true">↗</span></a></div>
+        <div class="hero-actions"><a class="button primary" href="#capabilities">先看支持能力 <span aria-hidden="true">↓</span></a><a class="button quiet" href="#roadmap">查看当前重点 <span aria-hidden="true">↗</span></a></div>
         <nav class="record-intro" aria-label="档案阅读路线"><a href="#capabilities">支持的能力与边界</a><a href="#architecture">运行架构与数据流</a><a href="#stages">各阶段交付</a><a href="#optimization">遗留优化</a><a href="#extensions">候选扩展</a></nav>
         <div class="snapshot"><div><small>当前路线</small><strong>浏览器原生能力</strong><span>Manifest V3 + JavaScript</span></div><div><small>产品流程</small><strong>录完回看，按需下载</strong><span>分段存库 · WebM / MP4</span></div><div><small>当前阶段</small><strong>核心已实现，实录待验证</strong><span>合成测试通过 ≠ 实机验收完成</span></div></div>
         <div class="section-heading compact"><span class="section-number">起点</span><h2>让网页演示自然发生</h2></div>
@@ -46,38 +46,139 @@
       </section>
 
       <section id="capabilities" class="observed" aria-labelledby="capabilities-title">
-        <div class="section-heading"><span class="section-number">02 / CAPABILITY MAP</span><h2 id="capabilities-title">支持什么，在什么条件下支持</h2><p>按 v0.6.9 当前代码整理。「已实现」说明有产品入口和实现；真实项目是否验收，另看证据。候选方案不计为当前功能。</p></div>
-        <div class="status-guide"><span class="support">已实现</span><span>当前代码具备</span><span class="support conditional">条件支持</span><span>受来源、授权或浏览器限制</span><span class="support planned">未实现</span><span>尚未进入产品</span></div>
-        <p class="record-note"><strong>适用环境：</strong>当前面向桌面 Chrome / Edge；清单最低 Chrome 116，MP4 单独检测运行时能力。网页注入与采集需要相应授权，窗口 / 系统音频依平台变化。窄屏可在表格内横向滚动阅读。</p>
-        <div class="table-wrap"><table class="capability-matrix"><caption class="sr-only">录制、讲解、保存与保护能力</caption><thead><tr><th>能力 / 状态</th><th>支持内容</th><th>使用方式与范围</th><th>证据与边界</th></tr></thead><tbody>
-          <tr><td>完整网页<br><span class="support">已实现</span></td><td>可见视口、持续动画、暂停继续。</td><td>开始后选完整网页；滚动后录入新画面，不一次捕获整个长网页。侧栏在标签页来源外，网页标注进入画面。</td><td>满足来源约束时优先直录；<a href="media-0.6.8.txt">合成媒体 52 项</a>，鹧鸪实录与工具排除待验收。</td></tr>
-          <tr><td>固定区域<br><span class="support">已实现</span></td><td>一次框选，持续录同一视口位置。</td><td>暂停继续、容器像素重协商不替换选区；补边重新映射。真实 CSS 视口变化或越界要求重选。</td><td>不跟随 DOM；多一层逐帧裁切，卡顿仍待实测。<a href="../lib/video.js">视频实现</a></td></tr>
-          <tr><td>窗口 / 屏幕<br><span class="support conditional">基础支持</span></td><td>系统选择器、预览框选、暂停继续。</td><td>独立录制页承载，复用录制核心与本地库；保持此页打开。</td><td>无桌面级标注，整屏可能包含控制窗口；音乐素材面板未接入。<a href="../desktop.js">实现</a></td></tr>
-          <tr><td>自动连接<br><span class="support conditional">授权后支持</span></td><td>首次授权引导、空闲切页识别、刷新兜底。</td><td>监听当前窗口标签事件；录制开始后锁定原来源，切页不自动更换正在录制的对象。</td><td>网站访问与采集授权分开；受保护页面不可注入。<a href="connection-0.6.3.png">19 项模拟检查</a></td></tr>
-          <tr><td>实时图形<br><span class="support">已实现</span></td><td>方框、圆圈、箭头、画笔、点击光圈。</td><td>鼠标选择 / 移动 / 缩放、颜色 / 线宽、撤销 / 重做 / 清空。「操作网页」恢复网页点击和拖动。</td><td><a href="overlay-0.6.8.txt">26 项 SVG 检查</a>；笔迹和历史有预算，复杂场景仍需实测。</td></tr>
-          <tr><td>文字讲解<br><span class="support">已实现</span></td><td>多行输入、字号、改色、双击重编辑。</td><td>点击网页输入，点框外完成；保留编辑框宽高和软换行。可选择后移动、缩放。</td><td>编辑框、选中边界、手柄也入镜；原生全屏、网页快捷键可能干扰。<a href="../content.js">实现</a></td></tr>
-          <tr><td>图片素材<br><span class="support">已实现</span></td><td>PNG / JPEG / WebP 参数图、截图、预备图片收藏。</td><td>按张插入，移动、等比缩放；可在图上继续圈画。列表读缩略图，原图按需加载。</td><td><a href="materials-0.6.9.txt">素材 10 项</a> / <a href="image-0.6.9.txt">图片 20 项</a>；不是成片中独立可编辑轨道。</td></tr>
-          <tr><td>声音 / 音乐<br><span class="support conditional">依来源支持</span></td><td>网页声、麦克风；网页模式本地音乐收藏、试听、音量和循环。</td><td>单音轨直通，多路才混音；音乐区收起或隐藏释放试听。可导入 MP3 / WAV / OGG / M4A / AAC / FLAC / WebM，实际需能解码。</td><td><a href="music-0.6.9.txt">21 项音乐 / 侧栏检查</a>；麦克风单独授权；桌面声音取决于系统与来源。</td></tr>
-          <tr><td>停止与恢复<br><span class="support">已实现</span></td><td>暂停扣时、取消准备、停止兜底、同页恢复标注。</td><td>结束先释放采集再保存；标注收起，释放历史和图片像素，保留最终标注供恢复。</td><td>暂停仍保留来源，非零占用；刷新或关闭网页清空标注。<a href="../lib/recorder.js">录制核心</a></td></tr>
-          <tr><td>本地库 / 回看<br><span class="support">已实现</span></td><td>分段保存、分页列表、按需文件预览。</td><td>录完先回看，自行下载；大文件准备临时文件后播放，支持取消、释放，与采集 / 转换协同。</td><td><a href="database-0.6.8.txt">数据库 15 项</a> / <a href="preview-0.6.8.txt">文件 25 项</a>；真实长片和设备占用待测。</td></tr>
-          <tr><td>WebM / MP4<br><span class="support conditional">运行时检测</span></td><td>原片下载、直接保存、支持时 MP4 录制与转换。</td><td>WebM 优先 VP8 / Opus；MP4 为 H.264 / AAC。WebM 转 MP4 本机重编码、可取消、保留原片。</td><td><a href="mp4-0.6.8.txt">19 项 MP4 检查</a>；转换接近播放时长、可能改画质，与新采集互斥。</td></tr>
-          <tr><td>异常保护<br><span class="support">已实现</span></td><td>超时、占用锁、迟到隔离、保存积压与恢复。</td><td>片段 / 元数据原子写入；读取中防删除；失联尝试恢复已落盘片段，不把失败显示为完整成功。</td><td><a href="test-0.6.9.txt">548 项模块测试</a>；崩溃不保证末段完整，本地库不是外部备份。</td></tr>
-          <tr><td>诊断 / 隐私<br><span class="support">已实现</span></td><td>默认关闭的性能诊断、本机手动导出。</td><td>记录来源尺寸、处理路径、帧提交与保存情况；无账号、上传、遥测或运行时 CDN。</td><td>回调不等于作品 / 成片实际 FPS，系统数据按<a href="testing.html#comparison">统一步骤测量</a>。</td></tr>
-          <tr><td>剪辑 / 云 / 原生<br><span class="support planned">未实现</span></td><td>没有多轨剪辑、字幕编辑、云同步、桌面标注、元素跟随录制。</td><td>跨刷新标注草稿、轻量素材复用等仅为<a href="#extensions">候选扩展</a>。</td><td>保持网页演示优先，复杂编辑与云服务暂不优先。</td></tr>
-        </tbody></table></div>
-        <details class="source-map"><summary>展开容量预算和保护阈值</summary><div class="verification-links"><ul><li><b>来源：</b>高清长边预算 1920，流畅 / 低负载 1280；原始尺寸保留细节优先。低负载 20 FPS，设置值不是成片实测帧率。</li><li><b>视频：</b>目标约一秒分段，待写入超过 64 MiB 触发停止；32 MiB 内允许 Blob 兼容路径，超过后依赖文件路径，暂存额外占磁盘。</li><li><b>标注：</b>512 个图形、单笔 4096 点、场景 64000 点；当前与历史共保留 128000 点，撤销最多 50 步并受引用预算约束。</li><li><b>图片：</b>输入先预检，输出长边最多 1600；素材库 12 张 / 16 MiB，页内像素预算 64 MiB、压缩恢复 16 MiB。</li><li><b>音乐：</b>12 首，单首最多 32 MiB / 60 分钟，合计 128 MiB；实际解码由浏览器管理。</li><li><b>列表：</b>录制库每次 20 条，侧栏最近 3 条，更多内容按需载入。</li></ul><p>实现依据：<a href="../content.js">标注预算</a>、<a href="../lib/storage-budget.js">文件预算</a>、<a href="../lib/image-materials.js">图片素材</a>、<a href="../lib/music-store.js">音乐库</a>。不同层的保护预算不能相加视为真实 RAM，更不代表 Chrome 进程硬上限。</p></div></details>
+        <div class="section-heading"><span class="section-number">02 / CAPABILITY MAP</span><h2 id="capabilities-title">支持什么，在什么条件下支持</h2><p>支持范围按 v0.6.9 代码核对，证据列说明验证到哪一步；真实 Chrome 录制与系统资源验收仍待完成。</p></div>
+        <div class="status-guide"><span class="support">已实现</span><span>代码具备，非实机验收</span><span class="support conditional">条件支持</span><span>需来源、授权或运行时支持</span><span class="support planned">未实现</span><span>当前未交付</span></div>
+        <p class="record-note"><strong>适用环境：</strong>桌面 Chrome / Edge，最低 Chrome 116。MP4 与来源音频按运行时检测；网站访问权限和标签页录制许可分别授权。</p>
+        <details class="reading-detail" open><summary>采集与连接 <small>4 项</small></summary><div class="table-wrap"><table class="capability-matrix readable-table" role="table"><caption class="sr-only">采集与连接</caption><thead>
+<tr role="row"><th role="columnheader" scope="col">能力 / 状态</th><th role="columnheader" scope="col">支持内容</th><th role="columnheader" scope="col">使用方式与范围</th><th role="columnheader" scope="col">证据与边界</th></tr>
+</thead>
+<tbody>
+<tr role="row"><td data-label="能力 / 状态" role="cell">完整网页<br/><span class="support">已实现</span></td><td data-label="支持内容" role="cell">可见视口、持续动画、暂停继续。</td><td data-label="使用方式与范围" role="cell">开始后选完整网页；滚动后录入新画面，不一次捕获整个长网页。侧栏在标签页来源外，网页标注进入画面。</td><td data-label="证据与边界" role="cell">满足来源约束时优先直录；<a href="media-0.6.8.txt">合成媒体 52 项</a>，鹧鸪实录与工具排除待验收。</td></tr>
+<tr role="row"><td data-label="能力 / 状态" role="cell">固定区域<br/><span class="support">已实现</span></td><td data-label="支持内容" role="cell">一次框选，持续录同一视口位置。</td><td data-label="使用方式与范围" role="cell">暂停继续、容器像素重协商不替换选区；补边重新映射。真实 CSS 视口变化或越界要求重选。</td><td data-label="证据与边界" role="cell">不跟随 DOM；多一层逐帧裁切，卡顿仍待实测。<a href="../lib/video.js">视频实现</a></td></tr>
+<tr role="row"><td data-label="能力 / 状态" role="cell">窗口 / 屏幕<br/><span class="support conditional">条件支持</span></td><td data-label="支持内容" role="cell">系统选择器、预览框选、暂停继续。</td><td data-label="使用方式与范围" role="cell">独立录制页承载，复用录制核心与本地库；保持此页打开。</td><td data-label="证据与边界" role="cell">无桌面级标注，整屏可能包含控制窗口；音乐素材面板未接入。<a href="../desktop.js">实现</a></td></tr>
+<tr role="row"><td data-label="能力 / 状态" role="cell">自动连接<br/><span class="support conditional">条件支持</span></td><td data-label="支持内容" role="cell">首次授权引导、空闲切页识别、刷新兜底。</td><td data-label="使用方式与范围" role="cell">监听当前窗口标签事件；录制开始后锁定原来源，切页不自动更换正在录制的对象。</td><td data-label="证据与边界" role="cell">网站访问与采集授权分开；受保护页面不可注入。<a href="connection-0.6.3.png">19 项模拟检查</a></td></tr>
+</tbody>
+</table></div></details>
+        <details class="reading-detail"><summary>标注与讲解素材 <small>4 项</small></summary><div class="table-wrap"><table class="capability-matrix readable-table" role="table"><caption class="sr-only">标注与讲解素材</caption><thead>
+<tr role="row"><th role="columnheader" scope="col">能力 / 状态</th><th role="columnheader" scope="col">支持内容</th><th role="columnheader" scope="col">使用方式与范围</th><th role="columnheader" scope="col">证据与边界</th></tr>
+</thead>
+<tbody>
+<tr role="row"><td data-label="能力 / 状态" role="cell">实时图形<br/><span class="support">已实现</span></td><td data-label="支持内容" role="cell">方框、圆圈、箭头、画笔、点击光圈。</td><td data-label="使用方式与范围" role="cell">鼠标选择 / 移动 / 缩放、颜色 / 线宽、撤销 / 重做 / 清空。「操作网页」恢复网页点击和拖动。</td><td data-label="证据与边界" role="cell"><a href="overlay-0.6.8.txt">26 项 SVG 检查</a>；笔迹和历史有预算，复杂场景仍需实测。</td></tr>
+<tr role="row"><td data-label="能力 / 状态" role="cell">文字讲解<br/><span class="support">已实现</span></td><td data-label="支持内容" role="cell">多行输入、字号、改色、双击重编辑。</td><td data-label="使用方式与范围" role="cell">点击网页输入，点框外完成；保留编辑框宽高和软换行。可选择后移动、缩放。</td><td data-label="证据与边界" role="cell">编辑框、选中边界、手柄也入镜；原生全屏、网页快捷键可能干扰。<a href="../content.js">实现</a></td></tr>
+<tr role="row"><td data-label="能力 / 状态" role="cell">图片素材<br/><span class="support">已实现</span></td><td data-label="支持内容" role="cell">PNG / JPEG / WebP 参数图、截图、预备图片收藏。</td><td data-label="使用方式与范围" role="cell">按张插入，移动、等比缩放；可在图上继续圈画。列表读缩略图，原图按需加载。</td><td data-label="证据与边界" role="cell"><a href="materials-0.6.9.txt">素材 10 项</a> / <a href="image-0.6.9.txt">图片 20 项</a>；不是成片中独立可编辑轨道。</td></tr>
+<tr role="row"><td data-label="能力 / 状态" role="cell">声音 / 音乐<br/><span class="support conditional">条件支持</span></td><td data-label="支持内容" role="cell">网页声、麦克风；网页模式本地音乐收藏、试听、音量和循环。</td><td data-label="使用方式与范围" role="cell">单音轨可直用，多路才混音；网页原声回放仍可能创建 AudioContext。音乐区收起或隐藏释放试听。可导入 MP3 / WAV / OGG / M4A / AAC / FLAC / WebM，实际需能解码。</td><td data-label="证据与边界" role="cell"><a href="music-0.6.9.txt">21 项音乐 / 侧栏检查</a>；麦克风单独授权。窗口 / 屏幕支持来源声音与麦克风，本地音乐仅接入网页侧栏。</td></tr>
+</tbody>
+</table></div></details>
+        <details class="reading-detail"><summary>保存、导出与保护 <small>5 项</small></summary><div class="table-wrap"><table class="capability-matrix readable-table" role="table"><caption class="sr-only">保存、导出与保护</caption><thead>
+<tr role="row"><th role="columnheader" scope="col">能力 / 状态</th><th role="columnheader" scope="col">支持内容</th><th role="columnheader" scope="col">使用方式与范围</th><th role="columnheader" scope="col">证据与边界</th></tr>
+</thead>
+<tbody>
+<tr role="row"><td data-label="能力 / 状态" role="cell">停止与恢复<br/><span class="support">已实现</span></td><td data-label="支持内容" role="cell">暂停扣时、取消准备、停止兜底、同页恢复标注。</td><td data-label="使用方式与范围" role="cell">结束先释放采集再保存；标注收起，释放历史和图片像素，保留最终标注供恢复。</td><td data-label="证据与边界" role="cell">暂停仍保留来源，非零占用；刷新或关闭网页清空标注。<a href="../lib/recorder.js">录制核心</a></td></tr>
+<tr role="row"><td data-label="能力 / 状态" role="cell">本地库 / 回看<br/><span class="support">已实现</span></td><td data-label="支持内容" role="cell">分段保存、分页列表、按需文件预览。</td><td data-label="使用方式与范围" role="cell">录完先回看，自行下载；大文件准备临时文件后播放，支持取消、释放，与采集 / 转换协同。</td><td data-label="证据与边界" role="cell"><a href="database-0.6.8.txt">数据库 15 项</a> / <a href="preview-0.6.8.txt">文件 25 项</a>；真实长片和设备占用待测。</td></tr>
+<tr role="row"><td data-label="能力 / 状态" role="cell">WebM / MP4<br/><span class="support conditional">条件支持</span></td><td data-label="支持内容" role="cell">原片下载、直接保存、支持时 MP4 录制与转换。</td><td data-label="使用方式与范围" role="cell">WebM 优先 VP8 / Opus；MP4 请求 H.264 / AAC，实际以录制 MIME 和音轨为准；未启用声音时不要求音轨。WebM 转 MP4 本机重编码、可取消、保留原片。</td><td data-label="证据与边界" role="cell"><a href="mp4-0.6.8.txt">19 项 MP4 检查</a>；转换接近播放时长、可能改画质，与新采集互斥。</td></tr>
+<tr role="row"><td data-label="能力 / 状态" role="cell">异常保护<br/><span class="support">已实现</span></td><td data-label="支持内容" role="cell">超时、占用锁、迟到隔离、保存积压与恢复。</td><td data-label="使用方式与范围" role="cell">片段 / 元数据原子写入；读取中防删除；失联尝试恢复已落盘片段，不把失败显示为完整成功。</td><td data-label="证据与边界" role="cell"><a href="test-0.6.9.txt">548 项模块测试</a>；崩溃不保证末段完整，本地库不是外部备份。</td></tr>
+<tr role="row"><td data-label="能力 / 状态" role="cell">诊断 / 隐私<br/><span class="support">已实现</span></td><td data-label="支持内容" role="cell">默认关闭的性能诊断、本机手动导出。</td><td data-label="使用方式与范围" role="cell">记录来源尺寸、处理路径、帧提交与保存情况；无账号、上传、遥测或运行时 CDN。</td><td data-label="证据与边界" role="cell">回调不等于作品 / 成片实际 FPS，系统数据按<a href="testing.html#comparison">统一步骤测量</a>。</td></tr>
+</tbody>
+</table></div></details><div class="scope-boundary"><h3><span class="support planned">未实现</span> 当前范围之外</h3><p>没有时间线剪辑、字幕编辑、云同步、桌面级标注、跟随 DOM 元素录制或跨刷新标注草稿。后者及轻量素材整理仅为<a href="#extensions">候选扩展</a>；已有单图插入、设置记忆和本地收藏继续保留。</p></div>
+        <details class="source-map"><summary>展开容量预算和保护阈值</summary><div class="verification-links"><ul><li><b>授权：</b>允许普通网站访问不代表每个标签页都已获准采集；必要时仍需点击扩展图标。受保护页面不能注入标注，窗口 / 系统音频取决于平台。</li><li><b>来源：</b>高清长边预算 1920，流畅 / 低负载 1280；原始尺寸保留细节优先。低负载 20 FPS，设置值不是成片实测帧率。</li><li><b>视频：</b>目标约一秒分段，待写入超过 64 MiB 触发停止；32 MiB 内允许 Blob 兼容路径，超过后依赖文件路径，暂存额外占磁盘。</li><li><b>标注：</b>512 个图形、单笔 4096 点、场景 64000 点；当前与历史共保留 128000 点，撤销最多 50 步并受引用预算约束。</li><li><b>图片：</b>输入最多 10 MiB、2000 万像素且单边不超过 10000；预检后请求缩小解码，输出长边最多 1600、单图 2 MiB。素材库 12 张 / 16 MiB，页内像素预算 64 MiB、压缩恢复 16 MiB。</li><li><b>音乐：</b>12 首，单首最多 32 MiB / 60 分钟，合计 128 MiB；实际解码由浏览器管理。</li><li><b>列表：</b>录制库每次 20 条，侧栏最近 3 条，更多内容按需载入。</li></ul><p>实现依据：<a href="../content.js">标注预算</a>、<a href="../lib/storage-budget.js">文件预算</a>、<a href="../lib/image-materials.js">图片素材</a>、<a href="../lib/music-store.js">音乐库</a>。不同层的保护预算不能相加视为真实 RAM，更不代表 Chrome 进程硬上限。</p></div></details>
+      </section>
+
+      <section id="stages" class="observed" aria-labelledby="stages-title">
+        <div class="section-heading"><span class="section-number">03 / DELIVERY STAGES</span><h2 id="stages-title">每个阶段，交付了哪些能力</h2><p>按工作重点将历史版本归为六段，不是当时正式命名的里程碑，也不表示每项能力在该段才首次出现。当前能力与限制以上方矩阵为准。</p></div>
+        <div class="stage-position"><strong>当前位置：资源治理代码已进入主线，真实项目验收仍未闭合。</strong>当前是 v0.6.9。先复核来源、停止与保存，再建立鹧鸪资源基线；已复现的严重故障立即处理，性能测量可并行进行。自动化通过不等于实机性能验收。</div>
+        <div class="table-wrap"><table class="phase-table readable-table" role="table"><caption class="sr-only">历史阶段、交付能力与验收边界</caption><thead>
+<tr role="row"><th role="columnheader" scope="col">阶段 / 版本</th><th role="columnheader" scope="col">用户获得的能力</th><th role="columnheader" scope="col">工程实现重点</th><th role="columnheader" scope="col">历史说明与当前验收边界</th></tr>
+</thead>
+<tbody>
+
+<tr role="row"><td data-label="阶段 / 版本" role="cell"><strong>01 · 录制原型</strong><small>v0.1.x</small></td><td data-label="用户获得的能力" role="cell">网页画面、框选、基础标注、暂停继续，本地录制。</td><td data-label="工程实现重点" role="cell">建立 tabCapture → 媒体流 → MediaRecorder；完整画面优先直录，尺寸 / 帧率约束。</td><td data-label="历史说明与当前验收边界" role="cell">形成可运行原型；复杂 3D、实际帧率和长期占用不由原型验证覆盖。</td></tr>
+
+<tr role="row"><td data-label="阶段 / 版本" role="cell"><strong>02 · 操作闭环</strong><small>v0.2.0–0.2.2</small></td><td data-label="用户获得的能力" role="cell">开始后选择范围；网页直接输入文字、图形编辑；结束隐藏，同页恢复。</td><td data-label="工程实现重点" role="cell">取消选区、来源 / 窗口绑定、会话隔离、保存与释放分开；已有片段 / 元数据原子写入与积压保护。</td><td data-label="历史说明与当前验收边界" role="cell">核心交互进入产品；多窗口、关闭 / 刷新与迟到消息需要持续回归。</td></tr>
+
+<tr role="row"><td data-label="阶段 / 版本" role="cell"><strong>03 · 强化保存可靠性</strong><small>v0.3.0</small></td><td data-label="用户获得的能力" role="cell">沿用片段保存，强化停止兜底、失联恢复，加入诊断与当时的导出流程。</td><td data-label="工程实现重点" role="cell">写入积压、片段完整性、录制承载页生命周期与恢复协调。</td><td data-label="历史说明与当前验收边界" role="cell">继续加固已有保存机制；自动下载后来在 v0.4.3 撤回。历史说明不能替代当前操作方式。</td></tr>
+
+<tr role="row"><td data-label="阶段 / 版本" role="cell"><strong>04 · 格式与区域</strong><small>v0.4.0–0.4.8</small></td><td data-label="用户获得的能力" role="cell">MP4、导出取消 / 重试；固定区域、补边映射与低负载；初步图片标注。</td><td data-label="工程实现重点" role="cell">真实容器编码，原件保留、读取占用、尺寸稳定和一次选区快照；v0.4.3 起录完不自动下载。</td><td data-label="历史说明与当前验收边界" role="cell"><a href="mp4-0.6.8.txt">编码 / 转换回归</a>和<a href="media-0.6.8.txt">合成区域回归</a>；真实鹧鸪区域卡顿未关闭。</td></tr>
+
+<tr role="row"><td data-label="阶段 / 版本" role="cell"><strong>05 · 讲解素材</strong><small>v0.4.9–0.6.0</small></td><td data-label="用户获得的能力" role="cell">空闲切页连接、预备图片素材、本地背景音乐收藏与混音。</td><td data-label="工程实现重点" role="cell">按需素材读取、独立本地存储、播放器生命周期，复用录制音频核心。</td><td data-label="历史说明与当前验收边界" role="cell"><a href="materials-0.6.9.txt">素材</a>、<a href="music-0.6.9.txt">音乐</a>检查；桌面页音乐未接入，真实设备混音仍需短录验收。</td></tr>
+
+<tr role="row"><td data-label="阶段 / 版本" role="cell"><strong>06 · 资源与使用性</strong><small>v0.6.1–0.6.9 · 当前</small></td><td data-label="用户获得的能力" role="cell">首次授权指引、刷新兜底；取消 / 超时；长片文件回看；数据库重连、分页、长笔迹与闲置侧栏优化。</td><td data-label="工程实现重点" role="cell">来源预算、共享历史、缩小解码、统一文件资源、迟到清理、素材惰性加载、归档像素释放。</td><td data-label="历史说明与当前验收边界" role="cell">当前 <a href="test-0.6.9.txt">548 项模块测试</a>及分版本浏览器证据；实际 CPU / GPU / 内存、长片体验和成片完整性仍待测。</td></tr>
+
+</tbody>
+</table></div>
+        <p class="record-note">阶段之间是能力累积；后续行为可取代历史方案。精确更新见<a href="../CHANGELOG.md">完整版本记录</a>，各证据的产生版本见<a href="#verification">验证索引</a>。后续按问题严重程度与证据推进，不是依次解锁的四个版本，也不预设发布日期。</p>
+      </section>
+
+      <section id="roadmap" class="observed" aria-labelledby="roadmap-title">
+        <div class="section-heading"><span class="section-number">04 / NEXT STEPS</span><h2 id="roadmap-title">先保住录制，再改善性能与体验</h2><p>优先级按影响排序，可并行测量与修复。下面是处理规则和待验收任务，并不表示已确认有新的故障。</p></div>
+        <div class="priority-summary"><strong>当前重点</strong><p>完成真实鹧鸪录制验收，复核卡顿、效果完整性和资源回落。若复现错录来源、无法停止或保存失败，立即按 P0 处理，无需等待整轮性能报告。</p></div>
+        <ol class="next-stage priority-list">
+          <li><h3>P0 · 来源正确、能停止、数据可保留</h3><p>触发：错录网页、卡死 / 无法停止、无法形成有效录制、保存或导出损坏数据。先复现并隔离故障，保护已经落盘的原片。</p><p><b>验收：</b>来源匹配；结束能返回；取消、失败或重启后状态可理解，已确认片段可读。属于验收重点，不把尚未取得的实机结果标成通过。</p></li>
+          <li><h3>P1 · 录制流畅、闲置与长片资源可控</h3><p>交付：相同条件下对比仅开侧栏、整页与区域；覆盖工具切换、长笔迹、图片、长片回看和导出。只针对证实的瓶颈优化；正常连接故障也在此级处理。</p><p><b>验收：</b>用相同设备与设置比较实际画面、交互延迟、CPU / GPU / 内存和停止后趋势；不牺牲音画、文字或图片完整性。测量方法见<a href="testing.html">测试手册</a>。</p></li>
+          <li><h3>P2 · 减少演示准备与理解成本</h3><p>候选：更清楚的授权 / 格式提示、素材命名与排序、可选标注草稿。现有设置记忆、本地收藏和图片插入已实现，不重复列为待开发。</p><p><b>验收：</b>操作步骤减少，默认空闲路径不新增解码、轮询或上传；按高频反馈选择少量改动，避免扩大为复杂编辑器。</p></li>
+        </ol>
+        <div class="scope-boundary"><h3>技术试验：有证据才启动，不是必经的第四阶段</h3><p>只有确认现有裁切或编码控制成为瓶颈后，才评估原生区域能力、Worker / WebCodecs 或原生采集。先证明授权、任意网页适用性、固定选区、标注保留和收益，再决定是否进入主线；失败则不迁移。</p></div>
+
+        <div id="optimization" class="section-heading compact"><span class="section-number">OPTIMIZATION</span><h3>已经做了什么，还能往哪里优化</h3></div>
+        <details class="reading-detail"><summary>优化清单：已做措施、遗留与验证方法</summary><div class="table-wrap"><table class="planning-table readable-table" role="table"><caption class="sr-only">优化现状、遗留问题与验证方式</caption><thead>
+<tr role="row"><th role="columnheader" scope="col">方向 / 优先级</th><th role="columnheader" scope="col">已经落地</th><th role="columnheader" scope="col">遗留与下一步候选</th><th role="columnheader" scope="col">如何判断有效</th></tr>
+</thead>
+<tbody>
+<tr role="row"><td data-label="方向 / 优先级" role="cell">停止与数据 · P0</td><td data-label="已经落地" role="cell">停止兜底、写入保护、读取占用、取消 / 超时与迟到清理已经实现。</td><td data-label="遗留与下一步候选" role="cell">优先实机复核错来源、无法停止、保存失败等严重回归；复现后立即修复。</td><td data-label="如何判断有效" role="cell">结束返回、原片可读、无错会话写入；取消与失败不伪报完整成功。</td></tr>
+
+<tr role="row"><td data-label="方向 / 优先级" role="cell">区域裁切 · P1</td><td data-label="已经落地" role="cell">来源长边预算、随新帧绘制、重复帧跳过、暂停停调度。</td><td data-label="遗留与下一步候选" role="cell">仍采集整个来源再裁切；先测是否主要开销，再验证原生裁切或其他帧处理路径。</td><td data-label="如何判断有效" role="cell">同视口 / 选区 / 画质对比网页帧节奏、绘制、实际成片帧率、CPU / GPU，检查细节和特效。</td></tr>
+
+<tr role="row"><td data-label="方向 / 优先级" role="cell">标注交互 · P1</td><td data-label="已经落地" role="cell">共享历史、点数预算、增量 SVG 点、拖动矩阵、节点复用。</td><td data-label="遗留与下一步候选" role="cell">长笔迹和较多图形仍有布局 / 绘制成本；用同一工具切换序列定位热点后局部优化。</td><td data-label="如何判断有效" role="cell">空闲与录制分别测长笔迹、移动、清空、撤销；测交互延迟、分配和恢复正确性。</td></tr>
+
+<tr role="row"><td data-label="方向 / 优先级" role="cell">侧栏闲置 · P1</td><td data-label="已经落地" role="cell">素材区默认收起、按需开库、试听才读文件、状态局部更新。</td><td data-label="遗留与下一步候选" role="cell">先取得测试手册中 B「仅开侧栏」的基线；若仍持续繁忙，检查事件重复和无效 UI 更新，避免新增计时器。</td><td data-label="如何判断有效" role="cell">空闲 CPU、相关进程内存、重复打开 / 关闭后趋势；保留同页标注恢复。</td></tr>
+
+<tr role="row"><td data-label="方向 / 优先级" role="cell">大图与音乐 · P1</td><td data-label="已经落地" role="cell">图片预检 / 缩小解码、关闭位图、隐藏归档；音乐收起释放试听。</td><td data-label="遗留与下一步候选" role="cell">浏览器内部解码峰值不可完全控制；实测连续导入、取消与恢复，必要时收紧输入策略。</td><td data-label="如何判断有效" role="cell">峰值与停止后的回落，透明通道、文字排版、旋转方向和混音同步保持正确。</td></tr>
+
+<tr role="row"><td data-label="方向 / 优先级" role="cell">长片回看 / 存储 · P1</td><td data-label="已经落地" role="cell">OPFS 文件路径、32 MiB 内存兼容阈值、单预览、分页、数据库重连。</td><td data-label="遗留与下一步候选" role="cell">准备耗时、额外磁盘、WebM 定位和长时解码仍待实测；评估时长 / 定位信息和进度反馈的改善。</td><td data-label="如何判断有效" role="cell">真实长片的首次播放、跳转、取消响应、磁盘峰值、连续使用后的内存趋势。</td></tr>
+
+<tr role="row"><td data-label="方向 / 优先级" role="cell">MP4 / 导出 · P1</td><td data-label="已经落地" role="cell">运行时检测、可直接 MP4、原片保留、文件写入取消与清理保护。</td><td data-label="遗留与下一步候选" role="cell">转换仍接近实时并可能改变画质；优先解释支持状态。只有控制不足时再研究 WebCodecs / 封装。</td><td data-label="如何判断有效" role="cell">耗时、分辨率、编码、音画同步、画质与体积；失败 / 取消后原件可读。</td></tr>
+
+<tr role="row"><td data-label="方向 / 优先级" role="cell">连接与引导 · P1</td><td data-label="已经落地" role="cell">首次授权引导、事件自动连接、刷新兜底、错误详情。</td><td data-label="遗留与下一步候选" role="cell">站点权限与来源授权分别验证。连接不能使用按 P1；错录来源升 P0；仅提示文案改善为 P2。</td><td data-label="如何判断有效" role="cell">首次使用、取消授权、切页、多窗口、导航和重载，无持续假等待或来源误切换。</td></tr>
+
+</tbody>
+</table></div></details>
+        <div id="extensions" class="section-heading compact" style="margin-top:30px"><span class="section-number">EXTENSIONS</span><h3>可扩展的能力与取舍</h3></div>
+        <details class="reading-detail"><summary>候选扩展：价值、前提与取舍</summary><div class="table-wrap"><table class="planning-table readable-table" role="table"><caption class="sr-only">候选扩展，均未作为当前能力交付</caption><thead>
+<tr role="row"><th role="columnheader" scope="col">候选方向</th><th role="columnheader" scope="col">带来的价值</th><th role="columnheader" scope="col">必须先解决</th><th role="columnheader" scope="col">当前判断</th></tr>
+</thead>
+<tbody>
+
+<tr role="row"><td data-label="候选方向" role="cell">演示准备 / 素材整理</td><td data-label="带来的价值" role="cell">已有设置记忆与本地收藏；再补素材命名 / 排序、来源和格式支持提示，减少准备步骤。</td><td data-label="必须先解决" role="cell">复用现有偏好与存储，不自动读大文件；明确当前录制使用的素材。</td><td data-label="当前判断" role="cell">P2，以少量列表操作与清晰引导为主，不建立复杂素材管理系统。</td></tr>
+
+<tr role="row"><td data-label="候选方向" role="cell">标注草稿跨刷新</td><td data-label="带来的价值" role="cell">刷新后恢复参数图和文字，减少重新排版。</td><td data-label="必须先解决" role="cell">绑定网址与视口，压缩预算、过期清理、来源验证，避免在错误页面恢复。</td><td data-label="当前判断" role="cell">P2，可选；当前仅同页恢复，尚未实现。</td></tr>
+
+<tr role="row"><td data-label="候选方向" role="cell">轻量参数卡切换</td><td data-label="带来的价值" role="cell">提前准备少量参数图，演示中一键显示 / 隐藏或替换。</td><td data-label="必须先解决" role="cell">与现有图片选择保持一致，避免大量图片常驻解码；先确认实际高频需求。</td><td data-label="当前判断" role="cell">候选；现有单图插入已覆盖基本需求，不扩成剪辑时间线。</td></tr>
+
+<tr role="row"><td data-label="候选方向" role="cell">本机诊断记录包</td><td data-label="带来的价值" role="cell">把设置、来源信息、异常步骤与选定日志集中导出，便于复现。</td><td data-label="必须先解决" role="cell">用户主动导出、预览包含内容；敏感网址与素材信息可移除。</td><td data-label="当前判断" role="cell">P2；已有单项诊断 JSON，尚无统一记录包。</td></tr>
+
+<tr role="row"><td data-label="候选方向" role="cell">浏览器原生区域能力</td><td data-label="带来的价值" role="cell">可能减少手动 Canvas 每帧处理。</td><td data-label="必须先解决" role="cell">先核对 self-capture / 目标元素条件，以及离屏任意页、固定视口和独立标注层能否兼容。</td><td data-label="当前判断" role="cell">只做验证原型，不能作为现成替代；<a href="https://developer.chrome.com/docs/web-platform/region-capture">官方 Region Capture 说明</a>。</td></tr>
+
+<tr role="row"><td data-label="候选方向" role="cell">Worker / WebCodecs</td><td data-label="带来的价值" role="cell">更细的帧、时间戳、编码队列和线程调度控制。</td><td data-label="必须先解决" role="cell">自行负责音画同步、背压、文件封装和资源释放，仍共享设备能力。</td><td data-label="当前判断" role="cell">性能证据触发；不承诺必然更快。<a href="https://developer.chrome.com/docs/web-platform/best-practices/webcodecs">官方处理指南</a></td></tr>
+
+<tr role="row"><td data-label="候选方向" role="cell">原生或混合采集</td><td data-label="带来的价值" role="cell">更通用的窗口 / 屏幕、硬件处理与文件管理控制。</td><td data-label="必须先解决" role="cell">安装分发、多系统适配、音频 / 显卡兼容、权限和维护成本。</td><td data-label="当前判断" role="cell">通用录屏成为主需求后再评估，不是当前交付计划。</td></tr>
+
+</tbody>
+</table></div></details>
+        <div class="scope-boundary"><h3>保持简单通用的范围约束</h3><p>近期以网页录制、现场标注、图片 / 本地音乐、本机回看与手动保存为主。复杂多轨剪辑、字幕制作、云账号 / 同步、远程素材服务暂不优先。新增能力先验证是否减少演示准备和操作成本，再决定是否值得引入。</p></div>
+        <div class="maintenance"><h3>这份档案如何继续维护</h3><p>每次改动同步更新版本、决策和问题状态。修复记录写清“现象 → 原因 → 处理 → 验证”；实验附环境与原始证据；真实验收通过后再关闭对应待实测项。详细历史保留在 <a href="verification.md">verification.md</a>，安装与边界保留在 <a href="../README.md">README</a>。</p></div>
+        <details class="source-map references"><summary>技术依据与官方文档</summary><ul><li><a href="https://developer.chrome.com/docs/extensions/how-to/web-platform/screen-capture" target="_blank" rel="noreferrer">Chrome · 标签页、窗口和屏幕采集</a></li><li><a href="https://www.w3.org/TR/mediastream-recording/" target="_blank" rel="noreferrer">W3C · MediaStream Recording</a></li><li><a href="https://developer.chrome.com/docs/web-platform/best-practices/webcodecs" target="_blank" rel="noreferrer">Chrome · WebCodecs 帧处理与编码</a></li><li><a href="https://developer.chrome.com/docs/web-platform/region-capture" target="_blank" rel="noreferrer">Chrome · Region Capture</a> / <a href="https://developer.chrome.com/docs/web-platform/element-capture" target="_blank" rel="noreferrer">Element Capture</a></li><li><a href="https://learn.microsoft.com/en-us/windows/apps/develop/media-authoring-processing/screen-capture" target="_blank" rel="noreferrer">Microsoft · Windows Graphics Capture</a></li><li><a href="https://www.electronjs.org/docs/latest/api/desktop-capturer/" target="_blank" rel="noreferrer">Electron · desktopCapturer</a></li></ul><p>技术说明按当前代码、验证记录与本次讨论整理；候选 API 的可用性仍需在实际运行环境检测。</p></details>
       </section>
 
       <section id="architecture" class="observed" aria-labelledby="architecture-title">
-        <div class="section-heading"><span class="section-number">03 / ARCHITECTURE</span><h2 id="architecture-title">画面如何变成视频</h2><p>捕获、处理、编码、保存是四件事。产品界面与录制底层分别承担职责。</p></div>
-        <div class="system-map" aria-label="控制、媒体执行和本地数据架构">
+        <div class="section-heading"><span class="section-number">05 / ARCHITECTURE</span><h2 id="architecture-title">画面如何变成视频</h2><p>捕获、处理、编码、保存是四件事。产品界面与录制底层分别承担职责。</p></div>
+        <details class="reading-detail"><summary>模块运行位置与数据职责 <small>12 个模块，按需展开</small></summary><div class="system-map" aria-label="控制、媒体执行和本地数据架构">
           <div class="system-layer"><h3>控制面<small>操作与协调</small></h3><div class="system-nodes"><article class="system-node"><h4>Side Panel</h4><code>panel.*</code><p>范围、工具、音频、素材、状态；发送控制消息，不持续编码视频。</p></article><article class="system-node"><h4>Service Worker</h4><code>background.js</code><p>权限、目标页、会话身份、采集 / 转换互斥与恢复。会休眠，媒体不依赖它常驻运行。</p></article><article class="system-node"><h4>Content Script</h4><code>content.js / Shadow DOM + SVG</code><p>在目标网页绘制文字、图形和图片；进入网页像素，也会增加网页的主线程 / 合成工作。</p></article></div></div>
           <div class="system-routes"><p><b>控制消息：</b>侧栏 → 后台核对来源与会话 → 网页标注层 / 媒体承载页；承载页回报状态。录制开始后不随空闲连接逻辑切换来源。</p></div>
           <div class="system-layer"><h3>媒体承载<small>运行位置</small></h3><div class="system-nodes"><article class="system-node"><h4>网页离屏文档</h4><code>offscreen.js</code><p>消费后台 tabCapture 流 ID，以 getUserMedia 取得来源。关闭侧栏仍可录制，结束后清理离屏资源。</p></article><article class="system-node"><h4>独立桌面录制页</h4><code>desktop.js</code><p>执行 getDisplayMedia、来源预览 / 框选，调用共享 Recorder；关闭录制页会中断。</p></article><article class="system-node"><h4>独立导出任务页</h4><code>exporter.js / lib/mp4.js</code><p>准备下载文件、解码重编码、进度与取消。与采集协调占用，保护尚未结束的原生操作。</p></article></div></div>
-          <div class="system-layer"><h3>共享核心<small>处理与编码</small></h3><div class="system-nodes"><article class="system-node"><h4>视频输出</h4><code>lib/video.js</code><p>整幅来源满足条件则直用；裁切 / 缩放使用视频 → Canvas 2D → captureStream，随新帧调度。</p></article><article class="system-node"><h4>音频与录制</h4><code>lib/recorder.js / music-player.js</code><p>单音轨直接使用，多路 Web Audio 混音；MediaRecorder 编码、暂停、分段背压和终结。</p></article><article class="system-node"><h4>文件生命周期</h4><code>lib/file-resource.js / preview.js</code><p>创建、逐段写入、提交、取消与迟到清理；锁保护活跃文件，播放器与 URL 按需释放。</p></article></div></div>
+          <div class="system-layer"><h3>共享核心<small>处理与编码</small></h3><div class="system-nodes"><article class="system-node"><h4>视频输出</h4><code>lib/video.js</code><p>整幅来源满足条件则直用；裁切 / 缩放使用视频 → Canvas 2D → captureStream，随新帧调度。</p></article><article class="system-node"><h4>音频与录制</h4><code>lib/recorder.js / music-player.js</code><p>单音轨可直用，多路才混音；网页原声回放仍可能用 AudioContext。MediaRecorder 负责编码、暂停、分段与终结。</p></article><article class="system-node"><h4>文件生命周期</h4><code>lib/file-resource.js / preview.js</code><p>创建、逐段写入、提交、取消与迟到清理；锁保护活跃文件，播放器与 URL 按需释放。</p></article></div></div>
           <div class="system-routes"><p><b>媒体数据：</b>目标来源（含网页标注）→ 直录或裁切 + 按需混音 → MediaRecorder → IndexedDB 片段 → 回看 / 手动导出。视频字节不会逐帧通过侧栏或后台消息。</p></div>
           <div class="system-layer"><h3>数据面<small>保存与释放</small></h3><div class="system-nodes"><article class="system-node"><h4>持久本地数据</h4><code>IndexedDB / storage.local</code><p>视频元数据与片段、图片 / 音乐分库；偏好与必要任务摘要另存。卸载或清数据可能丢失。</p></article><article class="system-node"><h4>会话与页内数据</h4><code>storage.session / 页面内存</code><p>协调状态、来源和占用；最终标注保留在网页，隐藏后图片留压缩恢复数据，不跨刷新。</p></article><article class="system-node"><h4>临时与用户文件</h4><code>OPFS / 文件选择器 / downloads</code><p>OPFS 用于回看和暂存，不是备份；用户主动保存到电脑的文件独立保留。</p></article></div></div>
         </div>
+        </details>
         <p class="record-note">离屏运行分离了控制界面与媒体生命周期，但仍共享设备的 CPU / GPU / 内存，不自动消除采集、合成和编码成本。接口配合参照 <a href="https://developer.chrome.com/docs/extensions/how-to/web-platform/screen-capture">Chrome 官方采集说明</a>；下方四条链路对应当前实现。</p>
 
         <div class="architecture-box">
@@ -96,7 +197,7 @@
       </section>
 
       <section id="decisions" class="observed" aria-labelledby="decisions-title">
-        <div class="section-heading"><span class="section-number">04 / DECISIONS</span><h2 id="decisions-title">为什么这样实现</h2><p>保留选择背后的原因，也记录它带来的代价。</p></div>
+        <div class="section-heading"><span class="section-number">06 / DECISIONS</span><h2 id="decisions-title">为什么这样实现</h2><p>保留选择背后的原因，也记录它带来的代价。</p></div>
         <div class="decision-list">
           <article><span class="decision-index">D01</span><div><h3>先做浏览器扩展 <span class="badge green">当前采用</span></h3><p>网页作品是主要来源，扩展容易注入标注、连接目标标签页，并把控制区放在侧栏。原生 JavaScript、无需运行依赖或后端。</p><p class="tradeoff">代价：来源权限、service worker 休眠、浏览器版本和媒体能力都需要处理。</p></div></article>
           <article><span class="decision-index">D02</span><div><h3>标注直接进入网页画面 <span class="badge green">当前采用</span></h3><p>用户希望保留现场操作的自然感。用 SVG 图形和可编辑文字完成实时标注，鼠标可切换操作网页、绘图与选择。</p><p class="tradeoff">代价：标注已经烘焙进视频，不能在成片中独立编辑；编辑框、选中边界和手柄也可能录入。结束后隐藏，同页可恢复，刷新会清空。</p></div></article>
@@ -108,7 +209,7 @@
       </section>
 
       <section id="routes" class="observed" aria-labelledby="routes-title">
-        <div class="section-heading"><span class="section-number">05 / TECHNOLOGY CHOICES</span><h2 id="routes-title">路线的差别，在处理链路</h2><p>换产品外壳不等于换采集与编码核心。以下是现状与候选方向，不是已经承诺的升级。</p></div>
+        <div class="section-heading"><span class="section-number">07 / TECHNOLOGY CHOICES</span><h2 id="routes-title">路线的差别，在处理链路</h2><p>换产品外壳不等于换采集与编码核心。以下是现状与候选方向，不是已经承诺的升级。</p></div>
         <div class="table-wrap route-table"><table><caption class="sr-only">录制技术路线比较</caption><thead><tr><th>路线 / 状态</th><th>能带来的价值</th><th>限制与成本</th><th>对映录的判断</th></tr></thead><tbody>
           <tr class="chosen"><td><strong>浏览器 + MediaRecorder</strong><span class="badge green">当前实现</span></td><td>网页集成直接；扩展较轻；标注和侧栏协同方便。</td><td>编码控制较少，区域处理增加开销，生命周期与存储需兜底。</td><td>继续作为网页演示主线，先建立实机基线。</td></tr>
           <tr><td><strong>浏览器 + WebCodecs</strong><span class="badge neutral">候选 · 未实现</span></td><td>更细控制帧、时间戳与编码队列；可把部分处理放到 Worker。</td><td>自行负责音画同步、文件封装、背压与内存；仍使用浏览器来源，不保证更快。</td><td>实测确认帧处理或编码控制是瓶颈后再做原型。</td></tr>
@@ -121,7 +222,7 @@
       </section>
 
       <section id="issues" class="observed" aria-labelledby="issues-title">
-        <div class="section-heading"><span class="section-number">06 / ISSUE REGISTER</span><h2 id="issues-title">已修复的，和仍未确认的</h2><p>“实现了防护”“测试通过”“真实项目通过”是不同结论。本清单按证据区分状态。</p></div>
+        <div class="section-heading"><span class="section-number">08 / ISSUE REGISTER</span><h2 id="issues-title">代码已处理的，和仍待实测的</h2><p>“已处理”指代码修复或优化已有证据，不代表实机问题已全部消失；“待实测”在取得目标设备记录后再更新。</p></div>
         <div id="performance" class="performance-audit">
           <div class="section-heading compact"><span class="section-number">v0.6.9 / PERFORMANCE UPDATE</span><h3>减少已确认的开销，继续定位真实卡顿</h3><p>本轮减少侧栏打开时的读取：音乐与备选图片按需载入，录完释放图片像素但保留恢复原图；录制进度和标题局部更新，素材库连接可恢复。既有分页、来源预算、历史共享与导出保护继续保留。保持操作简单，无新增依赖、权限或后台轮询；鹧鸪实机占用对照仍未完成。</p></div>
           <div class="table-wrap"><table><caption class="sr-only">性能与资源审查结果和后续优先级</caption><thead><tr><th scope="col">状态</th><th scope="col">问题与影响</th><th scope="col">处理或下一步</th></tr></thead><tbody>
@@ -148,7 +249,7 @@
           <div class="callout"><strong>已有保护的边界</strong><p>分段写入、约 64 MiB 等待队列软阈值、停止 / 保存超时及资源释放已有实现。它们不能限制浏览器内部编码缓存或整个进程的 CPU / 内存；暂停还保留采集、麦克风与必要的声音监听，网页自身继续运行。没有新增权限、依赖、后台轮询或自动下载。</p></div>
           <details class="source-map"><summary>如何验证性能改善，而不是只看测试通过</summary><div class="verification-links"><p>同一设备、网页场景、窗口和缩放下，每段至少 30 秒比较：无录制 → 整页 30 FPS → 普通区域 30 FPS → 低负载区域 20 FPS → 停止后恢复。覆盖侧栏工具、文字 / 图片、长笔迹和暂停继续。先关闭页面诊断做对照，再单独开启现有 baseline / recording / recovery 采样。</p><p>记录来源真实尺寸、管线、编码格式、写入等待峰值、绘制提交耗时、相关进程 CPU / 内存及系统 GPU，同时检查实时网页与回放效果。页面 RAF 是调度节拍，绘制帧数也不是成片实际 FPS，iframe 内作品需分别测量。</p><p>像素预算示例：4K / 30 FPS 约 2.49 亿像素/秒，1280 × 720 / 20 FPS 约 1843 万，相差 13.5 倍。这不是 CPU、内存或耗电的实测下降比例。<a href="verification.md">查看完整审查、源码入口及验证边界 ↗</a></p></div></details>
         </div>
-        <div class="issue-controls"><div class="filters" role="group" aria-label="按问题状态筛选"><button type="button" data-filter="all" aria-pressed="true">全部</button><button type="button" data-filter="pending" aria-pressed="false">待实测</button><button type="button" data-filter="fixed" aria-pressed="false">已修复</button><button type="button" data-filter="boundary" aria-pressed="false">已知边界</button></div><label class="search"><span class="sr-only">搜索问题与修复记录</span><span aria-hidden="true">⌕</span><input id="issue-search" type="search" placeholder="搜索：卡顿、MP4、标注…"></label></div>
+        <div class="issue-controls"><div class="filters" role="group" aria-label="按问题状态筛选"><button type="button" data-filter="all" aria-pressed="true">全部</button><button type="button" data-filter="pending" aria-pressed="false">待实测</button><button type="button" data-filter="fixed" aria-pressed="false">已处理</button><button type="button" data-filter="boundary" aria-pressed="false">已知边界</button></div><label class="search"><span class="sr-only">搜索问题与修复记录</span><span aria-hidden="true">⌕</span><input id="issue-search" type="search" placeholder="搜索：卡顿、MP4、标注…"></label></div>
         <p id="issue-count" class="issue-count" role="status" aria-live="polite">共 21 条记录</p>
         <div class="issues">
           <details class="issue" data-state="fixed"><summary><span class="issue-id">F13</span><span class="issue-title">侧栏打开占用与归档标注像素</span><span class="badge green">0.6.9 已优化</span><span class="expand" aria-hidden="true">＋</span></summary><div class="issue-body"><p><b>处理：</b>音乐与备选图片按需查询，试听才读取音频，收起释放来源与缩略图。归档保留压缩图片并释放画布像素，恢复时重新绘制，不删除当前可见标注。进度与标题局部更新，素材与音乐统一连接保护。</p><p><b>证据：</b><a href="music-0.6.9.txt">侧栏与音乐 21 项检查</a>、<a href="image-0.6.9.txt">图片与恢复 20 项检查</a>、548 项自动化通过。测试夹具确认默认收起时两种素材库打开次数和音频读取次数均为 0，不等于实际 Chrome CPU / 内存基准。</p><p><b>未完成：</b>Chrome 当前网址无法被工具可靠识别，自动审批停止实机操作。「仅开侧栏 / 整页 / 区域」的鹧鸪占用对照仍未完成。</p></div></details>
@@ -176,65 +277,18 @@
         <p id="issue-empty" class="empty" hidden>没有匹配的记录。可清空搜索，或切换到“全部”。</p>
       </section>
 
-      <section id="stages" class="observed" aria-labelledby="stages-title">
-        <div class="section-heading"><span class="section-number">07 / DELIVERY STAGES</span><h2 id="stages-title">每个阶段，交付了哪些能力</h2><p>将已有版本归纳为六个建设阶段，方便理解依赖关系；不替代逐版本记录，也不表示每个阶段都完成了实机验收。</p></div>
-        <div class="stage-position"><strong>当前位置：资源治理代码已进入主线，真实项目验收仍未闭合。</strong>当前是 v0.6.9。下一步先补齐鹧鸪实录与系统资源基线，再按测量结果优化；不因自动化通过就把性能阶段标记为结束。</div>
-        <div class="table-wrap"><table class="phase-table"><caption class="sr-only">历史阶段、交付能力与验收边界</caption><thead><tr><th>阶段 / 版本</th><th>用户获得的能力</th><th>工程实现重点</th><th>完成依据与遗留验收</th></tr></thead><tbody>
-          <tr><td><strong>01 · 录制原型</strong><small>v0.1.x</small></td><td>网页画面、框选、基础标注、暂停继续，本地录制。</td><td>建立 tabCapture → 媒体流 → MediaRecorder；完整画面优先直录，尺寸 / 帧率约束。</td><td>形成可运行原型；复杂 3D、实际帧率和长期占用不由原型验证覆盖。</td></tr>
-          <tr><td><strong>02 · 操作闭环</strong><small>v0.2.0–0.2.2</small></td><td>开始后选择范围；网页直接输入文字、图形编辑；结束隐藏，同页恢复。</td><td>取消选区、来源 / 窗口绑定、启动和终态会话隔离、保存与释放分开。</td><td>核心交互进入产品；多窗口、关闭 / 刷新与迟到消息需要持续回归。</td></tr>
-          <tr><td><strong>03 · 保存可靠性</strong><small>v0.3.0</small></td><td>分段持久化、强制停止、失联恢复、诊断入口。</td><td>写入积压、片段完整性、录制承载页生命周期与恢复协调。</td><td>建立异常保存基础；曾加入自动下载，后在 v0.4.3 撤回，当前以回看和手动导出为准。</td></tr>
-          <tr><td><strong>04 · 格式与区域</strong><small>v0.4.0–0.4.8</small></td><td>MP4、导出取消 / 重试；固定区域、补边映射与低负载；初步图片标注。</td><td>真实容器编码，原件保留、读取占用、尺寸稳定和一次选区快照；v0.4.3 起录完不自动下载。</td><td><a href="mp4-0.6.8.txt">编码 / 转换回归</a>和<a href="media-0.6.8.txt">合成区域回归</a>；真实鹧鸪区域卡顿未关闭。</td></tr>
-          <tr><td><strong>05 · 讲解素材</strong><small>v0.4.9–0.6.0</small></td><td>空闲切页连接、预备图片素材、本地背景音乐收藏与混音。</td><td>按需素材读取、独立本地存储、播放器生命周期，复用录制音频核心。</td><td><a href="materials-0.6.9.txt">素材</a>、<a href="music-0.6.9.txt">音乐</a>检查；桌面页音乐未接入，真实设备混音仍需短录验收。</td></tr>
-          <tr><td><strong>06 · 资源与使用性</strong><small>v0.6.1–0.6.9 · 当前</small></td><td>首次授权指引、刷新兜底；取消 / 超时；长片文件回看；数据库重连、分页、长笔迹与闲置侧栏优化。</td><td>来源预算、共享历史、缩小解码、统一文件资源、迟到清理、素材惰性加载、归档像素释放。</td><td>当前 <a href="test-0.6.9.txt">548 项模块测试</a>及分版本浏览器证据；实际 CPU / GPU / 内存、长片体验和成片完整性仍待测。</td></tr>
-        </tbody></table></div>
-        <p class="record-note">阶段之间是能力累积；后续行为可取代历史方案。精确更新见<a href="../CHANGELOG.md">完整版本记录</a>，各证据的产生版本见<a href="#verification">验证索引</a>。后面的计划按交付条件组织，不预设新版本号或发布日期。</p>
-      </section>
-
-      <section id="history" class="observed" aria-labelledby="history-title">
-        <div class="section-heading"><span class="section-number">08 / CHANGELOG</span><h2 id="history-title">从能录，到可靠地录</h2><p>按版本保留演进脉络；历史决策不等于当前行为。</p></div>
-        <div class="timeline"><article class="latest"><span class="timeline-version">0.6.9 <small>当前</small></span><div><h3>按需打开素材，保留标注恢复</h3><p>音乐与图片折叠时不查询，试听才读音频；录完归档图片释放像素，恢复再绘制。局部状态刷新与素材连接保护。</p></div></article><article><span class="timeline-version">0.6.8</span><div><h3>恢复连接、按页载入与增量笔迹</h3><p>打开超时可重连、索引分页保留历史数据；长笔迹按需追加，拖动结束才提交坐标。鹧鸪实机资源测量尚未完成。</p></div></article><article><span class="timeline-version">0.6.7</span><div><h3>统一文件保护，回看与录制协同</h3><p>导出与转换复用预览的文件资源管理，限制内存兼容路径；旧回看随录制 / 转换释放，直接保存可取消，空间预检与迟到清理协同。功能流程与画质选择保持简单。</p></div></article><article><span class="timeline-version">0.6.6</span><div><h3>取消能返回，大图先预检再缩小</h3><p>为预览、文件读写和读取占用补齐取消 / 超时，迟到操作结束后清理对应文件。PNG / JPEG / WebP 先校验像素预算再请求缩小解码，限制未结束任务叠加。保持录完回看、按需下载和现有工具流程。</p></div></article><article><span class="timeline-version">0.6.5</span><div><h3>来源有预算，历史共享，长片从文件回看</h3><p>普通画质限制整帧采集，原始尺寸保留细节优先选择。标注历史共享未改数据并限制规模，拖动合帧；录完保留最终标注、释放历史。大文件逐片暂存后回看，支持取消与释放，跨页锁保护缓存。<a href="preview-0.6.5.png">查看文件预览验证 ↗</a></p></div></article><article><span class="timeline-version">0.6.4</span><div><h3>暂停少做工作，停止主动释放</h3><p>取消暂停期间裁切调度，暂停隐藏视频；原生帧计数替代逐帧查询，结束清空画布。桌面计时按状态运行，音乐播放竞态隔离。记录高分辨率来源、标注历史、长片预览和列表规模的后续优化。<a href="#performance">阅读资源审查 ↗</a></p></div></article><article><span class="timeline-version">0.6.3</span><div><h3>首次授权，清楚引导而非报错</h3><p>未授权显示等待和首次引导，底部同步提示先开启；旧权限错误、取消及刷新都不会显示成连接失败。允许后主动连接当前网页、收起引导，真正的连接异常继续保留详情。<a href="first-authorization-preview-0.6.3.png">查看首次使用界面 ↗</a></p></div></article><article><span class="timeline-version">0.6.2</span><div><h3>正常切页自动跟随，失败按事件恢复</h3><p>侧栏直接接收当前窗口的标签事件，地址就绪就连接，加载完成或切回重新尝试，隔离旧文档迟到失败。待授权时明确指向一次网站访问授权；刷新保留兜底，没有新增轮询。16 项连接模拟检查通过，真实 Chrome 设置仍需用户确认。<a href="auto-connect-permission-0.6.2.png">查看授权入口 ↗</a></p></div></article><article><span class="timeline-version">0.6.1</span><div><h3>当前网页，一键重新获取</h3><p>网页信息旁常驻刷新按钮，切页后可手动获取当前窗口的网页。区分待授权、失败和未找到，不用缺失的标题冒充等待状态；获取期间防重复和抢先录制，失败后可重试，录制中保持来源锁定。<a href="connection-preview-0.6.1.png">查看实际按钮 ↗</a></p></div></article><article><span class="timeline-version">0.6.0</span><div><h3>本机音乐，按需混入录制</h3><p>折叠入口收藏本地音乐，支持试听、循环、音量和背景音 / 主旋律预设。停止试听后复用录制音频上下文，独立混入 WebM / MP4；与录制同步暂停和结束。单首读取、数量与容量有界，没有新增权限或轮询。<a href="music-preview-0.6.0.png">查看音乐界面与实际检查 ↗</a></p></div></article><article><span class="timeline-version">0.5.0</span><div><h3>先备好图片，录制时点用</h3><p>侧栏保留本机备选素材，多选导入、点击插入和移除；小缩略图与原图分开存储，逐张准备并限制数量和容量。素材副本移除不影响已插入网页的标注。<a href="materials-preview-0.5.0.png">查看实际使用预览 ↗</a></p></div></article><article><span class="timeline-version">0.4.9</span><div><h3>自动跟随网页，减少空闲工作</h3><p>一次开启可选网站访问，空闲侧栏跟随当前页；注入和握手有超时，重启残留可纠正。隐藏或空闲停止计时，诊断默认关闭，无关导航不空写存储。录制授权仍遵守 Chrome 按标签页限制。</p></div></article><article><span class="timeline-version">0.4.8</span><div><h3>把参数图片作为网页批注</h3><p>一个添加图片入口，支持移动、等比缩放和删除，复用现有标注与撤销。图片只在导入时处理，像素不复制进历史；14 项图片浏览器检查通过。<a href="image-preview-0.4.8.png">查看交互预览 ↗</a></p></div></article><article><span class="timeline-version">0.4.7</span><div><h3>降低区域采集负载，复用标注节点</h3><p>新增整帧采集上限及一键 20 FPS 低负载设置；切换工具只更新命中区域，不重建已有图形与文字。用户报告的鹧鸪卡顿仍需实机对照，未宣称解决。</p></div></article><article><span class="timeline-version">0.4.6</span><div><h3>锁定一次框选的录制范围</h3><p>本轮选区使用独立快照，设置修改、暂停继续和采集容器重协商不替换范围；补充普通交互回归。模块检查已通过，新增浏览器检查及鹧鸪实录仍待验证。</p></div></article><article><span class="timeline-version">0.4.5</span><div><h3>区分采集容器与网页内容</h3><p>修正 Chrome 固定分辨率补边帧的内容矩形与选区偏移，不再把整帧比例不同当成视口不稳定；补全错误尺寸诊断。</p></div></article><article><span class="timeline-version">0.4.4</span><div><h3>补齐异常与状态边界</h3><p>高分屏裁切、导出镜像与占用、旧自动任务迁移、Esc 拖动、库列表更新、启动失败记录终结。</p></div></article><article><span class="timeline-version">0.4.3</span><div><h3>回看优先，下载交给用户</h3><p>移除自动导出选项，不再在录制结束时创建下载；保留手动导出、取消与重试。</p></div></article><article><span class="timeline-version">0.4.1–2</span><div><h3>取消、身份与尺寸稳定</h3><p>导出元数据挂起兜底、桌面文档身份、侧栏初始化，以及采集就绪后确认区域与来源分辨率映射。</p></div></article><article><span class="timeline-version">0.4.0</span><div><h3>MP4 与导出可靠性</h3><p>原生 MP4、已有视频转换、读取占用、完整性核验、下载恢复、心跳和临时文件回收。</p></div></article><article><span class="timeline-version">0.3.0</span><div><h3>分段存储、停止兜底、性能诊断</h3><p>增加强制结束与失联恢复。曾引入录完自动下载，此行为在 0.4.3 撤回，0.4.4 补齐旧任务迁移。</p></div></article><article><span class="timeline-version">0.2.1–2</span><div><h3>会话协调与多窗口来源</h3><p>绑定窗口与目标页、取消选区、录制锁、迟到消息隔离、资源清理及文字布局修复。</p></div></article><article><span class="timeline-version">0.2.0</span><div><h3>确定核心交互</h3><p>开始后选择范围；网页内文字输入和图形编辑；结束隐藏标注，同页可恢复。</p></div></article><article><span class="timeline-version">0.1.x</span><div><h3>建立网页录制原型</h3><p>整页优先直接编码、帧率与尺寸约束、流畅画质，以及连接错误与预览体验。</p></div></article></div>
-        <a class="text-link" href="verification.md">阅读完整版本验证记录 ↗</a>
-      </section>
-
       <section id="verification" class="observed" aria-labelledby="verification-title">
-        <div class="section-heading"><span class="section-number">09 / EVIDENCE</span><h2 id="verification-title">结论需要证据，也需要边界</h2><p>以下为已记录的验证快照，日期为 2026-10-20。自动化 548 项、侧栏 / 音乐 21 项、图片 / 恢复 20 项更新至 v0.6.9。数据库与分页 15 项、标注 26 项保留 v0.6.8；综合媒体 52 项、MP4 19 项更新至 v0.6.8；文件回看 25 项更新至 v0.6.8，包含真实编码、存储与解码。大文件样片使用超过 32 MiB 的格式填充短片，不是长时资源基准。连接模拟 19 项保留 v0.6.3，素材 10 项更新至 v0.6.9，视口 12 项保留 v0.4.7。Chrome 标签采集 / 离屏链路仍未实装验收。鹧鸪 Chrome 实录及性能对照仍未完成。本页不是实时运行面板。</p></div>
-        <div class="metrics"><a href="test-0.6.9.txt"><strong>548<span> / 548</span></strong><span>自动化回归通过</span><small>模拟与模块测试 · 日志 ↗</small></a><a href="media-0.6.8.png"><strong>52</strong><span>浏览器媒体断言</span><small>合成流 · 编码 / 保存 / 解码 ↗</small></a><a href="mp4-0.6.8.png"><strong>19</strong><span>MP4 检查通过</span><small>原生 / 区域 / 转换 / 取消 ↗</small></a><a href="preview-0.6.8.png"><strong>25</strong><span>文件回看检查</span><small>真实 OPFS / 播放 / 定位 / 清理 ↗</small></a></div>
-        <div class="evidence-boundary"><strong>尚未完成：真实鹧鸪项目的 Chrome 实录验收</strong><p>合成画布和音调验证了媒体链路，但没有证明复杂 3D 页面不卡顿、效果完整、侧栏不入镜或长片音画同步。用户仍反馈区域录制及工具切换卡顿；v0.4.7 减少节点重建并提供低负载采集，v0.6.4 减少暂停开销，v0.6.5 进一步限制来源、共享标注历史并接入文件回看，v0.6.6 补齐取消保护和大图预检。Chrome 实录控制被自动审批拦截，尚未取得用户设备上的实际占用对照。</p></div>
+        <div class="section-heading"><span class="section-number">09 / EVIDENCE</span><h2 id="verification-title">结论需要证据，也需要边界</h2><p>以下是分版本保存的验证快照，不是实时状态或扩展实录验收。各项产生版本、覆盖边界与运行入口见<a href="testing.html#evidence">测试证据索引</a>。</p></div>
+        <div class="metrics"><a href="test-0.6.9.txt"><strong>548<span> / 548</span></strong><span>自动化回归通过</span><small>v0.6.9 · 模拟与模块测试 · 日志 ↗</small></a><a href="media-0.6.8.png"><strong>52</strong><span>浏览器媒体断言</span><small>v0.6.8 · 合成流 · 编码 / 保存 / 解码 ↗</small></a><a href="mp4-0.6.8.png"><strong>19</strong><span>MP4 检查通过</span><small>v0.6.8 · 原生 / 区域 / 转换 / 取消 ↗</small></a><a href="preview-0.6.8.png"><strong>25</strong><span>文件回看检查</span><small>v0.6.8 · 真实 OPFS / 播放 / 定位 / 清理 ↗</small></a></div>
+        <div class="evidence-boundary"><strong>仍待完成：真实 Chrome 中的鹧鸪录制验收</strong><p>合成画布 / 音调覆盖部分媒体链路，不能证明复杂 3D 不卡顿、效果完整、侧栏不入镜或长片音画同步。区域与工具切换卡顿的反馈仍待目标设备对照。大文件回看测试使用格式填充的短片，不是长时间性能基准。</p></div>
         <div class="evidence-gallery"><figure><a href="media-0.6.8.png" target="_blank" rel="noopener"><img src="media-0.6.8.png" loading="lazy" width="1264" height="1000" alt="v0.6.8 合成媒体检查结果截图，52 项通过"></a><figcaption><span>01 / MEDIA</span>分段录制、区域映射与解码 <a href="media-0.6.8.png">查看原图 ↗</a></figcaption></figure><figure><a href="mp4-0.6.8.png" target="_blank" rel="noopener"><img src="mp4-0.6.8.png" loading="lazy" width="1264" height="1064" alt="v0.6.8 MP4 原生录制和转换检查截图，19 项通过"></a><figcaption><span>02 / MP4</span>真实容器、音轨、转换与取消 <a href="mp4-0.6.8.png">查看原图 ↗</a></figcaption></figure><figure><a href="overlay-0.6.8.png" target="_blank" rel="noopener"><img src="overlay-0.6.8.png" loading="lazy" width="1264" height="800" alt="v0.6.8 标注生命周期与长笔迹检查截图，26 项通过"></a><figcaption><span>03 / ANNOTATION</span>文字编辑、结束隐藏与恢复 <a href="overlay-0.6.8.png">查看原图 ↗</a></figcaption></figure></div>
         <details class="source-map"><summary>如何复核这些记录</summary><div class="verification-links"><p>先在项目目录启动静态服务：<code>python -m http.server 8765 --bind 127.0.0.1</code>。以下媒体页面需经 localhost 打开；项目档案本身可离线双击。</p><ul><li><a href="../tests/database-browser.html">数据库与录制库分页检查</a> · v0.6.8 真实迁移、片段保留与列表界面 15 项通过，<a href="database-0.6.8.txt">文本结果</a> · <a href="database-0.6.8.png">截图</a>。</li><li><a href="../tests/preview-browser.html">文件预览资源检查</a> · v0.6.8 已执行 25 项，真实大于 32 MiB 文件、生产录制库、OPFS 与 Web Locks，<a href="preview-0.6.8.txt">文本结果</a> · <a href="preview-0.6.8.png">截图</a>。</li><li><a href="../tests/music-browser.html">音乐与录制检查页</a> · v0.6.9 已执行 21 项，侧栏惰性加载与真实 IndexedDB / 混音 / WebM / MP4 回放测量；Chrome 采集与离屏接口使用模拟，<a href="music-0.6.9.png">查看验证截图</a>。网页录制侧栏已接入，桌面页尚未接入。</li><li><a href="../tests/materials-browser.html">备选图片素材检查页</a> · v0.6.9 已执行，按需展开后真实 IndexedDB / 图片处理 / 页面标注 10 项通过，<a href="materials-0.6.9.png">查看验证截图</a>。</li><li><a href="../tests/connection-browser.html">自动连接与空闲检查页</a> · v0.6.3 已执行 19 项，含首次授权、取消 / 再次允许、后台广播丢失后的自动跟随、地址晚到和失败恢复；真实模块配合模拟 Chrome 接口，<a href="connection-0.6.3.png">查看截图</a>，不包含真实媒体采集。</li><li><a href="../tests/image-annotation-browser.html">图片标注检查页面</a> · v0.6.9 已执行 20 项，<a href="image-0.6.9.png">像素编码截图</a>，示例参数非实测数据。</li><li><a href="../tests/region-viewport-browser.html">区域视口检查页面</a> · v0.4.7 已执行，12 项通过。</li><li><a href="../tests/browser.html">媒体检查页面</a> · v0.6.8 已执行 52 项，<a href="media-0.6.8.txt">文本结果</a>，生成画布与音调。</li><li><a href="../tests/mp4-browser.html">MP4 检查页面</a> · v0.6.8 已执行 19 项，<a href="mp4-0.6.8.txt">文本结果</a>，真实编码 / 转换。</li><li><a href="../tests/overlay.html">标注检查页面</a> · 输入、编辑、恢复与取消。</li><li><a href="check-0.6.9.txt">语法与 manifest 检查日志</a> · 开发命令：<code>npm run check</code>。</li><li><a href="test-0.6.9.txt">自动化日志</a> · 开发命令：<code>npm test</code>，Node.js 22+，无额外安装。</li></ul><p>历史合成样片：<a href="sample-region-0.4.2.mp4">v0.4.2 区域 MP4</a>，H.264 / AAC、160 × 180，仅用于历史编码核验，不是鹧鸪实录。</p></div></details>
       </section>
 
-      <section id="roadmap" class="observed" aria-labelledby="roadmap-title">
-        <div class="section-heading"><span class="section-number">10 / NEXT STEPS</span><h2 id="roadmap-title">下一步，先测清楚再换路线</h2><p>下面按依赖与优先级排列，没有承诺发布日期，也没有把候选方案记为已实现功能。</p></div>
-        <ol class="next-stage">
-          <li><h3>A · 真实录制验收 <small>下一步 / P0</small></h3><p>交付：鹧鸪固定场景下「仅开侧栏 / 整页 / 区域」对照、原片与 MP4、标注操作、停止后恢复记录。</p><p><b>进入下一阶段的条件：</b>能区分页面渲染、逐帧裁切、编码、保存与回放的影响；成片效果、工具排除、音画和资源回落有可复核证据。方法见<a href="testing.html">测试手册</a>。</p></li>
-          <li><h3>B · 性能与可靠性收敛 <small>依赖 A / P1</small></h3><p>交付：只针对实测瓶颈的小改动；真实长录制、多窗口、权限拒绝、空间不足、浏览器重启、取消与清理矩阵。</p><p><b>退出条件：</b>同条件复测有收益且不损失文字 / 图片 / 音轨；未发生错会话写入和重复任务，失败保留原件、状态可理解。用相同设备与设置比较，不用合成次数代替系统占用。</p></li>
-          <li><h3>C · 轻量使用性完善 <small>稳定性优先 / P2</small></h3><p>交付：从高频反馈中选择少量入口改善，例如更清楚的来源检查、素材命名 / 排序、可选标注草稿；复用现有偏好记忆，保持默认流程和权限简单。</p><p><b>退出条件：</b>准备演示所需操作减少，闲置开销无明显回退；不新增默认常驻解码、轮询、上传或复杂编辑流程。</p></li>
-          <li><h3>D · 处理路径试验 <small>瓶颈证据触发 / 候选</small></h3><p>交付：浏览器原生裁切、Worker / WebCodecs 或原生采集中的一个最小原型，与现有路径做同条件对照。</p><p><b>进入主线的条件：</b>确认来源授权、任意网页适用性、固定选区与标注保留，收益足以覆盖同步、封装、兼容和维护成本。原型不通过则保留当前主线。</p></li>
-        </ol>
-        <div id="optimization" class="section-heading compact"><span class="section-number">OPTIMIZATION</span><h3>已经做了什么，还能往哪里优化</h3></div>
-        <div class="table-wrap"><table class="planning-table"><caption class="sr-only">优化现状、遗留问题与验证方式</caption><thead><tr><th>方向 / 优先级</th><th>已经落地</th><th>遗留与下一步候选</th><th>如何判断有效</th></tr></thead><tbody>
-          <tr><td>区域裁切 · P0 / P1</td><td>来源长边预算、随新帧绘制、重复帧跳过、暂停停调度。</td><td>仍采集整个来源再裁切；先测是否主要开销，再验证原生裁切或其他帧处理路径。</td><td>同视口 / 选区 / 画质对比网页帧节奏、绘制、实际成片帧率、CPU / GPU，检查细节和特效。</td></tr>
-          <tr><td>标注交互 · P1</td><td>共享历史、点数预算、增量 SVG 点、拖动矩阵、节点复用。</td><td>长笔迹和较多图形仍有布局 / 绘制成本；用同一工具切换序列定位热点后局部优化。</td><td>空闲与录制分别测长笔迹、移动、清空、撤销；测交互延迟、分配和恢复正确性。</td></tr>
-          <tr><td>侧栏闲置 · P1</td><td>素材区默认收起、按需开库、试听才读文件、状态局部更新。</td><td>先取得真实 B 阶段基线；若仍持续繁忙，检查事件重复和无效 UI 更新，避免新增计时器。</td><td>空闲 CPU、相关进程内存、重复打开 / 关闭后趋势；保留同页标注恢复。</td></tr>
-          <tr><td>大图与音乐 · P1</td><td>图片预检 / 缩小解码、关闭位图、隐藏归档；音乐收起释放试听。</td><td>浏览器内部解码峰值不可完全控制；实测连续导入、取消与恢复，必要时收紧输入策略。</td><td>峰值与停止后的回落，透明通道、文字排版、旋转方向和混音同步保持正确。</td></tr>
-          <tr><td>长片回看 / 存储 · P1</td><td>OPFS 文件路径、32 MiB 内存兼容阈值、单预览、分页、数据库重连。</td><td>准备耗时、额外磁盘、WebM 定位和长时解码仍待实测；评估时长 / 定位信息和进度反馈的改善。</td><td>真实长片的首次播放、跳转、取消响应、磁盘峰值、连续使用后的内存趋势。</td></tr>
-          <tr><td>MP4 / 导出 · P1 / P2</td><td>运行时检测、可直接 MP4、原片保留、文件写入取消与清理保护。</td><td>转换仍接近实时并可能改变画质；优先解释支持状态。只有控制不足时再研究 WebCodecs / 封装。</td><td>耗时、分辨率、编码、音画同步、画质与体积；失败 / 取消后原件可读。</td></tr>
-          <tr><td>连接与错误 · P2</td><td>首次授权引导、事件自动连接、刷新兜底、错误详情。</td><td>浏览器站点权限和来源授权仍可限制自动化；按具体故障给清楚的恢复动作，补齐新用户短录验收。</td><td>首次使用、取消授权、切页、多窗口、导航和重载，无持续假等待或来源误切换。</td></tr>
-        </tbody></table></div>
-        <div id="extensions" class="section-heading compact" style="margin-top:30px"><span class="section-number">EXTENSIONS</span><h3>可扩展的能力与取舍</h3></div>
-        <div class="table-wrap"><table class="planning-table"><caption class="sr-only">候选扩展，均未作为当前能力交付</caption><thead><tr><th>候选方向</th><th>带来的价值</th><th>必须先解决</th><th>当前判断</th></tr></thead><tbody>
-          <tr><td>演示准备 / 素材整理</td><td>已有设置记忆与本地收藏；再补素材命名 / 排序、来源和格式支持提示，减少准备步骤。</td><td>复用现有偏好与存储，不自动读大文件；明确当前录制使用的素材。</td><td>P2，以少量列表操作与清晰引导为主，不建立复杂素材管理系统。</td></tr>
-          <tr><td>标注草稿跨刷新</td><td>刷新后恢复参数图和文字，减少重新排版。</td><td>绑定网址与视口，压缩预算、过期清理、来源验证，避免在错误页面恢复。</td><td>P2，可选；当前仅同页恢复，尚未实现。</td></tr>
-          <tr><td>轻量参数卡切换</td><td>提前准备少量参数图，演示中一键显示 / 隐藏或替换。</td><td>与现有图片选择保持一致，避免大量图片常驻解码；先确认实际高频需求。</td><td>候选；现有单图插入已覆盖基本需求，不扩成剪辑时间线。</td></tr>
-          <tr><td>本机诊断记录包</td><td>把设置、来源信息、异常步骤与选定日志集中导出，便于复现。</td><td>用户主动导出、预览包含内容；敏感网址与素材信息可移除。</td><td>P2；已有单项诊断 JSON，尚无统一记录包。</td></tr>
-          <tr><td>浏览器原生区域能力</td><td>可能减少手动 Canvas 每帧处理。</td><td>先核对 self-capture / 目标元素条件，以及离屏任意页、固定视口和独立标注层能否兼容。</td><td>只做验证原型，不能作为现成替代；<a href="https://developer.chrome.com/docs/web-platform/region-capture">官方 Region Capture 说明</a>。</td></tr>
-          <tr><td>Worker / WebCodecs</td><td>更细的帧、时间戳、编码队列和线程调度控制。</td><td>自行负责音画同步、背压、文件封装和资源释放，仍共享设备能力。</td><td>性能证据触发；不承诺必然更快。<a href="https://developer.chrome.com/docs/web-platform/best-practices/webcodecs">官方处理指南</a></td></tr>
-          <tr><td>原生或混合采集</td><td>更通用的窗口 / 屏幕、硬件处理与文件管理控制。</td><td>安装分发、多系统适配、音频 / 显卡兼容、权限和维护成本。</td><td>通用录屏成为主需求后再评估，不是当前交付计划。</td></tr>
-        </tbody></table></div>
-        <div class="scope-boundary"><h3>保持简单通用的范围约束</h3><p>近期以网页录制、现场标注、图片 / 本地音乐、本机回看与手动保存为主。复杂多轨剪辑、字幕制作、云账号 / 同步、远程素材服务暂不优先。新增能力先验证是否减少演示准备和操作成本，再决定是否值得引入。</p></div>
-        <div class="maintenance"><h3>这份档案如何继续维护</h3><p>每次改动同步更新版本、决策和问题状态。修复记录写清“现象 → 原因 → 处理 → 验证”；实验附环境与原始证据；真实验收通过后再关闭对应待实测项。详细历史保留在 <a href="verification.md">verification.md</a>，安装与边界保留在 <a href="../README.md">README</a>。</p></div>
-        <details class="source-map references"><summary>技术依据与官方文档</summary><ul><li><a href="https://developer.chrome.com/docs/extensions/how-to/web-platform/screen-capture" target="_blank" rel="noreferrer">Chrome · 标签页、窗口和屏幕采集</a></li><li><a href="https://www.w3.org/TR/mediastream-recording/" target="_blank" rel="noreferrer">W3C · MediaStream Recording</a></li><li><a href="https://developer.chrome.com/docs/web-platform/best-practices/webcodecs" target="_blank" rel="noreferrer">Chrome · WebCodecs 帧处理与编码</a></li><li><a href="https://developer.chrome.com/docs/web-platform/region-capture" target="_blank" rel="noreferrer">Chrome · Region Capture</a> / <a href="https://developer.chrome.com/docs/web-platform/element-capture" target="_blank" rel="noreferrer">Element Capture</a></li><li><a href="https://learn.microsoft.com/en-us/windows/apps/develop/media-authoring-processing/screen-capture" target="_blank" rel="noreferrer">Microsoft · Windows Graphics Capture</a></li><li><a href="https://www.electronjs.org/docs/latest/api/desktop-capturer/" target="_blank" rel="noreferrer">Electron · desktopCapturer</a></li></ul><p>技术说明按当前代码、验证记录与本次讨论整理；候选 API 的可用性仍需在实际运行环境检测。</p></details>
+      <section id="history" class="observed" aria-labelledby="history-title">
+        <div class="section-heading"><span class="section-number">10 / CHANGELOG</span><h2 id="history-title">从能录，到可靠地录</h2><p>按版本保留演进脉络；历史决策不等于当前行为。</p></div>
+        <details class="reading-detail"><summary>展开逐版本记录 <small>v0.1.x–v0.6.9</small></summary><div class="timeline"><article class="latest"><span class="timeline-version">0.6.9 <small>当前</small></span><div><h3>按需打开素材，保留标注恢复</h3><p>音乐与图片折叠时不查询，试听才读音频；录完归档图片释放像素，恢复再绘制。局部状态刷新与素材连接保护。</p></div></article><article><span class="timeline-version">0.6.8</span><div><h3>恢复连接、按页载入与增量笔迹</h3><p>打开超时可重连、索引分页保留历史数据；长笔迹按需追加，拖动结束才提交坐标。鹧鸪实机资源测量尚未完成。</p></div></article><article><span class="timeline-version">0.6.7</span><div><h3>统一文件保护，回看与录制协同</h3><p>导出与转换复用预览的文件资源管理，限制内存兼容路径；旧回看随录制 / 转换释放，直接保存可取消，空间预检与迟到清理协同。功能流程与画质选择保持简单。</p></div></article><article><span class="timeline-version">0.6.6</span><div><h3>取消能返回，大图先预检再缩小</h3><p>为预览、文件读写和读取占用补齐取消 / 超时，迟到操作结束后清理对应文件。PNG / JPEG / WebP 先校验像素预算再请求缩小解码，限制未结束任务叠加。保持录完回看、按需下载和现有工具流程。</p></div></article><article><span class="timeline-version">0.6.5</span><div><h3>来源有预算，历史共享，长片从文件回看</h3><p>普通画质限制整帧采集，原始尺寸保留细节优先选择。标注历史共享未改数据并限制规模，拖动合帧；录完保留最终标注、释放历史。大文件逐片暂存后回看，支持取消与释放，跨页锁保护缓存。<a href="preview-0.6.5.png">查看文件预览验证 ↗</a></p></div></article><article><span class="timeline-version">0.6.4</span><div><h3>暂停少做工作，停止主动释放</h3><p>取消暂停期间裁切调度，暂停隐藏视频；原生帧计数替代逐帧查询，结束清空画布。桌面计时按状态运行，音乐播放竞态隔离。记录高分辨率来源、标注历史、长片预览和列表规模的后续优化。<a href="#performance">阅读资源审查 ↗</a></p></div></article><article><span class="timeline-version">0.6.3</span><div><h3>首次授权，清楚引导而非报错</h3><p>未授权显示等待和首次引导，底部同步提示先开启；旧权限错误、取消及刷新都不会显示成连接失败。允许后主动连接当前网页、收起引导，真正的连接异常继续保留详情。<a href="first-authorization-preview-0.6.3.png">查看首次使用界面 ↗</a></p></div></article><article><span class="timeline-version">0.6.2</span><div><h3>正常切页自动跟随，失败按事件恢复</h3><p>侧栏直接接收当前窗口的标签事件，地址就绪就连接，加载完成或切回重新尝试，隔离旧文档迟到失败。待授权时明确指向一次网站访问授权；刷新保留兜底，没有新增轮询。16 项连接模拟检查通过，真实 Chrome 设置仍需用户确认。<a href="auto-connect-permission-0.6.2.png">查看授权入口 ↗</a></p></div></article><article><span class="timeline-version">0.6.1</span><div><h3>当前网页，一键重新获取</h3><p>网页信息旁常驻刷新按钮，切页后可手动获取当前窗口的网页。区分待授权、失败和未找到，不用缺失的标题冒充等待状态；获取期间防重复和抢先录制，失败后可重试，录制中保持来源锁定。<a href="connection-preview-0.6.1.png">查看实际按钮 ↗</a></p></div></article><article><span class="timeline-version">0.6.0</span><div><h3>本机音乐，按需混入录制</h3><p>折叠入口收藏本地音乐，支持试听、循环、音量和背景音 / 主旋律预设。停止试听后复用录制音频上下文，独立混入 WebM / MP4；与录制同步暂停和结束。单首读取、数量与容量有界，没有新增权限或轮询。<a href="music-preview-0.6.0.png">查看音乐界面与实际检查 ↗</a></p></div></article><article><span class="timeline-version">0.5.0</span><div><h3>先备好图片，录制时点用</h3><p>侧栏保留本机备选素材，多选导入、点击插入和移除；小缩略图与原图分开存储，逐张准备并限制数量和容量。素材副本移除不影响已插入网页的标注。<a href="materials-preview-0.5.0.png">查看实际使用预览 ↗</a></p></div></article><article><span class="timeline-version">0.4.9</span><div><h3>自动跟随网页，减少空闲工作</h3><p>一次开启可选网站访问，空闲侧栏跟随当前页；注入和握手有超时，重启残留可纠正。隐藏或空闲停止计时，诊断默认关闭，无关导航不空写存储。录制授权仍遵守 Chrome 按标签页限制。</p></div></article><article><span class="timeline-version">0.4.8</span><div><h3>把参数图片作为网页批注</h3><p>一个添加图片入口，支持移动、等比缩放和删除，复用现有标注与撤销。图片只在导入时处理，像素不复制进历史；14 项图片浏览器检查通过。<a href="image-preview-0.4.8.png">查看交互预览 ↗</a></p></div></article><article><span class="timeline-version">0.4.7</span><div><h3>降低区域采集负载，复用标注节点</h3><p>新增整帧采集上限及一键 20 FPS 低负载设置；切换工具只更新命中区域，不重建已有图形与文字。用户报告的鹧鸪卡顿仍需实机对照，未宣称解决。</p></div></article><article><span class="timeline-version">0.4.6</span><div><h3>锁定一次框选的录制范围</h3><p>本轮选区使用独立快照，设置修改、暂停继续和采集容器重协商不替换范围；补充普通交互回归。模块检查已通过，新增浏览器检查及鹧鸪实录仍待验证。</p></div></article><article><span class="timeline-version">0.4.5</span><div><h3>区分采集容器与网页内容</h3><p>修正 Chrome 固定分辨率补边帧的内容矩形与选区偏移，不再把整帧比例不同当成视口不稳定；补全错误尺寸诊断。</p></div></article><article><span class="timeline-version">0.4.4</span><div><h3>补齐异常与状态边界</h3><p>高分屏裁切、导出镜像与占用、旧自动任务迁移、Esc 拖动、库列表更新、启动失败记录终结。</p></div></article><article><span class="timeline-version">0.4.3</span><div><h3>回看优先，下载交给用户</h3><p>移除自动导出选项，不再在录制结束时创建下载；保留手动导出、取消与重试。</p></div></article><article><span class="timeline-version">0.4.1–2</span><div><h3>取消、身份与尺寸稳定</h3><p>导出元数据挂起兜底、桌面文档身份、侧栏初始化，以及采集就绪后确认区域与来源分辨率映射。</p></div></article><article><span class="timeline-version">0.4.0</span><div><h3>MP4 与导出可靠性</h3><p>原生 MP4、已有视频转换、读取占用、完整性核验、下载恢复、心跳和临时文件回收。</p></div></article><article><span class="timeline-version">0.3.0</span><div><h3>分段存储、停止兜底、性能诊断</h3><p>增加强制结束与失联恢复。曾引入录完自动下载，此行为在 0.4.3 撤回，0.4.4 补齐旧任务迁移。</p></div></article><article><span class="timeline-version">0.2.1–2</span><div><h3>会话协调与多窗口来源</h3><p>绑定窗口与目标页、取消选区、录制锁、迟到消息隔离、资源清理及文字布局修复。</p></div></article><article><span class="timeline-version">0.2.0</span><div><h3>确定核心交互</h3><p>开始后选择范围；网页内文字输入和图形编辑；结束隐藏标注，同页可恢复。</p></div></article><article><span class="timeline-version">0.1.x</span><div><h3>建立网页录制原型</h3><p>整页优先直接编码、帧率与尺寸约束、流畅画质，以及连接错误与预览体验。</p></div></article></div></details>
+        <a class="text-link" href="verification.md">阅读完整版本验证记录 ↗</a>
       </section>
     </main>
     <footer class="page-footer"><a class="footer-brand" href="#overview">◧ 映录</a><span>项目档案 · v0.6.9 · 更新于 2026.10.20</span><a href="#overview">回到顶部 ↑</a></footer>

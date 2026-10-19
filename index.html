@@ -14,7 +14,7 @@
   <a class="skip" href="#main">跳到正文</a>
   <header class="header wrap">
     <a class="brand" href="index.html"><img src="icons/48.png" width="36" height="36" alt=""><span>映录<small>YINGLU / RECORDER</small></span></a>
-    <nav aria-label="主导航"><a href="#capabilities">能力</a><a href="#mechanism">原理</a><a href="#stages">阶段</a><a href="#roadmap">规划</a><a href="docs/testing.html">测试</a><a href="docs/index.html">工程档案 ↗</a></nav>
+    <nav aria-label="主导航"><a href="#capabilities">能力</a><a href="#stages">阶段</a><a href="#roadmap">规划</a><a href="#mechanism">原理</a><a href="docs/testing.html">测试</a><a href="docs/index.html">工程档案 ↗</a></nav>
     <a class="repo" href="https://github.com/yydshly/yinglu-recorder">GitHub ↗</a>
   </header>
   <main id="main">
@@ -69,8 +69,21 @@
       </div>
     </section>
 
+    <section id="stages" class="section wrap">
+      <div class="section-heading"><p class="eyebrow">03 / DELIVERY STAGES</p><h2>每一步，都对应具体能力。</h2><p>按历史工作重点归为六段，并非正式里程碑或功能首次出现的时间。当前代码为 v0.6.9，实机验收仍待完成。</p></div>
+      <ol class="home-phases"><li><small>01 / v0.1.x</small><h3>建立录制原型</h3><p>网页采集、区域、基础标注与本地保存；完整画面优先直录，约束尺寸和帧率。</p></li><li><small>02 / v0.2.x</small><h3>打通现场操作</h3><p>开始后选范围、文字输入与图形编辑；取消、结束隐藏标注，同页恢复。</p></li><li><small>03 / v0.3.0</small><h3>让保存可恢复</h3><p>沿用片段保存，强化停止兜底、失联恢复和诊断；v0.2.x 已有片段原子写入。自动下载后来撤回。</p></li><li><small>04 / v0.4.0–0.4.8</small><h3>格式与区域稳定</h3><p>MP4、导出保护、固定选区、补边映射、低负载与初步图片标注；录完回看，按需下载。</p></li><li><small>05 / v0.4.9–0.6.0</small><h3>准备讲解素材</h3><p>空闲网页自动连接、备选图片、本地音乐收藏与混音；围绕演示增加少量入口。</p></li><li><small>06 / v0.6.1–0.6.9 · 当前</small><h3>减少资源浪费</h3><p>授权指引、取消超时、长片文件回看、分页重连、长笔迹和侧栏按需加载；实机性能待闭环。</p></li></ol>
+      <div class="stage-position"><strong>下一步：先交付可复核的真实录制对照。</strong>来源、停止和保存优先验收；若复现严重故障立即处理，同时建立侧栏、整页与区域的资源对照，再按瓶颈优化。</div>
+      <a class="text-link" href="docs/index.html#stages">查看阶段交付、工程重点和遗留验收 →</a>
+    </section>
+
+    <section id="roadmap" class="section wrap">
+      <div class="section-heading"><p class="eyebrow">04 / WHAT'S NEXT</p><h2>先保住录制，再优化体验。</h2><p>保持简单通用，根据实测瓶颈决定下一步投入。</p></div>
+      <ol class="roadmap"><li><span>P0 / 数据与可用性</span><h3>来源正确、能停止、能保存</h3><p>错录来源、无法停止、无有效成片或数据受损一旦复现，立即优先处理；无需等待整轮性能报告。</p></li><li><span>P1 / 性能与可靠性</span><h3>边测量，边修复瓶颈</h3><p>对比侧栏、整页与区域，复核卡顿、标注和长片回看；用同条件证据确认收益与资源回落。</p></li><li><span>P2 / 简单好用</span><h3>减少准备与理解成本</h3><p>按高频反馈完善引导与素材整理。新技术路线仅在瓶颈证据触发后试验，不是必经阶段。</p></li></ol>
+      <div class="actions"><a class="text-link" href="docs/index.html#optimization">已做优化、遗留问题与验收指标 →</a><a class="text-link" href="docs/index.html#extensions">候选能力与技术路线的取舍 →</a></div>
+    </section>
+
     <section id="mechanism" class="section wrap">
-      <div class="section-heading"><p class="eyebrow">03 / UNDER THE HOOD</p><h2>浏览器采集，原生编码，本机保存。</h2><p>Manifest V3 + 原生 JavaScript，无第三方录屏引擎、运行依赖或后端。</p></div>
+      <div class="section-heading"><p class="eyebrow">05 / UNDER THE HOOD</p><h2>浏览器采集，原生编码，本机保存。</h2><p>Manifest V3 + 原生 JavaScript，无第三方录屏引擎、运行依赖或后端。</p></div>
       <div class="pipeline"><div><small>来源</small><h3>标签页画面</h3><code>chrome.tabCapture</code><p>侧栏控制；标注注入网页。</p></div><span aria-hidden="true">→</span><div><small>处理</small><h3>直录 / 区域裁切</h3><code>offscreen + Canvas</code><p>整页优先直录，区域逐帧裁切。</p></div><span aria-hidden="true">→</span><div><small>编码</small><h3>浏览器录制器</h3><code>MediaRecorder</code><p>WebM / 运行时支持的 MP4。</p></div><span aria-hidden="true">→</span><div><small>保存</small><h3>本地录制库</h3><code>IndexedDB + OPFS</code><p>分段写入，按需回看和导出。</p></div></div>
       <div class="overview-modes"><article><h3>控制面：侧栏与后台</h3><p>Side Panel 接收鼠标操作；Service Worker 处理权限、目标页和会话。Content Script 在目标网页中绘制标注。</p></article><article><h3>执行面：分开承载，共用核心</h3><p>网页媒体在离屏文档执行；桌面录制、导出转换各有独立页。共用视频处理、音频混音和原生录制核心。</p></article><article><h3>数据面：持久与临时分开</h3><p>IndexedDB 保存视频片段与素材，OPFS 暂存回看 / 导出文件；设置、会话、页内标注各有生命周期。</p></article></div>
       <p class="record-note"><a href="docs/index.html#architecture">查看运行上下文、控制消息与媒体数据流 →</a>　<a href="docs/index.html#lifecycle">查看资源何时分配与释放 →</a></p>
@@ -79,23 +92,10 @@
     </section>
 
     <section id="validation" class="section dark">
-      <div class="wrap"><div class="section-heading"><p class="eyebrow">04 / VERIFICATION</p><h2>把「已实现」和「已验证」分开记录。</h2><p>下面是保存的验证快照，页面不会自动运行测试。</p></div>
+      <div class="wrap"><div class="section-heading"><p class="eyebrow">06 / VERIFICATION</p><h2>把「已实现」和「已验证」分开记录。</h2><p>下面是保存的验证快照，页面不会自动运行测试。</p></div>
       <div class="stats"><div><strong>548</strong><span>v0.6.9 Node 测试通过</span><a href="docs/test-0.6.9.txt">原始日志 ↗</a></div><div><strong>0</strong><span>运行时第三方依赖</span><a href="package.json">项目配置 ↗</a></div><div><strong>待实测</strong><span>鹧鸪录制的帧率、CPU、GPU、内存</span><a href="docs/testing.html#comparison">按统一条件做对比 ↗</a></div></div>
       <div class="callout"><strong>目前能确认什么？</strong><p>已有真实浏览器中的合成画布编码、MP4、数据库、文件预览、图片和标注测试。尚未完成安装扩展后对鹧鸪项目的实际采集、成片完整性和系统资源对比，不能据此宣称卡顿已经解决。</p></div>
       <div class="actions"><a class="button light" href="docs/testing.html">性能对比与测试手册 →</a><a class="text-link" href="docs/index.html#verification">完整证据索引 ↗</a></div></div>
-    </section>
-
-    <section id="stages" class="section wrap">
-      <div class="section-heading"><p class="eyebrow">05 / DELIVERY STAGES</p><h2>每一步，都对应具体能力。</h2><p>已有版本归为六个建设阶段。当前进入资源治理与实机验收；代码已实现，不代表全部使用场景已经通过。</p></div>
-      <ol class="home-phases"><li><small>01 / v0.1.x</small><h3>建立录制原型</h3><p>网页采集、区域、基础标注与本地保存；完整画面优先直录，约束尺寸和帧率。</p></li><li><small>02 / v0.2.x</small><h3>打通现场操作</h3><p>开始后选范围、文字输入与图形编辑；取消、结束隐藏标注，同页恢复。</p></li><li><small>03 / v0.3.0</small><h3>让保存可恢复</h3><p>分段落库、停止兜底、失联恢复和诊断。早期自动下载已被后续手动导出流程取代。</p></li><li><small>04 / v0.4.0–0.4.8</small><h3>格式与区域稳定</h3><p>MP4、导出保护、固定选区、补边映射、低负载与初步图片标注；录完回看，按需下载。</p></li><li><small>05 / v0.4.9–0.6.0</small><h3>准备讲解素材</h3><p>空闲网页自动连接、备选图片、本地音乐收藏与混音；围绕演示增加少量入口。</p></li><li><small>06 / v0.6.1–0.6.9 · 当前</small><h3>减少资源浪费</h3><p>授权指引、取消超时、长片文件回看、分页重连、长笔迹和侧栏按需加载；实机性能待闭环。</p></li></ol>
-      <div class="stage-position"><strong>下一步：先交付可复核的真实录制对照。</strong>仅开侧栏、整页与区域在相同条件下测量，确认效果完整、工具排除和停止后恢复，再决定哪一层值得继续优化。</div>
-      <a class="text-link" href="docs/index.html#stages">查看阶段交付、工程重点和遗留验收 →</a>
-    </section>
-
-    <section id="roadmap" class="section wrap">
-      <div class="section-heading"><p class="eyebrow">06 / WHAT'S NEXT</p><h2>先验证，再扩展。</h2><p>保持简单通用，根据实测瓶颈决定下一步投入。</p></div>
-      <ol class="roadmap"><li><span>现在 / 验收</span><h3>建立真实录制基线</h3><p>对比仅开侧栏、整页和区域；检查标注交互、停止后的资源回落、效果丢失与工具排除。</p></li><li><span>随后 / 稳定性</span><h3>用长录制验证保护机制</h3><p>覆盖磁盘不足、浏览器重启、取消、长视频回看和手动保存，记录设备条件与可复现步骤。</p></li><li><span>候选 / 技术试验</span><h3>有证据后再换处理路径</h3><p>评估浏览器原生区域能力、Worker / WebCodecs 或原生采集。尚未实现，不承诺一定降低占用。</p></li></ol>
-      <div class="actions"><a class="text-link" href="docs/index.html#optimization">已做优化、遗留问题与验收指标 →</a><a class="text-link" href="docs/index.html#extensions">候选能力与技术路线的取舍 →</a></div>
     </section>
 
     <section id="install" class="section tinted">

@@ -22,3 +22,43 @@
 @media(max-width:740px){.system-layer{grid-template-columns:1fr}.system-layer>h3{padding:10px 15px;display:flex;align-items:center;gap:12px}.system-layer>h3 small{display:inline}.system-nodes{grid-template-columns:1fr;padding:17px;gap:17px}.system-node{border-top:1px solid #e0e5d8;padding-top:12px}.system-node:first-child{border:0;padding:0}.record-grid,.overview-modes{grid-template-columns:1fr;gap:20px}.home-phases{grid-template-columns:1fr 1fr;gap:20px}.system-routes{overflow-wrap:anywhere}.record-intro{gap:12px;font-size:11px}}
 @media(max-width:420px){.home-phases{grid-template-columns:1fr}}
 @media print{.system-map,.record-card{break-inside:avoid}.system-nodes{padding:12px;gap:12px}.system-layer>h3{padding:12px}.system-routes{font-size:10px}.table-wrap,.table-scroll{overflow:visible}.capability-matrix,.phase-table,.planning-table{min-width:0!important}.capability-matrix td,.phase-table td,.planning-table td{font-size:9px}.next-stage li{break-inside:avoid}}
+
+/* Read conclusions first; keep reference material available without long scrolling. */
+.doc-notes{scroll-behavior:auto;scroll-padding-top:86px}
+.doc-notes main>section:not(.hero){padding-top:42px;padding-bottom:44px}
+.reading-detail{border:1px solid #cbd6c5;border-radius:5px;background:#fafaf5;margin:18px 0;overflow:hidden}
+.reading-detail>summary{cursor:pointer;padding:15px 18px;min-height:48px;font-size:14px;font-weight:600;line-height:1.8}
+.reading-detail>summary small{font-size:11px;font-weight:400;color:#626e61;margin-left:10px}
+.reading-detail>summary:focus-visible{outline:3px solid #a4663f;outline-offset:-4px}
+.reading-detail[open]>summary{border-bottom:1px solid #d9ded2}
+.reading-detail>.table-wrap{margin:0;border:0;border-radius:0}
+.reading-detail>.system-map{margin:15px;border-radius:3px}
+.reading-detail>.timeline{margin:20px}
+.doc-notes .readable-table{font-size:13px;line-height:1.85}
+.doc-notes .readable-table th{font-size:12px;white-space:normal}
+.doc-notes .readable-table td{padding:14px 16px}
+.priority-summary{padding:18px 22px;background:#eaf0e2;border-left:3px solid #547b44;margin-bottom:24px}
+.priority-summary strong{font-size:14px}
+.priority-summary p{font-size:13px;line-height:1.95;color:#52634a;margin:7px 0 0}
+.priority-list li::before{display:none}
+.priority-list li{padding-left:20px;margin-left:0!important}
+.doc-notes .next-stage p,.doc-notes .record-note,.doc-notes .scope-boundary p{font-size:13px!important}
+.doc-notes .record-intro a{display:inline-flex;align-items:center;min-height:32px}
+@media(max-width:760px){
+  .doc-notes{scroll-padding-top:76px}
+  .doc-notes main>section:not(.hero){padding-top:30px;padding-bottom:32px}
+  .reading-detail>summary{font-size:14px;padding:13px 14px}
+  .reading-detail>summary small{display:inline;margin-left:8px}
+  .doc-notes .readable-table{display:block;min-width:0!important;width:100%;font-size:13px;table-layout:auto}
+  .doc-notes .readable-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .doc-notes .readable-table tbody{display:block}
+  .doc-notes .readable-table tr{display:block;padding:16px;border-bottom:1px solid #d9ded2}
+  .doc-notes .readable-table tr:last-child{border-bottom:0}
+  .doc-notes .readable-table td{display:grid;grid-template-columns:82px minmax(0,1fr);gap:12px;padding:7px 0;border:0;min-width:0!important;width:auto!important;color:#52634a}
+  .doc-notes .readable-table td::before{content:attr(data-label);font-size:11px;color:#64745b}
+  .doc-notes .readable-table td:first-child{display:block;font-weight:600;font-size:14px;color:#233b32;padding:0 0 10px;margin-bottom:5px;border-bottom:1px solid #e3e8dc}
+  .doc-notes .readable-table td:first-child::before{display:none}
+  .doc-notes .readable-table td .support{margin-left:8px}
+  .doc-notes .phase-table td:first-child small{font-weight:400}
+}
+@media print{.reading-detail{overflow:visible;border:0}.reading-detail>summary{padding:12px 0}.doc-notes .readable-table{font-size:10px}.doc-notes .readable-table td{padding:8px}.doc-notes main>section:not(.hero){padding-block:24px}}

@@ -9,7 +9,7 @@
 - [测试与性能对比手册](https://yydshly.github.io/yinglu-recorder/docs/testing.html)：实机测试步骤、结果模板、历史验证证据。
 - [版本记录](CHANGELOG.md) / [详细验证记录](docs/verification.md)。
 
-网页索引：[能力矩阵](docs/index.html#capabilities) · [技术架构与生命周期](docs/index.html#architecture) · [阶段交付](docs/index.html#stages) · [优化矩阵](docs/index.html#optimization) · [候选扩展](docs/index.html#extensions)。
+网页索引：[能力矩阵](docs/index.html#capabilities) · [技术架构与生命周期](docs/index.html#architecture) · [阶段交付](docs/index.html#stages) · [优化矩阵](docs/index.html#optimization) · [候选扩展](docs/index.html#extensions)。阶段是对版本工作重点的归纳；后续按 P0 数据与可用性、P1 性能可靠性、P2 使用性推进，技术试验按证据决定。
 
 ## 已有能力与边界
 
